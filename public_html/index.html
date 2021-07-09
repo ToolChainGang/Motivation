@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="en" style="cursor: default;">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="Access-Control-Allow-Origin" CONTENT="file:///">
+  <meta name="HandheldFriendly"   content="true" />
+  <title>Motivator</title>
+  <link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
+  <link rel="stylesheet"    type="text/css"  href="index.css"  />
+  <script src="Motivation.js"></script>
+  <script src=    "Random.js"></script>
+  <script src=       "Lib.js"></script>
+  <script src= "SlideShow.js"></script>
+  <script src=   "Article.js"></script>
+  </head>
+
+<body>
+
+<div id="LoadingPage" style="display: block;" class="Panel">
+    <h1>One moment...</h1>
+    </div>
+
+<div id="WordPanel"    class="Panel">
+    </div>
+
+<div id="ImagePanel"   class="Panel">
+    </div>
+
+<div id="ArticlePanel" class="Panel">
+    </div>
+
+<div id="ArticleList" style="display: none;">
+
+<!--
+Load the URL with a "ShowArticles" variable; ie: "file:///index.html?ShowArticles"
+to uncover the articles, allowing you to read them sequentially from the main page.
+-->
+
+<!-- Cookies required ############################################################################################## -->
+
+<article id="COO00">
+<h2>Cookies required</h2>
+<p>The course uses cookies to keep track of your progress.
+</p>
+
+<p>Please add this URL to your browser's cookie "allowed sites" settings:
+</p>
+
+<span class="WindowURL"></span>
+</article>
+
+<!-- Slideshow ##################################################################################################### -->
+
+<template>
+ <details>
+  <summary>Epcot Center</summary>
+  <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.</p>
+</details> 
+
+
+<section>
+<h2>WWF History</h2>
+<p>The World Wide Fund for Nature (WWF) is an international organization working on issues regarding the conservation, research and restoration of the environment, formerly named the World Wildlife Fund. WWF was founded in 1961.</p>
+</section>
+
+
+<h1>The kbd element + CSS</h1>
+
+<p>Press <kbd>Ctrl</kbd> + <kbd>C</kbd> to copy text (Windows).</p>
+
+<p>Press <kbd>Cmd</kbd> + <kbd>C</kbd> to copy text (Mac OS).</p>
+
+
+  <h2>Flower</h2>
+  <img src="img_white_flower.jpg" width="214" height="204">
+</template>
+
+
+
+<article id="SLI00">
+<h2>Slideshow</h2>
+<p>Watch the words and images as they flash by.
+</p>
+
+<p>Try to identify the emphasized word.
+venus of dolní věstonice
+</p>
+
+<p>On Occasion, more than one word will be emphasized.
+</p>
+
+<p>Click to...
+</p>
+
+<span class="BeginSpan"><button class="BeginButton" onclick="BeginSlideshow()">Start</button></span>
+</article>
+
+<article id="SLI01">
+<p>Which word was emphasized?
+</p>
+
+<input type="radio" id="HWord1" name="HWord" value="$HWORD1"><label for="HWord1">$HWORD1</label><br>
+<input type="radio" id="HWord2" name="HWord" value="$HWORD2"><label for="HWord2">$HWORD2</label><br>
+<input type="radio" id="HWord3" name="HWord" value="$HWORD3"><label for="HWord3">$HWORD3</label><br>
+<input type="radio" id="HWord4" name="HWord" value="$HWORD4"><label for="HWord4">$HWORD4</label><br>
+
+</article>
+
+<!-- Flow ########################################################################################################## -->
+
+<article id="FLO00">
+<h2>Flow States</h2>
+<p>A <a href="https://en.wikipedia.org/wiki/Flow_(psychology)" target="_blank">flow state</a> is when
+you're doing something and you lose track of time. Many people experience flow states while driving
+- you're thinking about something, turning over a problem in your mind, and arrive at your
+destination without any memory of driving or of thepassage of time.
+</p>
+<p>Some people experience flow states in their projects. They sit down to work, get caught up in the
+activity, and look up hours later wondering where the time went.
+</p>
+<p>Flow states are enjoyable, and the enjoyment builds the longer you are in the state. When you enter
+flow, it's as if your brain starts a counter, and the higher the count the more pleasure you
+get. When you stop working, the counter resets to zero, and if you restart your counter needs to
+build back up before you can get a similar level enjoyment.
+</p>
+<p>The flow state counter will reset every time you stop working, so for maximum pleasure you can
+seek to avoid interruptions and breaks while in a flow state.
+</p>
+</article>
+
+</div>
+</body>
+</html>

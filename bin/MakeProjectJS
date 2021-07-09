@@ -1,0 +1,417 @@
+#!/usr/bin/perl
+#
+########################################################################################################################
+########################################################################################################################
+##
+##      Copyright (C) 2021 Peter Walsh, Milford, NH 03055
+##      All Rights Reserved under the MIT license as outlined below.
+##
+##  FILE
+##
+##      MakeDataJS
+##
+##  DESCRIPTION
+##
+##      Read in the Motivator data source, and create Data.js for inclusion into the web page.
+##
+##      Javascript has no ability to list the files within directories, so we use this program to
+##        do that and emit a javascript file that explicitly contains the needed links.
+##
+##  USAGE
+##
+##      MakeDataJS >Data.js
+##
+########################################################################################################################
+########################################################################################################################
+##
+##  MIT LICENSE
+##
+##  Permission is hereby granted, free of charge, to any person obtaining a copy of
+##    this software and associated documentation files (the "Software"), to deal in
+##    the Software without restriction, including without limitation the rights to
+##    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+##    of the Software, and to permit persons to whom the Software is furnished to do
+##    so, subject to the following conditions:
+##
+##  The above copyright notice and this permission notice shall be included in
+##    all copies or substantial portions of the Software.
+##
+##  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+##    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+##    PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+##    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+##    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+##    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+##
+########################################################################################################################
+########################################################################################################################
+
+use strict;
+use warnings;
+use Carp;
+
+our $VERSION = 'MakeDataJS2021-06-30';
+
+use File::Slurp qw(read_file);
+
+########################################################################################################################
+########################################################################################################################
+##
+## Data declarations
+##
+########################################################################################################################
+########################################################################################################################
+
+########################################################################################################################
+########################################################################################################################
+##
+## MakeDataJS
+##
+########################################################################################################################
+########################################################################################################################
+
+
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# Setup a web socket and listen for connections.
+#
+Message("ConfigServer is up and running.")
+    if $Verbose;
+
+Message("Will not reboot after save.")
+    if $NoReboot;
+
+Message("Waiting for websocket connection")
+    if $Verbose;
+
+Site::WSServer::InitWSServer($SERVER_PORT,[],\&WebRequest,\&ConnectionRequest)->start;
+
+exit(1);
+
+########################################################################################################################
+########################################################################################################################
+#
+# ConnectionRequest - Process incoming connection requests
+#
+# Inputs:      Connection
+#              Server
+#
+# Outputs:     TRUE  if should accept this request
+#              FALSE if should reject this request
+#
+sub ConnectionRequest {
+
+    kill "USR1",getppid         # Inform server of activity
+        unless $DB::single;     #   (but not if debugging)
+
+    return 1;
+    }
+
+
+########################################################################################################################
+########################################################################################################################
+# 
+#  WebRequest - Process incoming web page requests
+# 
+#  Inputs:      JSON encoded struct of request
+#               Connection
+#               Server
+# 
+#  Outputs:     None
+# 
+sub WebRequest {
+    my $JSONText = shift // "";
+    my $Conn     = shift;
+    my $Server   = shift;
+    
+    kill "USR1",getppid         # Inform server of activity
+        unless $DB::single;     #   (but not if debugging)
+
+    #
+    # Lots of error checking for web requests.
+    #
+    return Message("ConfigServer: No Web request")
+        unless length $JSONText;
+
+    my $Request = eval{decode_json $JSONText};              # Catches/avoids Croak() in lib function
+
+    return Message("ConfigServer: Bad JSON Web request: ($JSONText)")
+        unless defined $Request && (ref $Request) eq "HASH";
+
+    $Request->{Type} //= "";
+        
+    return Message("WebRequest: No request type: ($JSONText)")
+        unless length $Request->{Type};
+
+    #
+    # GetConfig - Return the complete system configuration struct
+    #
+    if( $Request->{Type} eq "GetConfig" ) {
+        $Request->{Error} = "No error.";
+        Message("ConfigServer: GetConfig()")
+            if $Verbose;
+        $Request->{State} = $Config;
+        }
+
+    #
+    # SetConfig - Implement the user configuration
+    #
+    elsif( $Request->{Type} eq "SetConfig" ) {
+        $Request->{Error} = "No error.";
+        Message("ConfigServer: SetConfig()")
+            if $Verbose;
+        SetConfig($Request->{Arg1},$Config,$Verbose);
+        Reboot()
+            unless $NoReboot;
+        }
+
+    #
+    # GetWifiList - Return list of Wifi networks
+    #
+    elsif( $Request->{Type} eq "GetWifiList" ) {
+        Message("ConfigServer: GetWifiList()")
+            if $Verbose;
+        $Request->{Error} = "No error.";
+        $Request->{State} = SetupIWList();
+# print Data::Dumper->Dump([$Request->{State}],[qw(IWList)]);
+        }
+
+    #
+    # Unknown request type: Return error to caller
+    #
+    else {
+        Message("ConfigServer: Unknown request type ($Request->{Type})")
+            if $Verbose;
+        }
+
+    #
+    # Pack up the error message and return the struct to the caller
+    #
+    SendResponse($Conn,$Request);
+    }
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# SetupIWList - Get the IWList and setup the state response.
+#
+# Inputs:      None.
+#
+# Outputs:     IWList array of SSID info
+#
+sub SetupIWList {
+
+    my $IWList = GetIWList();
+
+    #
+    # Collapse the SSIDs from all devices into one list
+    #
+    my $SSIDList = [];
+    foreach my $IFName (keys %{$IWList}) {
+        foreach my $Wifi (@{$IWList->{$IFName}}) {
+            next
+                if $Wifi->{SSID} eq "--none--";
+
+            #
+            # See if there's an existing entry with the same SSID
+            #
+            my $i;
+            for( $i = 0; $i < @{$SSIDList}; $i++ ) {
+                last
+                    if $SSIDList->[$i]->{SSID} eq $Wifi->{SSID};
+                }
+
+            #
+            # If there's an existing entry with the same SSID, take the one with the highest signal
+            #
+            if( $i < @{$SSIDList} ) {
+
+                $SSIDList->[$i] = $Wifi
+                    if $SSIDList->[$i]->{QualityPct} < $Wifi->{QualityPct};
+
+                next;
+                }
+
+            push @{$SSIDList},$Wifi;
+            }
+        }
+    #
+    # Sort by strongest signal - that's probably the one the user wants
+    #
+    @{$SSIDList} = sort { $b->{QualityPct} <=> $a->{QualityPct} } @{$SSIDList};
+
+    return $SSIDList;
+    }
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# SetupConfig - Set up a local config struct with all the information the web page needs.
+#
+# Inputs:      None.
+#
+# Outputs:     Config struct.
+#
+sub SetupConfig {
+    my $Config;
+
+    ####################################################################################################################
+    #
+    # SysName
+    #
+    $SysName = `cat /etc/hostname | tr -d " \t\n\r"`;
+    $SysName = inet_ntoa(scalar gethostbyname('localhost'))
+        unless length($SysName) and $SysName ne "";
+
+    $Config->{SysName} = $SysName;
+
+    ####################################################################################################################
+    #
+    # About
+    #
+    my @Info = `hostnamectl`;
+    chomp @Info;
+
+    push @{$Config->{About}}, $Info[0];        # "   Static hostname: raspberrypi"
+    push @{$Config->{About}}, $Info[4];        # "  Operating System: Raspbian GNU/Linux 10 (buster)"
+    push @{$Config->{About}}, $Info[5];        # "            Kernel: Linux 5.4.51-v7l+"
+    push @{$Config->{About}}, $Info[6];        # "      Architecture: arm"
+
+    #
+    # Filesystem      Size  Used Avail Use% Mounted on
+    # /dev/root        15G  8.4G  5.4G  61% /
+    #
+    my @Disk = `df -h`;
+    chomp @Disk;
+    my ($Dev,$Size,$Used,$Avail,$Pct,$Mount) = split /\s+/,$Disk[1];
+    my $DiskLine = "              Disk: $Used used of $Size ($Pct full)";
+
+    push @{$Config->{About}},$DiskLine;
+
+    #
+    # Product application info
+    #
+    foreach my $Line (read_file("../etc/about")) {
+        chomp $Line;
+
+        next
+            if substr($Line,0,1) eq "#";
+
+        push @{$Config->{About}}, $Line        # Product application info
+        }        
+
+    ####################################################################################################################
+    #
+    # File sharing (ie: samba) info
+    #
+    $Config->{FSInfo} = $FSInfo;
+
+    ####################################################################################################################
+    #
+    # Don't pass the existing WiFi password around
+    #
+    $Config->{WPAInfo} = $WPAInfo;
+    $Config->{WPAInfo}{Password} = $BlankPW;
+
+    ####################################################################################################################
+    #
+    # Parse out some of the net info for easier access by the server
+    #
+    foreach my $IFName (reverse sort @{$NetDevs}) {
+        next
+            if $IFName eq "lo";
+
+        push @{$Config->{NetDevs}},$IFName;
+        $Config->{DHCPInfo}{$IFName} = {};
+
+        my $IF = $Config->{DHCPInfo}{$IFName};
+
+        #
+        # Set up defaults so that the server doesn't have to deal with missing info
+        #
+        $IF->{Enabled} = 1;
+        $IF->{   DHCP} = 1;
+        $IF->{ IPAddr} = "";
+        $IF->{ Router} = "";
+        $IF->{   DNS1} = "";
+        $IF->{   DNS2} = "";
+
+        $IF->{Enabled} = lc($NEInfo->{$IFName}) eq "disable" ? 0 : 1
+            if defined $NEInfo->{$IFName};
+
+        $IF->{ IPAddr} = $DHCPInfo->{$IFName}{IPAddr}
+            if defined   $DHCPInfo->{$IFName}{IPAddr};
+        $IF->{ Router} = $DHCPInfo->{$IFName}{Router}
+            if defined   $DHCPInfo->{$IFName}{Router};
+        $IF->{   DNS1} = $DHCPInfo->{$IFName}{DNS1}
+            if defined   $DHCPInfo->{$IFName}{DNS1};
+        $IF->{   DNS2} = $DHCPInfo->{$IFName}{DNS2}
+            if defined   $DHCPInfo->{$IFName}{DNS2};
+
+        $IF->{   DHCP} = 0
+            if defined $IF->{IPAddr} and
+               length  $IF->{IPAddr};
+        }
+
+    return $Config;
+    }
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# SetConfig - Set the specified config
+#
+# Inputs:      Requested config state
+#              Original  config state (for comparison)
+#              TRUE if verbose mode
+#
+# Outputs:     None
+#
+sub SetConfig {
+    my $NewState  = shift;
+    my $OrigState = shift;
+    my $Verbose   = shift;
+
+    #
+    # Wifi credentials
+    #
+    # Undo the password masking done above, so that the functions can properly
+    #   tell if the value has changed.
+    #
+    $WPAInfo = GetWPAInfo();
+
+    $NewState->{WPAInfo}{Password} = $WPAInfo->{Password} // ""
+        if $NewState->{WPAInfo}{Password} eq $BlankPW;
+
+    SetWPAInfo($NewState->{WPAInfo});       # Checked
+
+    #
+    # File sharing
+    #
+    SetFSInfo($NewState->{FSInfo});         # Checked
+
+    #
+    # Net enable
+    #
+    SetNetEnable($NewState->{DHCPInfo});    # Checked
+
+    #
+    # DHCP stuff
+    #
+    SetDHCPInfo($NewState->{DHCPInfo});
+
+    #
+    # System name
+    #
+    ChangeHostname($NewState->{SysName});   # Checked
+
+#     print Data::Dumper->Dump([$NewState],["NewConfig"])
+#         if $Verbose;
+
+    }

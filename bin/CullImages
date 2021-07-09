@@ -1,0 +1,286 @@
+#!/usr/bin/perl
+#
+########################################################################################################################
+########################################################################################################################
+##
+##      Copyright (C) 2020 Peter Walsh, Milford, NH 03055
+##      All Rights Reserved under the MIT license as outlined below.
+##
+##  FILE
+##      CullImages
+##
+##  DESCRIPTION
+##
+##      Cull images in current directory for applicability
+##
+##      Show (all) the images in a directory, and allow the user to delete the ones that
+##        aren't applicable.
+##
+##  USAGE
+##
+##      CullImages
+##
+##  EXAMPLE
+##
+##      CullImagesImages
+##
+##      This will show all images in the current directory, and allow the user to delete
+##        the ones that aren't needed.
+##
+########################################################################################################################
+########################################################################################################################
+##
+##  MIT LICENSE
+##
+##  Permission is hereby granted, free of charge, to any person obtaining a copy of
+##    this software and associated documentation files (the "Software"), to deal in
+##    the Software without restriction, including without limitation the rights to
+##    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+##    of the Software, and to permit persons to whom the Software is furnished to do
+##    so, subject to the following conditions:
+##
+##  The above copyright notice and this permission notice shall be included in
+##    all copies or substantial portions of the Software.
+##
+##  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+##    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+##    PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+##    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+##    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+##    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+##
+########################################################################################################################
+########################################################################################################################
+
+use strict;
+use warnings;
+use Carp;
+
+our $VERSION = 'CullImages2021-06-30';
+
+use Tk;
+use Tk::widgets qw/JPEG PNG TIFF/;
+
+use Image::Magick;
+use MIME::Base64;
+
+use List::Util qw(shuffle);
+use List::MoreUtils qw(firstidx);
+
+########################################################################################################################
+########################################################################################################################
+##
+## Data declarations
+##
+########################################################################################################################
+########################################################################################################################
+
+my $MaxColumns = 10;                # Max number of columns of images per screen
+my $MaxRows    = 8;                 # Max number of rows    of images per screen
+
+my $TitleHeight = 76;               # No way to determine this from Tk
+my $Something   = 30;
+
+my $MainWindow = MainWindow->new;   # Main window
+
+my $ScreenWidth  = $MainWindow->screenwidth();
+my $ScreenHeight = $MainWindow->screenheight();
+
+my $ImageWidth   = int (($ScreenWidth-$Something) /$MaxColumns);
+my $ImageHeight  = int (($ScreenHeight-$TitleHeight)/$MaxRows);
+
+my @Images = shuffle <"*.jpg">;
+my @Delete = ((0) x scalar @Images);
+
+my $Row;
+my $Column;
+
+my $ImageIndex;
+my $IMImage = Image::Magick->new;
+
+$MainWindow->bind("<Escape>" => \&Escape); 
+$MainWindow->bind("<Key-N>"   => \&NextPage); 
+$MainWindow->bind("<Key-n>"   => \&NextPage); 
+
+sub NextPage {
+
+    ShowImageGrid();
+    }
+
+sub Escape {
+
+    print "Esc -> quit\n";
+    exit(0);
+    }
+
+########################################################################################################################
+########################################################################################################################
+##
+## CullImages
+##
+########################################################################################################################
+########################################################################################################################
+
+$ImageIndex = 0;
+
+ShowImageGrid();
+
+MainLoop;
+
+unless( AskForConfirmation("Delete " . (scalar grep {$_ > 0} @Delete) . " files? ") ) {
+    print "Declined - no files deleted.\n";
+    print "\n";
+    exit(0);
+    }
+
+for( my $Index = 0; $Index < scalar @Images; $Index++ ) {
+
+    next
+        unless $Delete[$Index];
+
+    my $Image = $Images[$Index];
+
+    print "Deleting $Image... ";
+#    unlink $Image;
+    print "Done!\n";
+    }
+
+print "\n";
+
+exit(0);
+
+########################################################################################################################
+########################################################################################################################
+#
+# ShowImageGrid - Show a grid of images, starting with $ImageIndex
+#
+# Inputs:   None.
+#
+# Outputs:  None. 
+#
+sub ShowImageGrid {
+
+    if( $ImageIndex >= scalar  @Images ) {
+        $MainWindow->destroy;
+        return;
+        }
+
+    $_->destroy
+        foreach $MainWindow->children();
+
+    $Column = 0;
+    $Row    = 0;
+
+    AddImage()
+        while $Row        < $MaxRows    &&
+              $Column     < $MaxColumns &&
+              $ImageIndex < scalar @Images;
+    }
+
+########################################################################################################################
+########################################################################################################################
+#
+# AddImage - Add one image to the image grid
+#
+# Inputs:   None.
+#
+# Outputs:  None. 
+#
+sub AddImage {
+
+    my $ImageFile = $Images[$ImageIndex];
+    my $Image     = MakeTkImage($ImageFile,$ImageWidth,$ImageHeight);
+    my $Button    = $MainWindow->Button(-image => $Image, -text => $ImageFile, -borderwidth => 0, -relief => "flat")
+                               ->grid(-row => $Row, -column => $Column, -sticky => 'n');
+
+    $Button->bind('<ButtonRelease-1>' => \&ImageClick);
+
+    $Column += 1;
+
+    if( $Column >= $MaxColumns ) {
+        $Column = 0;
+        $Row++;
+        }
+
+    $ImageIndex++;
+    }
+
+sub ImageClick {
+    my $Button = shift;
+
+    my $Image = $Button->cget('-image');
+    my $Name  = $Button->cget('-text');
+
+    my $Index = firstidx { $_ eq $Name } @Images;
+
+    $Delete[$Index] = 1 - $Delete[$Index];          # Keep value numeric, in case of print
+
+    if( $Delete[$Index] ) { $Image = MakeTkImage($Name,$ImageWidth/2,$ImageHeight/2); }
+    else                  { $Image = MakeTkImage($Name,$ImageWidth  ,$ImageHeight  ); }
+
+    $Button->configure(-image => $Image);
+
+    print "Name: $Name, Index: $Index, Delete: " . ($Delete[$Index] ? "Y" : "N") . "\n";
+    }
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# MakeTkImage - Create an image object for use as a button image
+#
+# Inputs:   Image file to create from
+#           Width   Width  of image, in pixels
+#           Height  Height of image, in pixels
+#
+# Outputs:  [Reference to] the created Tk::Image object
+#
+sub MakeTkImage {
+    my $ImageFile   = shift;
+    my $ImageWidth  = shift;
+    my $ImageHeight = shift;
+
+    $IMImage->Read($ImageFile);
+    $IMImage->Scale(geometry => "${ImageWidth}x${ImageHeight}");
+    my $Data = encode_base64($IMImage->ImageToBlob());
+    undef @$IMImage;                                # Blank $Image object
+
+    return $MainWindow->Photo(-data  => $Data);
+    }
+
+
+########################################################################################################################
+########################################################################################################################
+##
+## AskForConfirmation - Print a message, prompt user, and return yes/no resopnse
+##
+## Inputs:      Message to prompt
+##              TRUE  if blank line means assent, default 1 if not specified
+##
+## Outputs:     TRUE  if user responded in the affirmative ('y', 'yes', and such)
+##              FALSE if user responded in the negative    ('n', 'no' , and such)
+##
+sub AskForConfirmation {
+    my $Msg           = shift;
+    my $BlankIsAssent = shift // 1;
+    
+    while(1) {
+        print $Msg;    
+        chomp ($_=<STDIN>);
+
+        return 1
+            if /^(y|yes)$/i;
+
+        return 0
+            if /^(n|no)$/i;
+
+        #
+        # See if user typed blank line
+        #
+        return 1
+            if length $_ == 0 && $BlankIsAssent;
+
+        print "Incorrect response. Please enter 'y' or 'n'\n";
+        print "\n";
+        }
+    }

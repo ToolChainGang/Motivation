@@ -1,0 +1,253 @@
+#!/usr/bin/perl
+#
+########################################################################################################################
+########################################################################################################################
+##
+##      Copyright (C) 2020 Peter Walsh, Milford, NH 03055
+##      All Rights Reserved under the MIT license as outlined below.
+##
+##  FILE
+##      ScrapeWords.pl
+##
+##  DESCRIPTION
+##
+##      Scrape project words from related-words.io
+##
+##      Take a project descriptor (ex: "pottery") and grab the page of related words from
+##        relatedwords.io. The words must then be vetted by a human.
+##
+##      The words are saved in the project directory as "Words.txt", and appended if that
+##        file exists.
+##
+##  USAGE
+##
+##      ScrapeWords --key=<keyword> [--dir=<directory>] [-h] [-v]
+##
+##      <keyword>           Some keyword to use as the search term (ex: "pottery")
+##
+##      <directory>         Directory of project for words.
+##
+##      -v                  Print out version
+##      --version
+##
+##      -h                  Print out usage info
+##      --help
+##
+##  EXAMPLE
+##
+##      ScrapeWords --key=Pottery
+##
+##      This will grab and store the "pottery" related words from relatedwords.io as
+##        Pottery/Words.txt
+##
+##      ScrapeWords --key=Ceramic --Dir=Pottery
+##
+##      This will grab and store the "ceramic" related words from relatedwords.io and
+##        add them to Pottery/Words.txt
+##
+########################################################################################################################
+########################################################################################################################
+##
+##  MIT LICENSE
+##
+##  Permission is hereby granted, free of charge, to any person obtaining a copy of
+##    this software and associated documentation files (the "Software"), to deal in
+##    the Software without restriction, including without limitation the rights to
+##    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+##    of the Software, and to permit persons to whom the Software is furnished to do
+##    so, subject to the following conditions:
+##
+##  The above copyright notice and this permission notice shall be included in
+##    all copies or substantial portions of the Software.
+##
+##  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+##    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+##    PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+##    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+##    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+##    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+##
+########################################################################################################################
+########################################################################################################################
+
+use strict;
+use warnings;
+use Carp;
+
+our $VERSION = 'ScrapeWords2021-06-30';
+
+use URI;
+use LWP::UserAgent ();
+use HTML::TreeBuilder;
+
+use Getopt::Long qw(:config no_ignore_case);
+use File::Slurp;
+use File::Basename;
+
+########################################################################################################################
+########################################################################################################################
+##
+## Data declarations
+##
+########################################################################################################################
+########################################################################################################################
+
+my $SearchKey;
+
+my $WordCount = 0;
+
+my $ua;
+
+my @Words;
+
+########################################################################################################################
+########################################################################################################################
+##
+## Argument processing
+##
+########################################################################################################################
+########################################################################################################################
+
+my %Args;
+
+use FindBin      qw($Bin $RealScript);
+
+exit HELP_MESSAGE()
+    if @ARGV != 1;       # More/less than 1 argument given
+
+exit HELP_MESSAGE()
+    unless GetOptions(\%Args,
+        "key=s",
+        "h|help", "v|version");
+
+exit HELP_MESSAGE()
+    if $Args{h};
+
+exit VERSION_MESSAGE()
+    if $Args{v};
+
+sub HELP_MESSAGE {
+    #
+    # Print the text in the preamble of the script (at the top of this file) 
+    #   for the help message.
+    #
+    my @Usage = read_file("$Bin/$RealScript");
+
+    shift @Usage
+        until $Usage[0] =~ /USAGE/;
+
+    shift @Usage;           # Skip USAGE line
+
+    print "\n";
+    print "Usage: ";
+    while(1) {
+        my $Line = shift @Usage;
+        last
+            if $Line =~ /EXAMPLE/;
+
+        $Line =~ s/\#\#//;
+
+        print $Line;
+        }
+
+    return 0;
+    }
+
+sub VERSION_MESSAGE {
+    print "\n";
+    print basename($0) . " version $VERSION\n";
+
+    return 0;
+    }
+
+$SearchKey = $Args{key};
+
+########################################################################################################################
+########################################################################################################################
+##
+## ScrapeWords
+##
+########################################################################################################################
+########################################################################################################################
+
+#
+# Create a dir with the name of the search key, if none exists
+#
+`mkdir "$SearchKey"`
+    unless -d "$SearchKey";
+
+chdir $SearchKey;
+
+$SearchKey = lc $SearchKey;
+
+binmode(STDOUT, ":utf8");
+
+########################################################################################################################
+#
+# Grab the top-level search results for the search term.
+#
+# This page should directly contain the related words.
+#
+my $URL = "https://relatedwords.io/$SearchKey";
+
+print "### WebPage: $URL\n";
+
+$ua = LWP::UserAgent->new(timeout => 10);
+$ua->env_proxy;
+$ua->agent('Mozilla/5.0');
+ 
+my $Page = $ua->get($URL);
+ 
+die $Page->status_line
+    unless $Page->is_success;
+
+########################################################################################################################
+#
+#   <span class="term">
+#             <a href="/vase">vase</a>
+#             </span>
+#
+my $Tree = HTML::TreeBuilder->new->parse($Page->decoded_content);
+
+my @WordTags = $Tree->look_down('_tag', 'span', 'class', 'term');
+
+ScrapeWord($_,$URL)
+    foreach @WordTags;
+
+write_file("Words.txt",join "\n",@Words);
+
+print "$SearchKey: Wrote $WordCount words to $SearchKey/Words.txt\n";
+
+exit(0);
+
+########################################################################################################################
+########################################################################################################################
+#
+# ScrapeWord - Scrape single word from website
+#
+# Inputs:   Span containing term/word link
+#
+# Outputs:  None.
+#
+sub ScrapeWord {
+    my $WordTag = shift;
+
+    #
+    # <a href="/vase">vase</a>
+    #
+    my $LinkTag = $WordTag->look_down('_tag', 'a');
+
+    die "could not get link tag for $WordTag\n"
+        unless defined $LinkTag;
+
+    my @WordList = $LinkTag->content_list;
+
+    die "Multiple words"
+        unless scalar @WordList == 1;
+
+    push @Words,$WordList[0];
+
+#    print $WordList[0] . "\n";
+
+    $WordCount++;
+    }

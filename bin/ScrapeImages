@@ -1,0 +1,260 @@
+#!/usr/bin/perl
+#
+########################################################################################################################
+########################################################################################################################
+##
+##      Copyright (C) 2020 Peter Walsh, Milford, NH 03055
+##      All Rights Reserved under the MIT license as outlined below.
+##
+##  FILE
+##      ScrapeImages.pl
+##
+##  DESCRIPTION
+##
+##      Scrape project images from free-images.com
+##
+##      Take a project descriptor (ex: "pottery") and grab the 1st page of free images from 
+##        free-images.com. The images will need to be vetted by a human for applicability.
+##
+##  USAGE
+##
+##      ScrapeImages --key=<keyword> [-h] [-v]
+##
+##      <keyword>           Some keyword to use as the search term (ex: "pottery")
+##
+##      -v                  Print out version
+##      --version
+##
+##      -h                  Print out usage info
+##      --help
+##
+##  EXAMPLE
+##
+##      ScrapeImages pottery
+##
+##      This will retrieve the pottery images form the top-level page of free-images.com
+##
+########################################################################################################################
+########################################################################################################################
+##
+##  MIT LICENSE
+##
+##  Permission is hereby granted, free of charge, to any person obtaining a copy of
+##    this software and associated documentation files (the "Software"), to deal in
+##    the Software without restriction, including without limitation the rights to
+##    use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+##    of the Software, and to permit persons to whom the Software is furnished to do
+##    so, subject to the following conditions:
+##
+##  The above copyright notice and this permission notice shall be included in
+##    all copies or substantial portions of the Software.
+##
+##  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+##    INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+##    PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+##    HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+##    OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+##    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+##
+########################################################################################################################
+########################################################################################################################
+
+use strict;
+use warnings;
+use Carp;
+
+our $VERSION = 'ScrapeImages2021-06-30';
+
+use URI;
+use LWP::Simple;
+use HTML::TreeBuilder;
+
+use Getopt::Long qw(:config no_ignore_case);
+use File::Slurp;
+use File::Basename;
+
+########################################################################################################################
+########################################################################################################################
+##
+## Data declarations
+##
+########################################################################################################################
+########################################################################################################################
+
+my $SearchKey;
+
+my $ImageCount = 0;
+
+########################################################################################################################
+########################################################################################################################
+##
+## Argument processing
+##
+########################################################################################################################
+########################################################################################################################
+
+my %Args;
+
+use FindBin      qw($Bin $RealScript);
+
+exit HELP_MESSAGE()
+    if @ARGV > 2;       # More than 1 argument given
+
+exit HELP_MESSAGE()
+    unless GetOptions(\%Args,
+        "key=s",
+        "h|help", "v|version");
+
+exit HELP_MESSAGE()
+    if $Args{h};
+
+exit VERSION_MESSAGE()
+    if $Args{v};
+
+sub HELP_MESSAGE {
+    #
+    # Print the text in the preamble of the script (at the top of this file) 
+    #   for the help message.
+    #
+    my @Usage = read_file("$Bin/$RealScript");
+
+    shift @Usage
+        until $Usage[0] =~ /USAGE/;
+
+    shift @Usage;           # Skip USAGE line
+
+    print "\n";
+    print "Usage: ";
+    while(1) {
+        my $Line = shift @Usage;
+        last
+            if $Line =~ /EXAMPLE/;
+
+        $Line =~ s/\#\#//;
+
+        print $Line;
+        }
+
+    return 0;
+    }
+
+sub VERSION_MESSAGE {
+    print "\n";
+    print basename($0) . " version $VERSION\n";
+
+    return 0;
+    }
+
+$SearchKey = $Args{key};
+
+########################################################################################################################
+########################################################################################################################
+##
+## ScrapeImages
+##
+########################################################################################################################
+########################################################################################################################
+
+#
+# Create a dir with the name of the search key, if none exists
+#
+`mkdir "$SearchKey"`
+    unless -d "$SearchKey";
+
+chdir $SearchKey;
+
+$SearchKey = lc $SearchKey;     # Lower case, in case that matters
+
+########################################################################################################################
+#
+# Grab the top-level search results for the search term.
+#
+# This should result in 100 images, which is plenty for this application
+#
+# To get the next page, add "&skip=100" and reload.
+#
+my $URL = "https://free-images.com/search/?q=$SearchKey&cat=st";
+
+print "### WebPage: $URL\n";
+
+GrabImages($URL);
+GrabImages("$URL&skip=100");
+
+print "Done. $ImageCount images saved to directory $SearchKey/\n";
+
+exit(0);
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# GrabImages - Grab all images from specified URL
+#
+# Inputs:   URL containing top-level image page
+#
+# Outputs:  None.
+#
+sub GrabImages {
+    my $URL = shift;
+
+    my $Page = get($URL);
+
+    die "could not get $URL\n"
+        unless defined $Page;
+
+    ########################################################################################################################
+    #
+    # Find all the free DIV descriptors, and process.
+    #
+    my $Tree = HTML::TreeBuilder->new->parse($Page);
+
+    my @Images = $Tree->look_down('_tag', 'div', 'class', 'imdiv');
+
+    ScrapeImage($_,$URL)
+        foreach @Images;
+    }
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# ScrapeImage - Scrape single image from website
+#
+# Inputs:   DIV containing image link
+#           Original URL of page (for sitename)
+#
+# Outputs:  None.
+#
+sub ScrapeImage {
+    my $Image = shift;
+    my $URL   = shift;
+
+    #
+    # https://free-images.com/lg/3fcd/writing_write_fountain_pen.jpg
+    #
+    my $ImgTag = $Image->look_down('_tag', 'img');
+
+    die "could not get IMG tag for $Image\n"
+        unless defined $ImgTag;
+
+    #
+    # Grab the link and convert from relative to absolute
+    #
+    # URL fields: "tn" tiny,
+    #             "sm" small,
+    #             "md" medium,
+    #             "lg" large,
+    #             "or" original (very large)
+    #
+    my $ImgURL = $ImgTag->attr('src');
+
+    $ImgURL =~ s#/sm/#/lg/#;
+
+    $ImgURL = URI->new_abs($ImgURL,$URL);
+
+    print "Get: $ImgURL\n";
+
+    my $Success = qx{wget --quiet $ImgURL};
+
+    $ImageCount++;
+    }
