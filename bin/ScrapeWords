@@ -11,39 +11,29 @@
 ##
 ##  DESCRIPTION
 ##
-##      Scrape project words from related-words.io
+##      Scrape project words from relatedwords.io, save as Words.txt
 ##
-##      Take a project descriptor (ex: "pottery") and grab the page of related words from
-##        relatedwords.io. The words must then be vetted by a human.
+##      Take a project descriptors (ex: "pottery") and grab the related words from 
+##        relatedwords.io and save as "Words.txt" in the current directory.
 ##
-##      The words are saved in the project directory as "Words.txt", and appended if that
-##        file exists.
+##      If the Words.txt file exists, extra words will be added. Duplicate words
+##        will only appear once.
+##
+##      The words will need to be vetted by a human for applicability, use the
+##        supplied program "CullWords" for that.
 ##
 ##  USAGE
 ##
-##      ScrapeWords --key=<keyword> [--dir=<directory>] [-h] [-v]
+##      ScrapeWords <keyword1> [<keyword2> ...]
 ##
 ##      <keyword>           Some keyword to use as the search term (ex: "pottery")
 ##
-##      <directory>         Directory of project for words.
-##
-##      -v                  Print out version
-##      --version
-##
-##      -h                  Print out usage info
-##      --help
-##
 ##  EXAMPLE
 ##
-##      ScrapeWords --key=Pottery
+##      ScrapeWords pottery ceramics clay
 ##
-##      This will grab and store the "pottery" related words from relatedwords.io as
-##        Pottery/Words.txt
-##
-##      ScrapeWords --key=Ceramic --Dir=Pottery
-##
-##      This will grab and store the "ceramic" related words from relatedwords.io and
-##        add them to Pottery/Words.txt
+##      This will retrieve the words from "pottery", "ceramics", and "clay" from the
+##        relatedwords.io website. Duplicates will be downloaded only once.
 ##
 ########################################################################################################################
 ########################################################################################################################
@@ -74,15 +64,13 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'ScrapeWords2021-06-30';
-
 use URI;
-use LWP::UserAgent ();
+use LWP::Simple;
 use HTML::TreeBuilder;
 
-use Getopt::Long qw(:config no_ignore_case);
 use File::Slurp;
-use File::Basename;
+use List::MoreUtils qw(uniq);
+use List::Util      qw(first);
 
 ########################################################################################################################
 ########################################################################################################################
@@ -92,75 +80,21 @@ use File::Basename;
 ########################################################################################################################
 ########################################################################################################################
 
-my $SearchKey;
+my $WordsFile   = "Words.txt";
+my $MaxWords    = 30;           # Maximum words to scrape, per search term
 
-my $WordCount = 0;
+my @SearchTerms = @ARGV;        # All search terms
 
-my $ua;
+my $WordCount   = 0;
 
-my @Words;
+my %Words;                      # List of words already downloaded
 
-########################################################################################################################
-########################################################################################################################
-##
-## Argument processing
-##
-########################################################################################################################
-########################################################################################################################
+#
+# Top level URL to search for one term
+#
+my $TopURL = "https://relatedwords.io/SEARCH_TERM";
 
-my %Args;
-
-use FindBin      qw($Bin $RealScript);
-
-exit HELP_MESSAGE()
-    if @ARGV != 1;       # More/less than 1 argument given
-
-exit HELP_MESSAGE()
-    unless GetOptions(\%Args,
-        "key=s",
-        "h|help", "v|version");
-
-exit HELP_MESSAGE()
-    if $Args{h};
-
-exit VERSION_MESSAGE()
-    if $Args{v};
-
-sub HELP_MESSAGE {
-    #
-    # Print the text in the preamble of the script (at the top of this file) 
-    #   for the help message.
-    #
-    my @Usage = read_file("$Bin/$RealScript");
-
-    shift @Usage
-        until $Usage[0] =~ /USAGE/;
-
-    shift @Usage;           # Skip USAGE line
-
-    print "\n";
-    print "Usage: ";
-    while(1) {
-        my $Line = shift @Usage;
-        last
-            if $Line =~ /EXAMPLE/;
-
-        $Line =~ s/\#\#//;
-
-        print $Line;
-        }
-
-    return 0;
-    }
-
-sub VERSION_MESSAGE {
-    print "\n";
-    print basename($0) . " version $VERSION\n";
-
-    return 0;
-    }
-
-$SearchKey = $Args{key};
+binmode(STDOUT, ":utf8");       # Allow UTF8 when printing words
 
 ########################################################################################################################
 ########################################################################################################################
@@ -170,55 +104,85 @@ $SearchKey = $Args{key};
 ########################################################################################################################
 ########################################################################################################################
 
+die "No search terms found."
+    unless scalar @SearchTerms;
+
 #
-# Create a dir with the name of the search key, if none exists
+# Note the existing words in the words file, to avoid duplicates
 #
-`mkdir "$SearchKey"`
-    unless -d "$SearchKey";
+my @ExistingWords;
 
-chdir $SearchKey;
+@ExistingWords = read_file($WordsFile, { chomp => 1 })
+    if -e $WordsFile;
 
-$SearchKey = lc $SearchKey;
+$Words{$_} = 1
+    foreach @ExistingWords;
 
-binmode(STDOUT, ":utf8");
+ScrapeTerm($_)
+    foreach @SearchTerms;
 
-########################################################################################################################
 #
-# Grab the top-level search results for the search term.
+# Spruce up the words array and write out the file
 #
-# This page should directly contain the related words.
-#
-my $URL = "https://relatedwords.io/$SearchKey";
+my @TotalWords = map { lc $_ } keys %Words;
 
-print "### WebPage: $URL\n";
+$_ =~ s/^\s+|\s+$//g                # Trim spaces, both sides
+    foreach @TotalWords;
 
-$ua = LWP::UserAgent->new(timeout => 10);
-$ua->env_proxy;
-$ua->agent('Mozilla/5.0');
- 
-my $Page = $ua->get($URL);
- 
-die $Page->status_line
-    unless $Page->is_success;
+@TotalWords = uniq @TotalWords;
+@TotalWords = sort @TotalWords;
 
-########################################################################################################################
-#
-#   <span class="term">
-#             <a href="/vase">vase</a>
-#             </span>
-#
-my $Tree = HTML::TreeBuilder->new->parse($Page->decoded_content);
+write_file($WordsFile,{binmode => ':utf8'},join("\n",@TotalWords));
 
-my @WordTags = $Tree->look_down('_tag', 'span', 'class', 'term');
-
-ScrapeWord($_,$URL)
-    foreach @WordTags;
-
-write_file("Words.txt",join "\n",@Words);
-
-print "$SearchKey: Wrote $WordCount words to $SearchKey/Words.txt\n";
+print "Done. $WordCount words added to Words.txt\n";
 
 exit(0);
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# ScrapeTerm - Grab 200 images for a specified search term
+#
+# Inputs:   Search term to check.
+#
+# Outputs:  None.
+#
+sub ScrapeTerm {
+    my $Term = lc shift;
+
+    print "Term: $Term\n";
+
+    my $URL = $TopURL;
+    $URL =~ s/SEARCH_TERM/$Term/;
+
+    print "    WebPage: $URL\n";
+
+    my $ua = LWP::UserAgent->new(timeout => 10);
+    $ua->env_proxy;
+    $ua->agent('Mozilla/5.0');
+ 
+    my $Page = $ua->get($URL);
+ 
+    die $Page->status_line . " (Term => $Term)"
+        unless $Page->is_success;
+
+    ########################################################################################################################
+    #
+    #   <span class="term">
+    #             <a href="/vase">vase</a>
+    #             </span>
+    #
+    my $Tree = HTML::TreeBuilder->new->parse($Page->decoded_content);
+
+    my @WordTags = $Tree->look_down('_tag', 'span', 'class', 'term');
+
+    $#WordTags   = $MaxWords;
+
+    ScrapeWord($_,$URL)
+        foreach @WordTags;
+    }
+
 
 ########################################################################################################################
 ########################################################################################################################
@@ -245,9 +209,15 @@ sub ScrapeWord {
     die "Multiple words"
         unless scalar @WordList == 1;
 
-    push @Words,$WordList[0];
+    my $Word = lc $WordList[0];
 
-#    print $WordList[0] . "\n";
+    if( $Words{$Word} ) {
+        print "        Skip: $Word (exists)\n";
+        return;        
+        }
 
+    print "        Add : $Word\n";
+
+    $Words{$Word} = 1;
     $WordCount++;
     }

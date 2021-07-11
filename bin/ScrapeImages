@@ -13,26 +13,22 @@
 ##
 ##      Scrape project images from free-images.com
 ##
-##      Take a project descriptor (ex: "pottery") and grab the 1st page of free images from 
-##        free-images.com. The images will need to be vetted by a human for applicability.
+##      Take a project descriptors (ex: "pottery") and grab 200 free images from 
+##        free-images.com. The images will need to be vetted by a human for applicability,
+##        use the supplied program "CullImages" for that.
 ##
 ##  USAGE
 ##
-##      ScrapeImages --key=<keyword> [-h] [-v]
+##      ScrapeImages <keyword1> [<keyword2> ...]
 ##
 ##      <keyword>           Some keyword to use as the search term (ex: "pottery")
 ##
-##      -v                  Print out version
-##      --version
-##
-##      -h                  Print out usage info
-##      --help
-##
 ##  EXAMPLE
 ##
-##      ScrapeImages pottery
+##      ScrapeImages pottery ceramics clay
 ##
-##      This will retrieve the pottery images form the top-level page of free-images.com
+##      This will retrieve 200 images "pottery", 200 images "ceramics", and 200 images "clay"
+##        from the free-images.com website. Duplicates will be downloaded only once.
 ##
 ########################################################################################################################
 ########################################################################################################################
@@ -63,14 +59,10 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'ScrapeImages2021-06-30';
-
 use URI;
 use LWP::Simple;
 use HTML::TreeBuilder;
 
-use Getopt::Long qw(:config no_ignore_case);
-use File::Slurp;
 use File::Basename;
 
 ########################################################################################################################
@@ -81,71 +73,18 @@ use File::Basename;
 ########################################################################################################################
 ########################################################################################################################
 
-my $SearchKey;
+my @SearchTerms = @ARGV;    # All search terms
 
 my $ImageCount = 0;
 
-########################################################################################################################
-########################################################################################################################
-##
-## Argument processing
-##
-########################################################################################################################
-########################################################################################################################
+my %ImageNames;             # List of images already downloaded
 
-my %Args;
-
-use FindBin      qw($Bin $RealScript);
-
-exit HELP_MESSAGE()
-    if @ARGV > 2;       # More than 1 argument given
-
-exit HELP_MESSAGE()
-    unless GetOptions(\%Args,
-        "key=s",
-        "h|help", "v|version");
-
-exit HELP_MESSAGE()
-    if $Args{h};
-
-exit VERSION_MESSAGE()
-    if $Args{v};
-
-sub HELP_MESSAGE {
-    #
-    # Print the text in the preamble of the script (at the top of this file) 
-    #   for the help message.
-    #
-    my @Usage = read_file("$Bin/$RealScript");
-
-    shift @Usage
-        until $Usage[0] =~ /USAGE/;
-
-    shift @Usage;           # Skip USAGE line
-
-    print "\n";
-    print "Usage: ";
-    while(1) {
-        my $Line = shift @Usage;
-        last
-            if $Line =~ /EXAMPLE/;
-
-        $Line =~ s/\#\#//;
-
-        print $Line;
-        }
-
-    return 0;
-    }
-
-sub VERSION_MESSAGE {
-    print "\n";
-    print basename($0) . " version $VERSION\n";
-
-    return 0;
-    }
-
-$SearchKey = $Args{key};
+#
+# This should result in 100 images.
+#
+# To get the next page, add "&skip=100" and reload.
+#
+my $TopURL = "https://free-images.com/search/?q=SEARCH_TERM&cat=st";
 
 ########################################################################################################################
 ########################################################################################################################
@@ -155,32 +94,19 @@ $SearchKey = $Args{key};
 ########################################################################################################################
 ########################################################################################################################
 
-#
-# Create a dir with the name of the search key, if none exists
-#
-`mkdir "$SearchKey"`
-    unless -d "$SearchKey";
+die "No search terms found."
+    unless scalar @SearchTerms;
 
-chdir $SearchKey;
-
-$SearchKey = lc $SearchKey;     # Lower case, in case that matters
-
-########################################################################################################################
 #
-# Grab the top-level search results for the search term.
+# Note the existing images in the directory, so we don't have to download what we already have
 #
-# This should result in 100 images, which is plenty for this application
-#
-# To get the next page, add "&skip=100" and reload.
-#
-my $URL = "https://free-images.com/search/?q=$SearchKey&cat=st";
+$ImageNames{$_} = 1
+    foreach glob "*.jpg *.jpeg *.png";
 
-print "### WebPage: $URL\n";
+ScrapeTerm($_)
+    foreach @SearchTerms;
 
-GrabImages($URL);
-GrabImages("$URL&skip=100");
-
-print "Done. $ImageCount images saved to directory $SearchKey/\n";
+print "Done. $ImageCount images saved in current directory\n";
 
 exit(0);
 
@@ -188,14 +114,38 @@ exit(0);
 ########################################################################################################################
 ########################################################################################################################
 #
-# GrabImages - Grab all images from specified URL
+# ScrapeTerm - Grab 200 images for a specified search term
 #
-# Inputs:   URL containing top-level image page
+# Inputs:   Search term to check.
 #
 # Outputs:  None.
 #
-sub GrabImages {
-    my $URL = shift;
+sub ScrapeTerm {
+    my $Term = lc shift;
+
+    print "Term: $Term\n";
+
+    my $URL = $TopURL;
+    $URL =~ s/SEARCH_TERM/$Term/;
+
+    ScrapeURL($URL);
+    ScrapeURL($URL . "&skip=100");
+    }
+
+
+########################################################################################################################
+########################################################################################################################
+#
+# ScrapeURL - Grab all images for a specified URL
+#
+# Inputs:   URL of top-level in free-images.com
+#
+# Outputs:  None.
+#
+sub ScrapeURL {
+    my $URL = lc shift;
+
+    print "    WebPage: $URL\n";
 
     my $Page = get($URL);
 
@@ -208,10 +158,10 @@ sub GrabImages {
     #
     my $Tree = HTML::TreeBuilder->new->parse($Page);
 
-    my @Images = $Tree->look_down('_tag', 'div', 'class', 'imdiv');
+    my @ImageDivs = $Tree->look_down('_tag', 'div', 'class', 'imdiv');
 
     ScrapeImage($_,$URL)
-        foreach @Images;
+        foreach @ImageDivs;
     }
 
 
@@ -248,11 +198,22 @@ sub ScrapeImage {
     #
     my $ImgURL = $ImgTag->attr('src');
 
+    #
+    # If an image with that name already exists, skip the download. (Arises
+    #   when searching on multiple, related terms.
+    #
+    if( defined $ImageNames{basename $ImgURL} ) {
+        print "        Skip: $ImgURL (exists)\n";
+        return;        
+        }
+
+    $ImageNames{basename $ImgURL} = 1;
+
     $ImgURL =~ s#/sm/#/lg/#;
 
     $ImgURL = URI->new_abs($ImgURL,$URL);
 
-    print "Get: $ImgURL\n";
+    print "        Get : $ImgURL\n";
 
     my $Success = qx{wget --quiet $ImgURL};
 

@@ -7,25 +7,25 @@
 ##      All Rights Reserved under the MIT license as outlined below.
 ##
 ##  FILE
-##      CullImages
+##      CullWords
 ##
 ##  DESCRIPTION
 ##
-##      Cull images in current directory for applicability
+##      Cull words in current project directory for applicability
 ##
-##      Show (all) the images in a directory, and allow the user to delete the ones that
+##      Show all the words in the Words.txt file, and allow the user to delete the ones that
 ##        aren't applicable.
 ##
 ##  USAGE
 ##
-##      CullImages
+##      CullWords
 ##
 ##  EXAMPLE
 ##
-##      CullImages
+##      CullWords
 ##
-##      This will show all images in the current directory, and allow the user to delete
-##        the ones that aren't needed.
+##      This will read in Words.txt, show all words in the current directory, and allow the
+##        user to delete the ones that aren't needed.
 ##
 ########################################################################################################################
 ########################################################################################################################
@@ -59,12 +59,13 @@ use Carp;
 our $VERSION = 'CullImages2021-06-30';
 
 use Tk;
-use Tk::widgets qw/JPEG PNG TIFF/;
+use Tk::Text;
 
 use Image::Magick;
 use MIME::Base64;
 
 use Cwd qw(cwd);
+use File::Slurp;
 use File::Basename;
 use List::MoreUtils qw(firstidx);
 
@@ -76,30 +77,30 @@ use List::MoreUtils qw(firstidx);
 ########################################################################################################################
 ########################################################################################################################
 
-my $MaxColumns   = 8;              # Max number of columns of images per screen
-my $MaxRows      = 5;               # Max number of rows    of images per screen
+my $MaxColumns   = 10;              # Max number of columns of images per screen
+my $MaxRows      = 25;              # Max number of rows    of images per screen
 
 my $TitleHeight  = 76;              # No way to determine this from Tk
 my $Something    = 30;
 
+
 my $Project      = basename cwd();
-my $MainTitle    = "Click to cull images for '$Project': N for next page, L for last page, ESC to abort";
+my $MainTitle    = "Click to cull words for '$Project': N for next page, L for last page, ESC to abort";
 my $MainWindow   = MainWindow->new(-title => $MainTitle);   # Main window
 
 my $ScreenWidth  = $MainWindow->screenwidth();
 my $ScreenHeight = $MainWindow->screenheight();
 
-my $ImageWidth   = int (($ScreenWidth-$Something) /$MaxColumns);
-my $ImageHeight  = int (($ScreenHeight-$TitleHeight)/$MaxRows);
+my $ButtonWidth   = 20;             # In characters displayed
+my $ButtonHeight  = 1;
 
-my @Images = <*.jpg *.jpeg *.gif>;
-my @Delete = ((0) x scalar @Images);
+my @Words  = read_file("Words.txt",{ binmode => ':utf8', chomp => 1 });
+my @Delete = ((0) x scalar @Words);
 
 my $Row;
 my $Column;
 
-my $ImageIndex;
-my $IMImage = Image::Magick->new;
+my $WordIndex;
 
 $MainWindow->bind("<Escape>" => \&Escape); 
 $MainWindow->bind("<Key-N>"   => \&NextPage); 
@@ -109,13 +110,13 @@ $MainWindow->bind("<Key-l>"   => \&LastPage);
 
 sub NextPage {
 
-    ShowImageGrid();
+    ShowWordGrid();
     }
 
 sub LastPage {
 
-    $ImageIndex = scalar @Images;
-    ShowImageGrid();
+    $WordIndex = scalar @Words;
+    ShowWordGrid();
     }
 
 sub Escape {
@@ -127,14 +128,14 @@ sub Escape {
 ########################################################################################################################
 ########################################################################################################################
 ##
-## CullImages
+## CullWords
 ##
 ########################################################################################################################
 ########################################################################################################################
 
-$ImageIndex = 0;
+$WordIndex = 0;
 
-ShowImageGrid();
+ShowWordGrid();
 
 MainLoop;
 
@@ -142,22 +143,26 @@ my $NumDelete = grep {$_ > 0} @Delete;
 
 if( $NumDelete ) {
 
-    unless( AskForConfirmation("Delete $NumDelete files? ") ) {
+    unless( AskForConfirmation("Delete $NumDelete words? ") ) {
         print "Declined - no files deleted.\n";
         print "\n";
         exit(0);
         }
 
-    for( my $Index = 0; $Index < scalar @Images; $Index++ ) {
+    for( my $Index = 0; $Index < scalar @Words; $Index++ ) {
 
         next
             unless $Delete[$Index];
 
-        my $Image = $Images[$Index];
+        my $Word = $Words[$Index];
 
-        print "Deleting $Image... ";
-        unlink $Image;
+        print "Deleting $Word...\n";
+        delete $Words[$Index];
         }
+
+    @Words = grep { defined $_ } @Words;
+
+    write_file("Words.txt",join("\n",@Words));
     }
 
 print "Done!\n";
@@ -168,15 +173,15 @@ exit(0);
 ########################################################################################################################
 ########################################################################################################################
 #
-# ShowImageGrid - Show a grid of images, starting with $ImageIndex
+# ShowWordGrid - Show a grid of images, starting with $WordIndex
 #
 # Inputs:   None.
 #
 # Outputs:  None. 
 #
-sub ShowImageGrid {
+sub ShowWordGrid {
 
-    if( $ImageIndex >= scalar  @Images ) {
+    if( $WordIndex >= scalar  @Words ) {
         $MainWindow->destroy;
         return;
         }
@@ -187,29 +192,29 @@ sub ShowImageGrid {
     $Column = 0;
     $Row    = 0;
 
-    AddImage()
+    AddWord()
         while $Row        < $MaxRows    &&
               $Column     < $MaxColumns &&
-              $ImageIndex < scalar @Images;
+              $WordIndex < scalar @Words;
     }
 
 ########################################################################################################################
 ########################################################################################################################
 #
-# AddImage - Add one image to the image grid
+# AddWord - Add one image to the image grid
 #
 # Inputs:   None.
 #
 # Outputs:  None. 
 #
-sub AddImage {
+sub AddWord {
 
-    my $ImageFile = $Images[$ImageIndex];
-    my $Image     = MakeTkImage($ImageFile,$ImageWidth,$ImageHeight);
-    my $Button    = $MainWindow->Button(-image => $Image, -text => $ImageFile, -borderwidth => 0, -relief => "flat")
-                               ->grid(-row => $Row, -column => $Column, -sticky => 'n');
+    my $Word   = $Words[$WordIndex];
+#    my $Button = $MainWindow->Button(-width => $ButtonWidth, -height => $ButtonHeight, -text => $Word, -borderwidth => 0, -relief => "flat")
+    my $Button = $MainWindow->Button(-text => $Word, -width => $ButtonWidth, -height => $ButtonHeight)
+                            ->grid  (-row => $Row, -column => $Column, -sticky => 'n');
 
-    $Button->bind('<ButtonRelease-1>' => \&ImageClick);
+    $Button->bind('<ButtonRelease-1>' => \&WordClick);
 
     $Column += 1;
 
@@ -218,50 +223,24 @@ sub AddImage {
         $Row++;
         }
 
-    $ImageIndex++;
+    $WordIndex++;
     }
 
-sub ImageClick {
+sub WordClick {
     my $Button = shift;
 
-    my $Image = $Button->cget('-image');
     my $Name  = $Button->cget('-text');
+    my $Index = firstidx { $_ eq $Name } @Words;
 
-    my $Index = firstidx { $_ eq $Name } @Images;
+    $Delete[$Index] = 1 - $Delete[$Index];          # Keep value numeric (not boolean), in case of print
 
-    $Delete[$Index] = 1 - $Delete[$Index];          # Keep value numeric, in case of print
+    if( $Delete[$Index] ) { $Button->configure(-background =>       "red"); }
+    else                  { $Button->configure(-background => "lightgray"); }
 
-    if( $Delete[$Index] ) { $Image = MakeTkImage($Name,$ImageWidth/2,$ImageHeight/2); }
-    else                  { $Image = MakeTkImage($Name,$ImageWidth  ,$ImageHeight  ); }
-
-    $Button->configure(-image => $Image);
+#    if( $Delete[$Index] ) { $Button->configure(-width => $ButtonWidth/2, -height => $ButtonHeight/2) }
+#    else                  { $Button->configure(-width => $ButtonWidth  , -height => $ButtonHeight  ) }
 
     print "Name: $Name, Index: $Index, Delete: " . ($Delete[$Index] ? "Y" : "N") . "\n";
-    }
-
-
-########################################################################################################################
-########################################################################################################################
-#
-# MakeTkImage - Create an image object for use as a button image
-#
-# Inputs:   Image file to create from
-#           Width   Width  of image, in pixels
-#           Height  Height of image, in pixels
-#
-# Outputs:  [Reference to] the created Tk::Image object
-#
-sub MakeTkImage {
-    my $ImageFile   = shift;
-    my $ImageWidth  = shift;
-    my $ImageHeight = shift;
-
-    $IMImage->Read($ImageFile);
-    $IMImage->Scale(geometry => "${ImageWidth}x${ImageHeight}");
-    my $Data = encode_base64($IMImage->ImageToBlob());
-    undef @$IMImage;                                # Blank $Image object
-
-    return $MainWindow->Photo(-data  => $Data);
     }
 
 

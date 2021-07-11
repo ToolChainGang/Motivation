@@ -266,7 +266,7 @@ function ShowImage(ImageFile) {
         ShowPanel("ImagePanel");
         }
 
-    Img.src = "./Projects/Writing/" + ImageFile;
+    Img.src = ImageFile;
     Img.className = "SlideImage";
     }
 

@@ -5,6 +5,43 @@
 // Copyright (C) 2020 Peter Walsh, Milford, NH 03055
 // All Rights Reserved under the MIT license as outlined below.
 //
+//  FILE
+//      Motivation.js
+//
+//  DESCRIPTION
+//
+//      Run the project motivation course.
+//
+//      (See the project documentation for a full description.)
+//
+//  USAGE
+//
+//      $BROWSER [...]/index.html?Arg=Value
+//
+//      No Arguments:
+//
+//          Run the project motivation state machine. With no configured cookie,
+//            will show the "Intro" article and allow the user to browse the
+//            documentation and configure the course.
+//
+//          With a configured cookie, run the portion of the course indicated by
+//            the recorded progress.
+//
+//      [...]index.html?Slideshow=$Category
+//
+//          Show a slideshow for a specified project category (ex: "Ceramics").
+//
+//
+//  EXAMPLE
+//
+//      Firefox file://Home/Pete/Motivation/public_html/index.html
+//
+//          This will run the full motivation course.
+//
+//      Firefox file://Home/Pete/Motivation/public_html/index.html?Slideshow=Ceramics
+//
+//          This will show a slideshow for the category "Ceramics", and nothing else.
+//
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //  MIT LICENSE
@@ -46,6 +83,7 @@
 
     var Words;
     var Images;
+    var Category;
 
     var Args;
 
@@ -53,6 +91,7 @@
     var ImagePanel;
     var ArticlePanel;
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
     // On first load, calculate reliable page dimensions and do page-specific initialization
     //
@@ -76,6 +115,7 @@
         ImagePanel   = GetID("ImagePanel");
         ArticlePanel = GetID("ArticlePanel");
 
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
         // Grab the URL arguments.
         //
@@ -91,7 +131,32 @@
             else          Args[Pair[0]] = "";
             }
 
-//        console.log(Args);
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // URL argument: Slideshow=$Category
+        //
+        // Show a specific slideshow and then exit.
+        //
+        if( Args["Slideshow"] != undefined ) {
+            Category = Args["Slideshow"];
+
+            if( Projects[Category] == undefined ) {
+                throw new Error("Unknown project type (" + Category + ").");
+                return;
+                }
+
+            Words  = Shuffle(Projects[Category].Words);
+            Images = Shuffle(Projects[Category].Images);
+
+            ShowArticle("SLI00");
+            CreateSlideshow(Words,Images,"SLI01");
+            return;
+            }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        Words  = Shuffle(Projects.Ceramics.Words);
+        Images = Shuffle(Projects.Ceramics.Images);
 
         //
         // If "ShowArticles" is given, uncover the list of articles.
@@ -111,9 +176,6 @@
         else ShowArticle("SLI00");
 
         CreateSlideshow(Words,Images,"SLI01");
-
-//ShowWord("Froboz");
-//ShowImage("Tesla.JPG");
         }
 
 

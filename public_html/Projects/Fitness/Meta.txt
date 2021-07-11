@@ -1,4 +1,2 @@
-Meta: {
-    Display: "Fitness",
-    Dir: "Fitness",
-    },
+    Display: 'Fitness',
+    Dir:     'Fitness',

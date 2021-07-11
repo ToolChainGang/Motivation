@@ -1,4 +1,2 @@
-Meta: {
-    Display: "Musical Instrument",
-    Dir: "MusicalInstrument",
-    },
+    Display: 'Musical Instrument',
+    Dir:     'MusicalInstrument',

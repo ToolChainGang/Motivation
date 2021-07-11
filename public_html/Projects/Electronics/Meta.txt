@@ -1,4 +1,2 @@
-Meta: {
-    Display: "Electronics",
-    Dir: "Electronics",
-    },
+    Display: 'Electronics',
+    Dir:     'Electronics',

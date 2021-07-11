@@ -1,4 +1,2 @@
-Meta: {
-    Display: "Woodworking/hand tools",
-    Dir: "WoodHand",
-    },
+    Display: 'Woodworking/hand tools',
+    Dir:     'WoodHand',

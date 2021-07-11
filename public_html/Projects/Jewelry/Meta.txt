@@ -1,4 +1,2 @@
-Meta: {
-    Display: "Jewelry",
-    Dir: "Jewelry",
-    },
+    Display: 'Jewelry',
+    Dir:     'Jewelry',

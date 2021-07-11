@@ -1,4 +1,0 @@
-Meta: {
-    Display: "Painting/art",
-    Dir: "PaintingArt",
-    },

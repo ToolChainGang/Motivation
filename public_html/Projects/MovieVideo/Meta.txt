@@ -1,4 +1,2 @@
-Meta: {
-    Display: "Movie/video",
-    Dir: "MovieVideo",
-    },
+    Display: 'Movie/video',
+    Dir:     'MovieVideo',
