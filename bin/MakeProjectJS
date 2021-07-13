@@ -52,8 +52,6 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'MakeDataJS2021-07-09';
-
 use File::Slurp;
 
 ########################################################################################################################
@@ -226,11 +224,10 @@ sub WriteProjectsJS {
     print JS $Header;
 
     print JS "var Projects = {\n";
+    print JS "    Vers: " . time() . ",\n";
 
     foreach my $Category (sort keys %Projects) {
         print JS "    $Category: {\n";
-
-        print JS "        Vers: " . time() . ",\n";
 
         print JS "        Meta: {\n";
         print JS "            $_\n"

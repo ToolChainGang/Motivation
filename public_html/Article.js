@@ -10,6 +10,8 @@
 //     ShowArticle(ArticleName) - Display a specified article in panel form
 //      GetArticle(ArticleName) - Return HTML contents of names panel
 //
+//      NavBarHTML(ArticleName) - Generate the navigation HTML for an article
+//
 //  IsFirstArticle(ArticleName) - Return TRUE if panel is 1st  in series
 //   IsLastArticle(ArticleName) - Return TRUE if panel is last in series
 //
@@ -61,6 +63,14 @@
 
 var ArticleNameRegex = /^[A-Z]{3}\d{2}$/;
 
+var NavTemplate =   '<div class="NavDiv"><hr class="NavSep"/><div class="NavBar">                                                                              \
+            <a id="NavFirst" class="First $FC" title="Start page"    onclick="NavID(\'$FIRST_PAGE\')">« first</a> \
+            <a id="NavPrev"  class="Prev  $PC" title="Previous page" onclick="NavID(\'$PREV_PAGE\' )" >‹ prev</a> \
+            <a id="NavUp"    class="Up    $UC" title="Up a level"    onclick="NavUp()"             >⌃up⌃</a>      \
+            <a id="NavNext"  class="Next  $NC" title="Next page"     onclick="NavID(\'$NEXT_PAGE\' )" >next ›</a> \
+            <a id="NavEnd"   class="Last  $LC" title="End page"      onclick="NavID(\'$LAST_PAGE\' )" >last »</a> \
+            </div></div>';
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -72,10 +82,101 @@ var ArticleNameRegex = /^[A-Z]{3}\d{2}$/;
 //
 function ShowArticle(ArticleName) {
 
-    ArticlePanel.innerHTML = GetHTML(ArticleName);
+    var Article     = GetID(ArticleName);
+    var ArticleHTML = Article.innerHTML.replaceAll("$DAY"     ,     Day)
+                                       .replaceAll("$MAXDAY"  ,  MaxDay)
+                                       .replaceAll("$CATEGORY",Category);
+
+    //
+    // All articles get a navbar, unless they have "class=NoNAV" set
+    //
+    if( !Article.classList.contains("NoNav") )
+        ArticleHTML += NavBarHTML(ArticleName);
+
+    ArticlePanel.innerHTML = ArticleHTML;
     ShowPanel("ArticlePanel");
     }
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// NavBarHTML - Generate the navigation HTML for an article
+//
+// Inputs:      Name of article to generate nav bar for (ex: "FLO00")
+//
+// Outputs:     HTML of generated navbar
+//
+function NavBarHTML(ArticleName) {
+
+    var ANum = ArticleNum(ArticleName);
+    var ANam = ArticleNam(ArticleName);
+
+    var FirstPage;
+    var FirstClass;
+
+    var PrevPage;
+    var PrevClass;
+
+    var NextPage;
+    var NextClass;
+
+    var LastPage;
+    var LastClass;
+
+    //
+    // Grey out the first/prev when at the first page
+    //
+    if( IsFirstArticle(ArticleName) ) {
+        FirstClass = "Disabled";
+        PrevClass  = "Disabled";
+        }
+    else {
+        FirstPage = FirstArticleName(ArticleName);
+        PrevPage  = PrevArticleName (ArticleName);
+        }
+
+    //
+    // Grey out the next/last when at the last page
+    //
+    if( IsLastArticle(ArticleName) ) {
+        NextClass = "Disabled";
+        LastClass = "Disabled";
+        }
+    else {
+        NextPage = NextArticleName(ArticleName);
+        LastPage = LastArticleName(ArticleName);
+        }
+
+    var NavHTML = NavTemplate.replaceAll("$ANAME"     ,ArticleName)
+                             .replaceAll("$FC"        ,FirstClass)
+                             .replaceAll("$PC"        , PrevClass)
+                             .replaceAll("$NC"        , NextClass)
+                             .replaceAll("$LC"        , LastClass)
+                             .replaceAll("$FIRST_PAGE",FirstPage)
+                             .replaceAll("$PREV_PAGE" , PrevPage)
+                             .replaceAll("$NEXT_PAGE" , NextPage)
+                             .replaceAll("$LAST_PAGE" , LastPage);
+
+    return NavHTML;
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// NavID - Navigate to article, by ID
+//
+// Inputs:      Name of article to show (ex: "FLO00")
+//
+// Outputs:     None.
+//
+function NavID(ArticleName) { 
+
+    console.log("Nav: " + ArticleName);
+
+    ShowArticle(ArticleName);
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -116,17 +217,73 @@ function ArticleNam(ArticleName) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
+// FirstArticleName - Return name of first panel
+//
+// Inputs:      Name of current panel (ex: "FLO12")
+//
+// Outputs:     Name of first   panel (ex: "FLO00")
+//
+function FirstArticleName(ArticleName) {
+
+    return ArticleNam(ArticleName) + String(0).padStart(2, '0');
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // NextArticleName - Return name of next panel
 //
 // Inputs:      Name of current panel (ex: "FLO12")
 //
-// Outputs:     Name of next panel
+// Outputs:     Name of next    panel (ex: "FLO13")
 //
 // NOTE: Textual construction only - actual panel of that name may not exist
 //
 function NextArticleName(ArticleName) {
 
     return ArticleNam(ArticleName) + String(1+ArticleNum(ArticleName)).padStart(2, '0');
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// LastArticleName - Return name of last panel
+//
+// Inputs:      Name of current panel (ex: "FLO12")
+//
+// Outputs:     Name of last    panel (ex: "FLO20")
+//
+function LastArticleName(ArticleName) {
+
+    var LastName = ArticleName;
+    while( !IsLastArticle(LastName) ) {
+        LastName = NextArticleName(LastName);
+        }
+
+    return LastName;
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// PrevArticleName - Return name of prev panel
+//
+// Inputs:      Name of current panel (ex: "FLO12")
+//
+// Outputs:     Name of prev panel    (ex: "FL011")
+//
+// NOTE: Will not go below zero
+//
+function PrevArticleName(ArticleName) {
+
+    var ANum = ArticleNum(ArticleName);
+    if( ANum > 0 )
+        ANum -= 1;
+
+    return ArticleNam(ArticleName) + String(ANum).padStart(2, '0');
     }
 
 
@@ -158,5 +315,5 @@ function IsFirstArticle(ArticleName) {
 //
 function IsLastArticle(ArticleName) {
 
-    return GetArticle(NextArticleName) != undefined;
+    return GetID(NextArticleName(ArticleName)) == undefined;
     }

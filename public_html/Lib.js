@@ -16,6 +16,7 @@
 // FadeCancel(Element)          Cancel fade process, and reset element
 //
 // SetCookie(Name,Var,ExpDays)  Set a cookie for later retrieval
+// GetCookie(Name)              Get a previously stored cookie
 //
 // Var = GetCookie(Name)        Get previously stored cookie
 //

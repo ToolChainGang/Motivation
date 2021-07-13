@@ -9,11 +9,12 @@ html {
     }
 
 body {
+    height:             100%;
     display:            table-cell;
     vertical-align:     middle;
 
-    background-color:   WhiteSmoke;
-    font-size:          100%;
+    background-color:   White;
+    font-size:          125%;
     font-family:        "Times New Roman";
     }
 
@@ -21,9 +22,44 @@ body {
     display:            none;
     }
 
+.Article {
+    display:            none;
+    }
+
+.DayBanner {
+    font-style:         italic;
+    font-family:        monospace;
+    font-weight:        lighter;
+    font-size:          100%;
+    }
+
+/***********************************************************************
+ *
+ * Slideshow
+ */
+#SlideshowBegin {
+    border-radius:      9px;
+    border:             none;
+    background:         #06c668;        /* SpringGreen2 */
+    padding:            .375em 1em;
+    line-height:        1.65;
+    cursor:             pointer;
+    transition:         background .3s,border-color .3s,color .3s;
+
+    font-size:          150%;
+    text-align:         center;
+    text-decoration:    none;
+    font-family:        sans-serif;
+    font-weight:        bold;
+    }
+
+#SlideshowBegin:hover {
+    background:         #0ad482;        /* SpringGreen 3 */
+    border-color:       #0ad482;        /* SpringGreen 3 */
+    }
+
 #ImagePanel {
     text-align:         center;
-/*    border: 3px solid green;*/
     }
 
 #WordPanel {
@@ -31,14 +67,116 @@ body {
     font-size:          500%;
     }
 
-#ArticlePanel {
-    text-indent:        3em;
-    }
-
 .SlideImage {       /* <img> containing slide image */
     }
 
 .SlideWord {        /* <div> containing slide word  */
+    }
+
+
+/***********************************************************************
+ *
+ * Navbar
+ */
+a.Disabled {
+    opacity:            0.4;
+    pointer-events:     none;
+    }
+
+.NavDiv {
+    position:           absolute;
+    bottom:             2em;
+    width:              inherit;
+    z-index:            -1;
+    }
+
+.NavSep {
+    margin-top:         5em;
+    height:             1px;
+    width:              100%;
+    }
+
+.NavBar {
+    display:            flex;
+    width:              100%;
+    font-family:        monospace;
+    font-weight:        bold;
+    }
+
+a.First, a.Prev {
+    text-align:         left;
+    float:              left;
+    padding-right:      1em;
+    }
+
+a.Next, a.Last {
+    text-align:         right;
+    float:              right;
+    padding-left:       1em;
+    }
+
+.Up {
+    flex-grow:          1;
+    text-align:         center;
+    }
+
+/***********************************************************************
+ *
+ * Articles
+ */
+#ArticlePanel {
+    display:            flex;
+    flex-direction:     column;
+    height:             80%;
+    }
+
+#ArticleText {
+    background-color:   WhiteSmoke;
+    display:            flex;
+    flex-direction:     column;
+    height:             100%;
+
+	margin-left:        auto;
+    margin-right:       auto;
+
+    width:              70ch;
+    min-width:          70ch;
+
+    padding-left:       1em;
+    padding-right:      1em;
+    padding-bottom:     1em;
+    }
+
+#ArticleText p {
+/*  text-indent:        1em;*/
+    }
+
+.ListHeader {
+    display:            inline-block;
+    font-weight:        bold;
+    }
+
+.NoSpc {
+    padding-top:        0;
+    padding-left:       3em;
+    margin-top:         0;
+    }
+
+ul {
+    text-indent:        0;
+    }
+
+li {
+    padding-left:       0;
+    }
+
+a.Cont {
+    text-align:         right;
+    float:              right;
+    padding-left:       1em;
+    text-decoration:    underline blue;
+    font-family:        monospace;
+    font-weight:        bold;
     }
 
 /***********************************************************************

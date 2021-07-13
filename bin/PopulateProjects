@@ -49,8 +49,6 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'PopulateProjects2021-07-09';
-
 use File::Slurp;
 
 ########################################################################################################################
@@ -65,6 +63,12 @@ my $WordsFile   = "Words.txt";
 my $MetaFile    = "Meta.txt";
 
 my %Projects = (
+Automotive => {
+    Cull    => "IW",
+    Display => "Automotive",
+    Dir     => "Automotive",
+    Keys    => [ mechanic carburetor transmission tires ],
+    },
 Ceramics => {
     Cull    => "IW",
     Display => "Ceramics/Pottery",
@@ -84,92 +88,97 @@ Electronics => {
     Keys    => [ "Electronics", "Transistor", "IC", "Microcontroller", "Circuit", "Chip", "Resistor", "Capacitor", "Inductor" ],
     },
 Fitness => {
-    Cull    => 1W,
+    Cull    => "1W",
     Display => "Fitness",
     Dir     => "Fitness",
     Keys    => [ "Fitness", "Gym", "Gymnasium", "Workout", "Stretch", "Stretching", "Yoga", "Exercise", "Cardio" ],
     },
 HomeRepair => {
-    Cull    => W,
+    Cull    => "W",
     Display => "Home repair",
     Dir     => "HomeRepair",
     Keys    => [ "Home Repair", "Handyman", "Drywall", "Gutter", "Plumber" ],
     },
 Jewelry => {
-    Cull    => 1W,
+    Cull    => "1W",
     Display => "Jewelry",
     Dir     => "Jewelry",
     Keys    => [ "Jewelry", "Ring", "Necklace", "Gem", "Gold", "Silver", "Earrings" ],
     },
 Machining => {
-    Cull    => 1W,
+    Cull    => "1W",
     Display => "Machining",
     Dir     => "Machining",
     Keys    => [ "Machining", "Lathe", "Milling" ],
     },
 MovieVideo => {
-    Cull    => 1W,
+    Cull    => "1W",
     Display => "Movie/video",
     Dir     => "MovieVideo",
     Keys    => [ "Movie", "Video", "Camera", "Video camera", "Video editing", "Film", "Filmmaking" ],
     },
 MusicalInstrument => {
-    Cull    => 1,
+    Cull    => "1W",
     Display => "Musical Instrument",
     Dir     => "MusicalInstrument",
     Keys    => [ "Instrument", "Keyboard", "Strings", "Woodwind", "Brass" ],
     },
 Painting => {
+    Cull    => "W",
     Display => "Painting",
     Dir     => "Painting",
     Keys    => [ "Painting", "Portrait", "Easel", "Palette", "Fine art" ],
     },
 Science => {
-    Cull    => 1,
+    Cull    => "1W",
     Display => "Science",
     Dir     => "Science",
     Keys    => [ "Science", "Technology", "Laboratory", "Scientist", "Research" ],
     },
 Sculpting => {
-    Cull    => 1,
+    Cull    => "1W",
     Display => "Sculpting",
     Dir     => "Sculpting",
     Keys    => [ "Sculpting", "Sculpture", "Statue", "Carving", "Statuary" ],
     },
 Sewing => {
-    Cull    => 1,
+    Cull    => "1W",
     Display => "Sewing",
     Dir     => "Sewing",
     Keys    => [ "Sewing", "Stitch", "Tailor", "Needle", "Tuck", "Sewing machine", "Thread", "Clothing" ],
     },
 Software => {
-    Cull    => 1,
+    Cull    => "1W",
     Display => "Software",
     Dir     => "Software",
     Keys    => [ "Software", "Computer Program", "Programmer", "Server", "Linux", "Application", "Desktop" ],
     },
 Songwriting => {
-    Cull    => 1,
+    Cull    => "1W",
     Display => "Songwriting",
     Dir     => "Songwriting",
     Keys    => [ "Songwriting", "Song", "Lyrics", "Musician", "Music" ],
     },
 Welding => {
+    Cull    => "W",
     Display => "Welding",
     Dir     => "Welding",
     Keys    => [ "Welding", "Spot welding", "Mig welding", "Tig welding", "Arc welding", "Electrode" ],
     },
 WoodHand => {
+    Cull    => "W",
     Display => "Woodworking/hand tools",
     Dir     => "WoodHand",
     Keys    => [ "Woodworking", "Hand tools", "Carpentry", "Wood", "Joinery", "Chisel", "Saw", "Lumber", "Plywood" ],
     },
 WoodPower => {
+    Cull    => "IW",
     Display => "Woodworking/power tools",
     Dir     => "WoodPower",
     Keys    => [ "Woodworking", "Table saw", "Wood router", "Wood", "Lumber", "Plywood" ],
     },
 Writing => {
+    Cull    => "W",
     Display => "Writing",
     Dir     => "Writing",
     Keys    => [ "Writing", "Pen", "Paper", "Script", "Poetry", "Writer", "Print", "Edit", "Publish" ],
@@ -215,6 +224,7 @@ sub PopulateProject {
 
     foreach my $Key (@{$ProjectInfo->{Keys}}) {
 #        `ScrapeImages $Key`;
+#        `ResizeImages`;
 
         #
         # The related-words website doesn't like rapid-fire access, so slow it down by a

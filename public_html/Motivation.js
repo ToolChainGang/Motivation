@@ -64,32 +64,39 @@
 //    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// MotWords[]           # Motivational word data from the server
-//    [Con]->[...]      # Conscientiousness words
-//    [Dop]->[...]      # Dopamine related words (journey, path)
-//    [Int]->[...]      # Intrinsic motivation words
-//    [Joy]->[...]      # Words relating to "Joy"
-//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    var ServerAddr   = "ws:localhost:5000";
-
-    var ServerSocket;
-    var ServerData;
 
     var WindowWidth;
     var WindowHeight;
 
     var Words;
     var Images;
-    var Category;
 
     var Args;
 
     var WordPanel;
     var ImagePanel;
     var ArticlePanel;
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // The cookie is limited to 4K bytes and has significant encoding size, so we pack and unpack it
+    //   using short (and non-mnemonic) identifiers in the MCookie() functions (below).
+    //
+    // The following vars are the unpacked versions of cookie vars.
+    //
+    var CookieName  = "Motivation";
+    var Day         = 0;        // Current day user is at
+    var MaxDay      = 30;       // Max day in course
+    var Homework    = 0;        // TRUE if homework assigned on prev day
+    var Category;
+
+    var StateEnum   = {
+        Intro:  1,              // Never configured, at intro page
+        Manual: 2,              // Manual control, by (for example) URL arg
+        Run:    3,              // Standard run
+        Debug:  4,              // Debug menu
+        };
+    var State       = StateEnum.Intro;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -113,7 +120,14 @@
         //
         WordPanel    = GetID("WordPanel");
         ImagePanel   = GetID("ImagePanel");
-        ArticlePanel = GetID("ArticlePanel");
+        ArticlePanel = GetID("ArticleText");
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // Grab the Cookie and set up the system state
+        //
+        //
+        Cookie = GetMCookie();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -133,12 +147,26 @@
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
+        // URL argument: Debug
+        //
+        // Show the debug menu
+        //
+        if( Args["Debug"] != undefined ) {
+            State = StateEnum.Debug;
+            ShowArticle("DEB00");
+console.log("Enter Debug");
+            return;
+            }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
         // URL argument: Slideshow=$Category
         //
         // Show a specific slideshow and then exit.
         //
         if( Args["Slideshow"] != undefined ) {
             Category = Args["Slideshow"];
+            State    = StateEnum.Manual;
 
             if( Projects[Category] == undefined ) {
                 throw new Error("Unknown project type (" + Category + ").");
@@ -150,6 +178,21 @@
 
             ShowArticle("SLI00");
             CreateSlideshow(Words,Images,"SLI01");
+console.log("Slideshow: "+ Category);
+            return;
+            }
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // URL argument: Lesson=LessonID
+        //
+        // Show the articles for a lesson, then exit.
+        //
+        if( Args["Lesson"] != undefined ) {
+            ArticleID = Args["Lesson"];
+            State = StateEnum.Manual;
+            ShowArticle(ArticleID);
+console.log("Lesson: "+ ArticleID);
             return;
             }
 
@@ -158,22 +201,7 @@
         Words  = Shuffle(Projects.Ceramics.Words);
         Images = Shuffle(Projects.Ceramics.Images);
 
-        //
-        // If "ShowArticles" is given, uncover the list of articles.
-        //
-        // Used for debugging, so the author can run through and edit the text.
-        //
-        if( Args["ShowArticles"] != undefined ) {
-            GetID("ArticleList").style.display = "block";
-
-            var Articles = GetTag("Article");
-            for( let Article of Articles ) {
-                HTML = Article.innerHTML;
-                Article.innerHTML = HTML + '<br /><hr style="height:6px; background-color: lightblue; " /><br />';
-                }
-            }
-
-        else ShowArticle("SLI00");
+        ShowArticle("SLI00");
 
         CreateSlideshow(Words,Images,"SLI01");
         }
@@ -197,3 +225,49 @@ function ShowPanel(PanelName) {
 
     GetID(PanelName).style.display = "block";
     };
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// GetMCookie - Retrieve motivational info from a browser cookie
+//
+// Inputs:      None. (Global vars are used)
+//
+// Outputs:     None. (Cookie is set in document)
+//
+function GetMCookie(Name, Value, ExpireDays) {
+
+    var Cookie = GetCookie(CookieName);
+
+    //
+    // No cookie set - program has never been run, or cookies disabled.
+    //
+    if( Cookie.length == 0 )
+        return;
+
+    State    = Cookie.S;
+    Day      = Cookie.D;
+    Homework = Cookie.H;
+    Category = Cookie.C;
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// SetMCookie - Save motivational info in a browser cookie
+//
+// Inputs:      None. (Global vars are used)
+//
+// Outputs:     None. (Cookie is set in document)
+//
+function SetMCookie(Name, Value, ExpireDays) {
+
+    var Cookie = {
+        S: State,
+        D: Day,
+        H: Homework,
+        C: Category,
+        };
+
+    SetCookie(CookieName,Cookie,60);
+    }

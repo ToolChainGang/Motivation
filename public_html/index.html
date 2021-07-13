@@ -2,7 +2,6 @@
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta http-equiv="Access-Control-Allow-Origin" CONTENT="file:///">
   <meta name="HandheldFriendly"   content="true" />
   <title>Motivator</title>
   <link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
@@ -28,6 +27,8 @@
     </div>
 
 <div id="ArticlePanel" class="Panel">
+    <div id="ArticleText">
+        </div>
     </div>
 
 <div id="ArticleList" style="display: none;">
@@ -50,50 +51,47 @@ to uncover the articles, allowing you to read them sequentially from the main pa
 <span class="WindowURL"></span>
 </article>
 
+<!-- Debug ######################################################################################################### -->
+
+<article id="DEB00">
+<h2>Debug menu</h2>
+
+<ul>
+<li>Autonomy - You decide what to do</li>
+<li>Growth   - You learn something new, or get practice for something you're rusty on</li>
+<li>Excellence - You do a good job</li>
+<li>Usefulness - The project is valuable to yourself, your family, or the community</li>
+</ul>
+
+<!-- Lesson management ############################################################################################# -->
+
+</article>
+
+<article id="LEE00">
+<h2>Lesson complete.</h2>
+<p>This completes the lesson for day $DAY.
+</p>
+
+<p>See you tomorrow.
+</p>
+
+</article>
+
 <!-- Slideshow ##################################################################################################### -->
 
-<template>
- <details>
-  <summary>Epcot Center</summary>
-  <p>Epcot is a theme park at Walt Disney World Resort featuring exciting attractions, international pavilions, award-winning fireworks and seasonal special events.</p>
-</details> 
-
-
-<section>
-<h2>WWF History</h2>
-<p>The World Wide Fund for Nature (WWF) is an international organization working on issues regarding the conservation, research and restoration of the environment, formerly named the World Wildlife Fund. WWF was founded in 1961.</p>
-</section>
-
-
-<h1>The kbd element + CSS</h1>
-
-<p>Press <kbd>Ctrl</kbd> + <kbd>C</kbd> to copy text (Windows).</p>
-
-<p>Press <kbd>Cmd</kbd> + <kbd>C</kbd> to copy text (Mac OS).</p>
-
-
-  <h2>Flower</h2>
-  <img src="img_white_flower.jpg" width="214" height="204">
-</template>
-
-
-
 <article id="SLI00">
-<h2>Slideshow</h2>
-<p>Watch the words and images as they flash by.
+<h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
+<h2>Slideshow ($CATEGORY)</h2>
+<p>Words and images will be shown.
 </p>
 
-<p>Try to identify the emphasized word.
-venus of dolní věstonice
+<p>Watch for the emphasized word.
 </p>
 
-<p>On Occasion, more than one word will be emphasized.
+<p>Occasionaly, more than one word will be emphasized...
 </p>
-
-<p>Click to...
-</p>
-
-<span class="BeginSpan"><button class="BeginButton" onclick="BeginSlideshow()">Start</button></span>
+<h2>&nbsp;</h2>
+<span class="BeginSpan"><button id="SlideshowBegin" onclick="BeginSlideshow()">Start</button></span>
 </article>
 
 <article id="SLI01">
@@ -106,6 +104,87 @@ venus of dolní věstonice
 <input type="radio" id="HWord4" name="HWord" value="$HWORD4"><label for="HWord4">$HWORD4</label><br>
 
 </article>
+
+<!-- Two types of motivation ####################################################################################### -->
+
+<article id="MOT00">
+<h2>Extrinsic and intrinsic motivation</h2>
+
+<p><b>Extrinsic</b> motivations are what you get for completing a project, such as money, fame, encouragement,
+likes, subscribers, or avoiding punishment. They are the rewards you get for finishing.
+</p>
+
+<p><b>Intrinsic</b> motivations come from the project itself, in these categories:
+</p>
+
+<ul>
+<li><span class="ListHeader" style="width: 9ch;">Autonomy</span> - You decide what to do</li>
+<li><span class="ListHeader" style="width: 9ch;">Growth</span>   - You learn something new, or practice something you're rusty at</li>
+<li><span class="ListHeader" style="width: 9ch;">Excellence</span> - You do a good job</li>
+<li><span class="ListHeader" style="width: 9ch;">Usefulness</span> - The project is valuable to you, your family, or the community</li>
+</ul>
+
+<p><a class="Cont" title="Continue" onclick="NavID('MOT01')">Continue ›</a></p>
+</article>
+
+<article id="MOT01">
+<h2>&nbsp;</h2>
+<p><b>Extrinsic</b> motivations work well for <em>routine, repetitive</em> tasks - things you can do automatically,
+without a lot of thought or planning.
+</p>
+<p>For example, a dealership auto mechanic spends his day diagnosing
+and fixing a specific brand of cars. The procedures are well known, require little thought or
+choice, and the paycheck is his extrinsic reward.
+</p>
+
+<p><b>Intrinsic</b> motivations work well for <em>creative</em> tasks.
+</p>
+<p>If that same mechanic goes home to work on a project race car, he will use
+intrinsic motivations:</p>
+
+<ul class="NoSpc">
+<li>He chooses what to do, and how to do it.</li>
+<li>He learns about a different type of vehicle</li>
+<li>He does a good job, and the car looks good</li>
+<li>He wants to start racing</li>
+</ul>
+
+<p>While working on his a project car, the mechanic gains a deep sense of satisfaction.
+</p>
+<p>He enjoys the process.
+</p>
+<p><a class="Cont" title="Continue" onclick="NavID('MOT02')">Continue ›</a></p>
+</article>
+
+<article id="MOT02">
+<h2>&nbsp;</h2>
+<p>Before the next course day, when you get a moment, think about your project and decide which
+of the intrinsic motivations your project is weakest on.
+</p>
+
+<p>Don't spend a lot of time on this, just think about the question when you have spare moments
+over the course of the day. Have your choice ready for the next session.
+</p>
+
+<p>For reference, the intrinsic motivations are:</p>
+
+<ul>
+<li><span class="ListHeader" style="width: 9ch;">Autonomy</span> - You make the decisions</li>
+<li><span class="ListHeader" style="width: 9ch;">Growth</span>   - You learn something new, or practice something you're rusty at</li>
+<li><span class="ListHeader" style="width: 9ch;">Excellence</span> - You do a good job</li>
+<li><span class="ListHeader" style="width: 9ch;">Usefulness</span> - The project is valuable to you, your family, or the community</li>
+</ul>
+
+<h2>&nbsp;</h2>
+<p>Extra credit: Is there a simple change you could make that would strengthen the weak motivation?</p>
+
+<p><a class="Cont" title="Done" onclick="NavID('LEE00')">Done</a></p>
+</article>
+
+<script><!--
+function NavMOT() {
+    }
+--></script>
 
 <!-- Flow ########################################################################################################## -->
 

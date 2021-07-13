@@ -129,7 +129,7 @@ sub ScrapeTerm {
     $URL =~ s/SEARCH_TERM/$Term/;
 
     ScrapeURL($URL);
-    ScrapeURL($URL . "&skip=100");
+#    ScrapeURL($URL . "&skip=100");
     }
 
 

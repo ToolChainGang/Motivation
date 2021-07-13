@@ -56,8 +56,6 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'CullImages2021-06-30';
-
 use Tk;
 use Tk::widgets qw/JPEG PNG TIFF/;
 
@@ -155,7 +153,7 @@ if( $NumDelete ) {
 
         my $Image = $Images[$Index];
 
-        print "Deleting $Image... ";
+        print "Deleting $Image...\n";
         unlink $Image;
         }
     }

@@ -56,8 +56,6 @@ use strict;
 use warnings;
 use Carp;
 
-our $VERSION = 'CullImages2021-06-30';
-
 use Tk;
 use Tk::Text;
 
