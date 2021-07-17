@@ -72,6 +72,7 @@
     var Images;
 
     var Args;
+    var Today;
 
     var WordPanel;
     var ImagePanel;
@@ -131,6 +132,13 @@
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
+        // Set our day, and check against the cookie "next" day
+        //
+        var Now = new Date();
+        Today = Math.floor((Now.getTime() - Now.getTimezoneOffset()*60000)/8.64e7);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
         // Grab the URL arguments.
         //
         // A singleton variable will be set to "" (empty string), while an assignment argument will
@@ -173,12 +181,8 @@ console.log("Enter Debug");
                 return;
                 }
 
-            Words  = Shuffle(Projects[Category].Words);
-            Images = Shuffle(Projects[Category].Images);
-
-            ShowArticle("SLI00");
-            CreateSlideshow(Words,Images,"SLI01");
 console.log("Slideshow: "+ Category);
+            RunSlideshow(Category);
             return;
             }
 
@@ -192,6 +196,7 @@ console.log("Slideshow: "+ Category);
             ArticleID = Args["Lesson"];
             State = StateEnum.Manual;
             ShowArticle(ArticleID);
+
 console.log("Lesson: "+ ArticleID);
             return;
             }

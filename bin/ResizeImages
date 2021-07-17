@@ -68,7 +68,7 @@ use Image::Magick;
 my $MaxWidth  = 1024;   # Max width of image
 my $MaxHeight = 768;    # Max height of image
 
-my @Images = <*.jpg *.jpeg *.gif>;
+my @Images = <*.jpg *.jpeg *.gif *.png *.bmp>;
 
 my $Image = Image::Magick->new;
 

@@ -82,7 +82,17 @@ var NavTemplate =   '<div class="NavDiv"><hr class="NavSep"/><div class="NavBar"
 //
 function ShowArticle(ArticleName) {
 
-    var Article     = GetID(ArticleName);
+    var Article = GetID(ArticleName);
+
+    //
+    // Turn off the day banner in manual mode (and Day == 0)
+    //
+    var Banner  = Article.getElementsByClassName("DayBanner");
+    if( Banner.length ) {
+        if( Day == 0 )
+            Banner[0].style.display = "none";
+        }
+
     var ArticleHTML = Article.innerHTML.replaceAll("$DAY"     ,     Day)
                                        .replaceAll("$MAXDAY"  ,  MaxDay)
                                        .replaceAll("$CATEGORY",Category);

@@ -8,8 +8,9 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// CreateSlideshow  Create a slideshow for the user
-// BeginSlideshow   Start (and run) the slideshow
+// RunSlideshow     Create and start the slideshow
+// BeginSlideshow   Begin the actual slideshow process
+// NextSlide        Show the next slide in the slideshow
 // ProcessKBESC     Process ESC chars typed during the slideshow
 // ShowSlide        Show a slideshow slide
 // ShowWord         Show single word slideshow slide
@@ -50,7 +51,6 @@
 var NumSlides = 60;         // Number of slides to show
 var SlideMS   = 700;        // MS per slide
 var ImgChance = 2.0/6.0;    // Prob that a slide will have an image
-var SlideEnd;               // Name of article to show at the end
 
 var SlideNo;                // Number of slide we're currently at (0 .. NumSlides-1)
 var Slides = [];            // Array of slides to show
@@ -75,17 +75,23 @@ var HWordTemplate = '<input type="radio" id="HWord1" name="HWord" value="$HWORD1
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// CreateSlideshow - Create a slideshow for the user
+// RunSlideshow - Create and run the slideshow
 //
-// Inputs:      Array of words to draw from
-//              Array of images to draw from
-//              Article to show at the end
+// Inputs:      Category of slides to show
 //
-// Outputs:     None. (The Slides[] array is filled)
+// Outputs:     None.
 //
-function CreateSlideshow(Words,Images,EndArticle) {
+function RunSlideshow(Category) {
 
-    SlideEnd = EndArticle;
+    if( Projects[Category] == undefined ) {
+        throw new Error("Unknown project type (" + Category + ").");
+        return;
+        }
+
+    ShowArticle("SLI00");
+
+    Words  = Shuffle(Projects[Category].Words);
+    Images = Shuffle(Projects[Category].Images);
 
     RWords  = Shuffle(Words);
     RImages = Shuffle(Images);
@@ -117,36 +123,28 @@ function CreateSlideshow(Words,Images,EndArticle) {
             break;
             }
         }
-
-    var EndPanel = GetID(EndArticle);
-
-    EndPanel.innerHTML = HWordTemplate.replaceAll("$HWORD1",HWords[0])
-                                      .replaceAll("$HWORD2",HWords[1])
-                                      .replaceAll("$HWORD3",HWords[2])
-                                      .replaceAll("$HWORD4",HWords[3]);
     }
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// BeginSlideshow - Start (and run) the slideshow
+// BeginSlideshow - Begin the actual slideshow
 //
 // Inputs:      None.
 //
 // Outputs:     None.
 //
-// The "Press START to begin" page is showing. Fade that page out, wait a moment, then run the slideshow. 
-//
 function BeginSlideshow() {
 
     FadeOut(ArticlePanel);
 
+    SlideNo = 0;
+
     SlideTimer = setInterval(function () {
         clearInterval(SlideTimer);
-        SlideNo        = 0;
         SlideTimer = setInterval(function () {
-            RunSlideshow();
+            NextSlide();
             },SlideMS);
         },2000);
     }
@@ -155,23 +153,33 @@ function BeginSlideshow() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// RunSlideshow - Run the slideshow
+// NextSlide - Show the next slide
 //
 // Inputs:      None.
 //
 // Outputs:     None.
 //
-function RunSlideshow() {
-
-    ShowSlide(SlideNo++);
+function NextSlide() {
 
     if( SlideNo < Slides.length )
-        return;
+        return ShowSlide(SlideNo++);
 
     clearInterval(SlideTimer);
+    ShowArticle("SLE00");
 
-    ShowArticle(SlideEnd);
-    FadeIn(ArticlePanel);
+    var EndPanel = GetID("SLE00");
+
+    EndPanel.innerHTML = HWordTemplate.replaceAll("$HWORD1",HWords[0])
+                                      .replaceAll("$HWORD2",HWords[1])
+                                      .replaceAll("$HWORD3",HWords[2])
+                                      .replaceAll("$HWORD4",HWords[3]);
+
+    SlideTimer = setInterval(function () {
+        clearInterval(SlideTimer);
+        SlideTimer = setInterval(function () {
+            FadeIn(ArticlePanel);
+            },SlideMS);
+        },1000);
     }
 
 

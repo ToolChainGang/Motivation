@@ -169,7 +169,7 @@ sub AddCategory {
 
     ####################################################################################################################
 
-    my @Images = <*.jpg *.jpeg *.gif>;
+    my @Images = <*.jpg *.jpeg *.gif *.png *.bmp>;
 
     die "No images found for project $Category"
         unless scalar @Images;

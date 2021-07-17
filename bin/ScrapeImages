@@ -101,7 +101,7 @@ die "No search terms found."
 # Note the existing images in the directory, so we don't have to download what we already have
 #
 $ImageNames{$_} = 1
-    foreach glob "*.jpg *.jpeg *.png";
+    foreach glob "*.jpg *.jpeg *.png *.gif *.bmp";
 
 ScrapeTerm($_)
     foreach @SearchTerms;

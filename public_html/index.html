@@ -11,6 +11,7 @@
   <script src=       "Lib.js"></script>
   <script src= "SlideShow.js"></script>
   <script src=   "Article.js"></script>
+  <script src=   "Lessons.js"></script>
   <script src=  "Projects.js"></script>
   </head>
 
@@ -40,7 +41,7 @@ to uncover the articles, allowing you to read them sequentially from the main pa
 
 <!-- Cookies required ############################################################################################## -->
 
-<article id="COO00">
+<article id="COO00" class="NoNav">
 <h2>Cookies required</h2>
 <p>The course uses cookies to keep track of your progress.
 </p>
@@ -53,7 +54,7 @@ to uncover the articles, allowing you to read them sequentially from the main pa
 
 <!-- Debug ######################################################################################################### -->
 
-<article id="DEB00">
+<article id="DEB00" class="NoNav">
 <h2>Debug menu</h2>
 
 <ul>
@@ -62,30 +63,52 @@ to uncover the articles, allowing you to read them sequentially from the main pa
 <li>Excellence - You do a good job</li>
 <li>Usefulness - The project is valuable to yourself, your family, or the community</li>
 </ul>
+</article>
 
 <!-- Lesson management ############################################################################################# -->
 
+<article id="LES00" class="NoNav">
+<h2>&nbsp;</h2>
+<p>Do you have time for today's lesson?
+</p>
+<p><a class="Cont" title="Continue" onclick="StartLesson()">Yes, show today's lesson ›</a></p>
+<p><a class="Cont" title="Continue" onclick="SkipLesson()" >No, I don't have time right now ›</a></p>
 </article>
 
-<article id="LEE00">
-<h2>Lesson complete.</h2>
-<p>This completes the lesson for day $DAY.
+<article id="LEN00" class="NoNav">
+<h2>&nbsp;</h2>
+<p>This completes today's program.
+</p>
+<p>Until next time.
+</p>
+</article>
+
+<article id="LEW00" class="NoNav">
+<h2>&nbsp;</h2>
+<p>This program will wait at day $DAY of $MAXDAY until you have completed the lesson.
+</p>
+<p>Until next time.
+</p>
+</article>
+
+<article id="LEC00" class="NoNav">
+<h2>&nbsp;</h2>
+<p>This completes today's lesson.
 </p>
 
-<p>See you tomorrow.
+<p>Until next time.
 </p>
-
 </article>
 
 <!-- Slideshow ##################################################################################################### -->
 
-<article id="SLI00">
+<article id="SLI00" class="NoNav">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>Slideshow ($CATEGORY)</h2>
-<p>Words and images will be shown.
+<p>Watch the words and images as they appear on your screen.
 </p>
 
-<p>Watch for the emphasized word.
+<p>See if you can find the emphasized word.
 </p>
 
 <p>Occasionaly, more than one word will be emphasized...
@@ -94,7 +117,7 @@ to uncover the articles, allowing you to read them sequentially from the main pa
 <span class="BeginSpan"><button id="SlideshowBegin" onclick="BeginSlideshow()">Start</button></span>
 </article>
 
-<article id="SLI01">
+<article id="SLE00" class="NoNav">
 <p>Which word was emphasized?
 </p>
 
@@ -102,12 +125,11 @@ to uncover the articles, allowing you to read them sequentially from the main pa
 <input type="radio" id="HWord2" name="HWord" value="$HWORD2"><label for="HWord2">$HWORD2</label><br>
 <input type="radio" id="HWord3" name="HWord" value="$HWORD3"><label for="HWord3">$HWORD3</label><br>
 <input type="radio" id="HWord4" name="HWord" value="$HWORD4"><label for="HWord4">$HWORD4</label><br>
-
 </article>
 
 <!-- Two types of motivation ####################################################################################### -->
 
-<article id="MOT00">
+<article id="MOA00">
 <h2>Extrinsic and intrinsic motivation</h2>
 
 <p><b>Extrinsic</b> motivations are what you get for completing a project, such as money, fame, encouragement,
@@ -124,11 +146,10 @@ likes, subscribers, or avoiding punishment. They are the rewards you get for fin
 <li><span class="ListHeader" style="width: 9ch;">Usefulness</span> - The project is valuable to you, your family, or the community</li>
 </ul>
 
-<p><a class="Cont" title="Continue" onclick="NavID('MOT01')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('MOA01')">Continue ›</a></p>
 </article>
 
-<article id="MOT01">
-<h2>&nbsp;</h2>
+<article id="MOA01">
 <p><b>Extrinsic</b> motivations work well for <em>routine, repetitive</em> tasks - things you can do automatically,
 without a lot of thought or planning.
 </p>
@@ -153,11 +174,10 @@ intrinsic motivations:</p>
 </p>
 <p>He enjoys the process.
 </p>
-<p><a class="Cont" title="Continue" onclick="NavID('MOT02')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('MOA02')">Continue ›</a></p>
 </article>
 
-<article id="MOT02">
-<h2>&nbsp;</h2>
+<article id="MOA02">
 <p>Before the next course day, when you get a moment, think about your project and decide which
 of the intrinsic motivations your project is weakest on.
 </p>
@@ -178,13 +198,168 @@ over the course of the day. Have your choice ready for the next session.
 <h2>&nbsp;</h2>
 <p>Extra credit: Is there a simple change you could make that would strengthen the weak motivation?</p>
 
-<p><a class="Cont" title="Done" onclick="NavID('LEE00')">Done</a></p>
+<p><a class="Cont" title="Done" onclick="NavID('LEC00')">Done</a></p>
 </article>
 
 <script><!--
 function NavMOT() {
     }
 --></script>
+
+<!-- Neurochemistry of motivation ################################################################################## -->
+
+<article id="NCA00">
+<h2>The neurochemistry of motivation</h2>
+
+<p>Knowing the neurochemistry of motivation can help. Knowing how things work and how they interrelate can help
+you make changes that will work, instead of making changes based on guesswork.
+</p>
+<p>The following pages describe, in broad terms, how the brain manages motivation using neurotransmitters
+and neuroreceptors. We start with a quick overview of these concepts.
+</p>
+<p>If you already know about neurotransmitters and neuroreceptors, you can skip the overview and start
+with the section on motivation.
+</p>
+<p>If you don't know what neurotransmitters are, or you would like a refresher, start with that section.
+That section will automatically lead into the motivation section after.
+</p>
+
+<p><a class="Cont" title="Read about neurotransmitters" onclick="NavID('NCA01')">Overview of neurotransmitters ›</a></p>
+<p><a class="Cont" title="Read about neurotransmitters" onclick="NavID('NCA01')">The Neurochemistry of motivation ›</a></p>
+</article>
+
+<article id="NCA01">
+<h2>Neurotransmitters and neuroreceptors</h2>
+
+<p>Neurotransmitters are chemicals that a neuron uses to signal another neuron. 
+</p>
+
+<p>This signalling happens at a special point called a "synapse" on the neuron body - it's a place where the
+body of one neuron almost touches the body of another. Whenever one neuron wants to signal another, it releases
+neurotransmitter molecules at the synapse junction. The molecules diffuse over to the other neuron and bind to the
+corresponding receptor, sending a signal that excites the target neuron.
+</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('NCA02')">Continue ›</a></p>
+</article>
+
+<article id="NCA02">
+<p>Once the signal is delivered, the target neuron releases the neurotransmitters. The molecules diffuse back
+to the originating neuron, where they are collected and stored to use for future signaling.
+</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('NCA03')">Continue ›</a></p>
+</article>
+
+<article id="NCA03">
+<h2>Neurotransmitters and neuroreceptors</h2>
+
+<p>There are over 100 neurotransmitters used in the brain, but for our purposes we only need to know
+about three: NorEpinephrine, Dopamine, and Serotonin, which are responsible for activity, pleasure,
+and reward.
+</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('NCA04')">Continue ›</a></p>
+</article>
+
+<article id="NCA04">
+<p>Before we begin, we need to sort out some nomenclature.
+</p>
+<p>Adrenaline and Epinephrine are two names for the same chemical. It was discovered independently
+by two laboratories at about the same time.
+NorEpinephrine and NorAdrenaline are two names for a different chemical. It was
+discovered by the same laboratories at about the same time.
+</p>
+<p>Epinephrine and NorEpinephrine are the names used in the US, while Adrenaline and NorAdrenaline are
+used in the UK. Across the rest of the world different countries use one term or the other.
+</p>
+<p>Such is the way of science.
+</p>
+<p>For the rest of the course, this program will use both terms with a slash between the
+equivalent names. Epinephrine/Adrenaline will be the "fight-or-flight" neurotransmitter, and
+NorEpinephrine/NorAdrenaline will be the "action" neurotransmitter.
+</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('NCA05')">Continue ›</a></p>
+</article>
+
+<article id="NCA05">
+<h2>NorEpinephrine/NorAdrenaline, the neurotransmitter of action</h2>
+<p>Adrenaline/Epinephrine prepares your body (and mind) for a jolt of activity:
+fight or flight, something you might have to do to survive.
+</p>
+<p>NorAdrenaline/NorEpinephrine is a weaker version that's used for day-to-day decision
+making. Every time you decide to do something (or not to do something), your brain uses
+a little bit of Adrenaline/Epinephrine to start the action.
+</p>
+<p>You may have heard the expression "burning the candle at both ends".
+</p>
+<p>If NorAdrenaline/NorEpinephrine is like burning a candle, Adrenaline/Epinephrine
+is like burning rocket fuel.
+</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('NCA06')">Continue ›</a></p>
+</article>
+
+<!-- Failure ####################################################################################################### -->
+
+<article id="FAL00">
+<h2>Dealing with failure</h2>
+
+<p>Thomas Edison famously made over 10,000 failed attempts before finally getting a working light bulb. When asked
+by a reporter “How did it feel to fail 10,000 times?” Edison replied, “I didn't fail 10,000 times.
+I’ve successfully found 10,000 ways that will not work.”
+</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('FAL01')">Continue ›</a></p>
+</article>
+
+<article id="FAL01">
+<p>It's really more complicated than that.
+</p>
+<p>Success or failure is part of the rewards mechanism, which is governed by extrinsic
+motivations. And as we have learned, extrinsic motivations play no part in whether we enjoyed
+doing the project.
+</p>
+<p><a class="Cont" title="Continue" onclick="NavID('FAL02')">Continue ›</a></p>
+</article>
+
+
+<article id="FAL02">
+<p>So how should we handle failure?
+</p>
+<p>Firstly, note that failure comes at the end, or perhaps causes the end of your project.
+If you're still working, if you still see a way to proceed, then you haven't failed.
+</p>
+<p>Secondly, in almost all cases failure is a stepping stone to success. There are innumerable
+examples of people failing over and over, only to succeed in the end. Thomas Edison is perhaps
+an extreme example (10,000 tries - yikes!), but the principle is seen everywhere.
+</p>
+<p>Thirdly, even in the rare cases where a project fails, is it a complete failure?
+</p>
+<p>Consider:</p>
+<ul>
+<li>Did you learn anything new?</li>
+<li>Did you advance your technique?</li>
+<li>Can you salvage something useful for another project?</li>
+</ul>
+<p>It's extremely rare for a project ro fail completely. In nearly all cases
+there will still be some value in having made the journey.
+</p>
+<p>To summarize: <b>Don't be discouraged by failure.</b></p>
+
+<p><a class="Cont" title="Done" onclick="NavID('LEC00')">Done</a></p>
+</article>
+
+<!-- Addiction ##################################################################################################### -->
+
+<article id="ADD00">
+<h2>Creative addiction</h2>
+
+
+<p><a class="Cont" title="Continue" onclick="NavID('ADD01')">Continue ›</a></p>
+</article>
+
 
 <!-- Flow ########################################################################################################## -->
 

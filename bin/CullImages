@@ -90,7 +90,7 @@ my $ScreenHeight = $MainWindow->screenheight();
 my $ImageWidth   = int (($ScreenWidth-$Something) /$MaxColumns);
 my $ImageHeight  = int (($ScreenHeight-$TitleHeight)/$MaxRows);
 
-my @Images = <*.jpg *.jpeg *.gif>;
+my @Images = <*.jpg *.jpeg *.gif *.png *.bmp>;
 my @Delete = ((0) x scalar @Images);
 
 my $Row;
@@ -204,10 +204,14 @@ sub AddImage {
 
     my $ImageFile = $Images[$ImageIndex];
     my $Image     = MakeTkImage($ImageFile,$ImageWidth,$ImageHeight);
-    my $Button    = $MainWindow->Button(-image => $Image, -text => $ImageFile, -borderwidth => 0, -relief => "flat")
-                               ->grid(-row => $Row, -column => $Column, -sticky => 'n');
 
-    $Button->bind('<ButtonRelease-1>' => \&ImageClick);
+    if( defined $Image ) {
+        my $Button    = $MainWindow->Button(-image => $Image, -text => $ImageFile, -borderwidth => 0, -relief => "flat")
+                                   ->grid(-row => $Row, -column => $Column, -sticky => 'n');
+        $Button->bind('<ButtonRelease-1>' => \&ImageClick);
+        }
+
+    $ImageIndex++;
 
     $Column += 1;
 
@@ -215,8 +219,6 @@ sub AddImage {
         $Column = 0;
         $Row++;
         }
-
-    $ImageIndex++;
     }
 
 sub ImageClick {
@@ -248,6 +250,7 @@ sub ImageClick {
 #           Height  Height of image, in pixels
 #
 # Outputs:  [Reference to] the created Tk::Image object
+#           undef if image load fails
 #
 sub MakeTkImage {
     my $ImageFile   = shift;
@@ -256,7 +259,14 @@ sub MakeTkImage {
 
     $IMImage->Read($ImageFile);
     $IMImage->Scale(geometry => "${ImageWidth}x${ImageHeight}");
-    my $Data = encode_base64($IMImage->ImageToBlob());
+    my $Blob = $IMImage->ImageToBlob();
+
+    unless( defined $Blob ) {
+        print "Cannot load image: $ImageFile\n";
+        return undef;
+        }
+
+    my $Data = encode_base64($Blob);
     undef @$IMImage;                                # Blank $Image object
 
     return $MainWindow->Photo(-data  => $Data);
