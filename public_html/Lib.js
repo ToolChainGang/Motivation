@@ -11,6 +11,9 @@
 // GetHTML(ID)                  Get innerHTML of element by ID, with error checking
 // GetClass(Class)              Get all elements by class name, with error checking
 //
+// HideID(ID)                   Get element by ID and hide   it
+// ShowID(ID)                   Get element by ID and reveal it
+//
 // FadeOut   (Element)          Fade out an element
 // FadeIn    (Element)          Fade in an element
 // FadeCancel(Element)          Cancel fade process, and reset element
@@ -21,7 +24,7 @@
 // Var = GetCookie(Name)        Get previously stored cookie
 //
 // DeleteCookie(Name)           Remove previously stored cookie
-// CookiesEnabled(Name)         Return TRUE if cookies can be set
+// CookiesEnabled()             Return TRUE if cookies can be set
 //
 // JSONURI(Var)                 Encode var into JSON, URI compatible
 // URIJSON(URI)                 Decode var from URI,  JSON encoded
@@ -118,6 +121,44 @@ function GetTag(Tag) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
+// ShowID - Get element by ID and reveal it
+//
+// Inputs:      ID of element to get
+//
+// Outputs:     None.
+//
+function ShowID(ID) {
+
+    var Element = document.getElementById(ID)
+    if( Element === undefined ) 
+        throw new Error("Cannot find element (" + ID + ".");
+
+    Element.style.display = "block";
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// HideID - Get element by ID and hide it
+//
+// Inputs:      ID of element to get
+//
+// Outputs:     None.
+//
+function HideID(ID) {
+
+    var Element = document.getElementById(ID)
+    if( Element === undefined ) 
+        throw new Error("Cannot find element (" + ID + ".");
+
+    Element.style.display = "none";
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // GetHTML - Get innerHTML of element by ID, with error checking
 //
 // Inputs:      Element to get
@@ -143,12 +184,15 @@ function FadeOut(Element) {
 
     var op = 1;  // Initial opacity
 
+    Element.style.opacity = op;
+    Element.style.filter  = 'alpha(opacity=' + op * 100 + ")";
+
     FadeTimer = setInterval(function () {
         if( op <= 0 ){
             clearInterval(FadeTimer);
             Element.style.display = 'none';
             Element.style.filter  = "none";
-            Element.style.opacity = 0;
+            Element.style.opacity = 1;
             return;
             }
         Element.style.opacity = op;
@@ -171,6 +215,10 @@ function FadeIn(Element) {
 
     var op = 0;     // Initial opacity
 
+    Element.style.opacity = op;
+    Element.style.filter  = 'alpha(opacity=' + op * 100 + ")";
+    Element.style.display = 'block';
+
     FadeTimer = setInterval(function () {
         if( op >= 1 ){
             clearInterval(FadeTimer);
@@ -181,7 +229,7 @@ function FadeIn(Element) {
             }
         Element.style.opacity = op;
         Element.style.filter  = 'alpha(opacity=' + op * 100 + ")";
-        op += 1.0/FadeSteps;;
+        op += 1.0/FadeSteps;
         }, FadeStepMS);
     }
 
@@ -198,9 +246,9 @@ function FadeIn(Element) {
 function FadeCancel(Element) {
 
     clearInterval(FadeTimer);
-    Element.style.display = 'block';
-    Element.style.filter  = "none";
     Element.style.opacity = 1;
+    Element.style.filter  = "none";
+    Element.style.display = 'block';
     }
 
 

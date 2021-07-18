@@ -64,14 +64,6 @@ var HighlightFunctions = [
 
 var SlideTimer;
 
-var KEYCODE_ENTER = 13;
-var KEYCODE_ESC   = 27;
-
-var HWordTemplate = '<input type="radio" id="HWord1" name="HWord" value="$HWORD1"><label for="HWord1">$HWORD1</label><br>\
-                     <input type="radio" id="HWord2" name="HWord" value="$HWORD2"><label for="HWord2">$HWORD2</label><br>\
-                     <input type="radio" id="HWord3" name="HWord" value="$HWORD3"><label for="HWord3">$HWORD3</label><br>\
-                     <input type="radio" id="HWord4" name="HWord" value="$HWORD4"><label for="HWord4">$HWORD4</label><br>';
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -83,12 +75,28 @@ var HWordTemplate = '<input type="radio" id="HWord1" name="HWord" value="$HWORD1
 //
 function RunSlideshow(Category) {
 
+    State = StateEnum.Slideshow;
+
     if( Projects[Category] == undefined ) {
         throw new Error("Unknown project type (" + Category + ").");
         return;
         }
 
-    ShowArticle("SLI00");
+    if( SlideIntroSeen == 0 ) {         // First time: Give a longer, more explanatory description
+        ShowArticle("SLI00");
+        SlideIntroSeen = 1;
+        SetMCookie();
+        }
+    else {
+        if( LessonCDay == TodayCDay ) { // Second viewing on single day
+            ShowArticle("SLI10");
+            SlideMultiSeen = 1;
+            SetMCookie();
+            }
+        else {
+            ShowArticle("SLI20");       // Normal: Show a brief description
+            }
+        }
 
     Words  = Shuffle(Projects[Category].Words);
     Images = Shuffle(Projects[Category].Images);
@@ -137,6 +145,16 @@ function RunSlideshow(Category) {
 //
 function BeginSlideshow() {
 
+    //
+    // Process user ESC
+    //
+    if( State == StateEnum.Abort ) {
+        clearInterval(SlideTimer);
+        FadeCancel(ArticlePanel);
+        ShowArticle("SLE10");
+        return;
+        }
+
     FadeOut(ArticlePanel);
 
     SlideNo = 0;
@@ -161,44 +179,42 @@ function BeginSlideshow() {
 //
 function NextSlide() {
 
+    //
+    // Process user ESC
+    //
+    if( State == StateEnum.Abort ) {
+        clearInterval(SlideTimer);
+        ShowArticle("SLE10");
+        FadeCancel(ArticlePanel);
+        return;
+        }
+
     if( SlideNo < Slides.length )
         return ShowSlide(SlideNo++);
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // End slideshow
+    //
     clearInterval(SlideTimer);
-    ShowArticle("SLE00");
 
     var EndPanel = GetID("SLE00");
 
-    EndPanel.innerHTML = HWordTemplate.replaceAll("$HWORD1",HWords[0])
-                                      .replaceAll("$HWORD2",HWords[1])
-                                      .replaceAll("$HWORD3",HWords[2])
-                                      .replaceAll("$HWORD4",HWords[3]);
+    EndHTML = EndPanel.innerHTML.replaceAll("$HWORD1",HWords[0])
+                                .replaceAll("$HWORD2",HWords[1])
+                                .replaceAll("$HWORD3",HWords[2])
+                                .replaceAll("$HWORD4",HWords[3]);
 
+    ArticlePanel.innerHTML = EndHTML;
+
+    //
+    // Wait 1 sec, then fade in the end panel
+    //
+    ShowPanel("ArticlePanel");
     SlideTimer = setInterval(function () {
         clearInterval(SlideTimer);
-        SlideTimer = setInterval(function () {
-            FadeIn(ArticlePanel);
-            },SlideMS);
+        FadeIn(ArticlePanel);
         },1000);
-    }
-
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// ProcessKBESC - Process ESC chars typed during the slideshow
-//
-// Inputs:      The event
-//
-// Outputs:     None.
-//
-function ProcessKBESC(Event) {
-
-    if( event.keyCode != KEYCODE_ESC )
-        return;
-
-    cleartimeout(SlideTimer);
-    FadeCancel(ArticlePanel);
     }
 
 

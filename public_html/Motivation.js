@@ -64,6 +64,20 @@
 //    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// The following suffixes are used to make the date units clear.
+//
+// A "CDay" is a calendar day, adjusted for the user's timezone. It is the number of days since the
+//   epoch in the user's timezone, and will be an integer in the neighborhood of 18,000.
+//
+// An "LDay" is a lesson day. It's an integer from 1 to MaxLDay (probably 1 .. 30).
+//
+// Thus, "TodayCDay" is today, in days, while "LessonCDay" is the calendar day when the lesson
+//   was achieved, and so on.
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    var Debug = 0;          // Set to TRUE to enable debug functions
 
     var WindowWidth;
     var WindowHeight;
@@ -72,7 +86,8 @@
     var Images;
 
     var Args;
-    var Today;
+    var MaxLDay = 30;       // Max day in course
+    var TodayCDay;
 
     var WordPanel;
     var ImagePanel;
@@ -85,23 +100,27 @@
     //
     // The following vars are the unpacked versions of cookie vars.
     //
-    var CookieName  = "Motivation";
-    var Day         = 0;        // Current day user is at
-    var MaxDay      = 30;       // Max day in course
-    var Homework    = 0;        // TRUE if homework assigned on prev day
-    var Category;
+    var CookieName     = "Motivation";
+    var CookieURL      = window.location.href.split('?')[0];
+    var StartCDay      = 0;     // Calendar day when lesson arc started
+    var LessonLDay     = 0;     // Current lesson   day user is at
+    var LessonCDay     = 0;     // Current calendar day user achieved leddon
+    var SlideIntroSeen = 0;     // FALSE on very first slideshow
+    var SlideMultiSeen = 0;     // FALSE unless 2nd slideshow in single day
+    var Category;               // Category of user's project (ex: "Pottery")
 
     var StateEnum   = {
-        Intro:  1,              // Never configured, at intro page
-        Manual: 2,              // Manual control, by (for example) URL arg
-        Run:    3,              // Standard run
-        Debug:  4,              // Debug menu
+        Intro:      1,          // Never configured, at intro page
+        Manual:     2,          // Manual control, by (for example) URL arg
+        Slideshow:  3,          // In slideshow
+        Abort:      4,          // Abort (temp state for slideshow)
+        Run:        5,          // Standard run
         };
     var State       = StateEnum.Intro;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // On first load, calculate reliable page dimensions and do page-specific initialization
+    // On first load, calculate a bunch of stuff.
     //
     window.onload = function() {
         //
@@ -109,12 +128,6 @@
         //
         WindowWidth  = window.innerWidth  || document.documentElement.clientWidth  || document.body.clientWidth;
         WindowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-        var BaseURL = window.location.href.split('?')[0];           // Remove any arguments
-        var Panels  = GetClass("WindowURL");
-
-        for( let Panel of Panels )
-            Panel.innerHTML = BaseURL;
 
         //
         // These are frequently used. Get the locations and check for existance once at startup
@@ -125,17 +138,18 @@
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
-        // Grab the Cookie and set up the system state
-        //
-        //
-        Cookie = GetMCookie();
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //
-        // Set our day, and check against the cookie "next" day
+        // Set our day, and grab the cookie data. If cookies can't be set, then cannot run program.
         //
         var Now = new Date();
-        Today = Math.floor((Now.getTime() - Now.getTimezoneOffset()*60000)/8.64e7);
+        TodayCDay  = Math.floor((Now.getTime() - Now.getTimezoneOffset()*60000)/8.64e7);
+
+        if( !CookiesEnabled() ) {
+            var CookieURL = window.location.href.split('?')[0];         // Remove any arguments
+            ShowArticle("COO00");
+            return;
+            }
+
+        GetMCookie();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -151,19 +165,6 @@
             var Pair = Var.split("=");
             if( Pair[1] ) Args[Pair[0]] = Pair[1];
             else          Args[Pair[0]] = "";
-            }
-
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //
-        // URL argument: Debug
-        //
-        // Show the debug menu
-        //
-        if( Args["Debug"] != undefined ) {
-            State = StateEnum.Debug;
-            ShowArticle("DEB00");
-console.log("Enter Debug");
-            return;
             }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -202,13 +203,23 @@ console.log("Lesson: "+ ArticleID);
             }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //
+        // URL argument: Day=DayNo
+        //
+        // Set the system to a particular day, and run
+        //
+        if( Args["Day"] != undefined ) {
+            LessonDay = Args["Day"];
+            State = StateEnum.Manual;
 
-        Words  = Shuffle(Projects.Ceramics.Words);
-        Images = Shuffle(Projects.Ceramics.Images);
+console.log("Lesson: "+ ArticleID);
+            return;
+            }
 
-        ShowArticle("SLI00");
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        CreateSlideshow(Words,Images,"SLI01");
+        if( LessonLDay > 0 ) RunSlideshow(Category);
+        else                 ShowArticle("TOC00");
         }
 
 
@@ -234,13 +245,77 @@ function ShowPanel(PanelName) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
+// ProcessKB - Process KB chars
+//
+// Inputs:      The event
+//
+// Outputs:     None.
+//
+var KEYCODE_ENTER = 13;
+var KEYCODE_ESC   = 27;
+var KEYCODE_D     = 68;
+var KEYCODE_L     = 76;
+var KEYCODE_S     = 83;
+
+function ProcessKB(Event) {
+
+    if( event.keyCode == KEYCODE_ESC ) {
+        //
+        // ESC is to abort slideshow
+        //
+        if( State == StateEnum.Slideshow ) {
+            State = StateEnum.Abort;
+            return;
+            }
+        //
+        // ESC otherwise
+        //
+        ShowArticle("LEW02");
+        return;
+        }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Debug functions - Enable with "Debug" var, at top
+    //
+    if( !Debug )
+        return;
+
+    //
+    // <ALT>-D  Enter day and run
+    //
+    if( event.keyCode == KEYCODE_D ) {
+        return;
+        }
+
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// ConfigSetCat - Set the category, as part of the configuration process
+//
+// Inputs:      Element user clicked on
+//
+// Outputs:     None. (Cookie is set in document)
+//
+function ConfigSetCat(UserCategory) {
+
+    Category = UserCategory;
+    SetMCookie();
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // GetMCookie - Retrieve motivational info from a browser cookie
 //
 // Inputs:      None. (Global vars are used)
 //
 // Outputs:     None. (Cookie is set in document)
 //
-function GetMCookie(Name, Value, ExpireDays) {
+function GetMCookie() {
 
     var Cookie = GetCookie(CookieName);
 
@@ -250,10 +325,13 @@ function GetMCookie(Name, Value, ExpireDays) {
     if( Cookie.length == 0 )
         return;
 
-    State    = Cookie.S;
-    Day      = Cookie.D;
-    Homework = Cookie.H;
-    Category = Cookie.C;
+    State          = Cookie.S;
+    LessonLDay     = Cookie.LD;
+    LessonCDay     = Cookie.CD;
+    StartCDay      = Cookie.SC;
+    Category       = Cookie.C;
+    SlideIntroSeen = Cookie.SI;
+    SlideMultiSeen = Cookie.SM;
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -265,13 +343,16 @@ function GetMCookie(Name, Value, ExpireDays) {
 //
 // Outputs:     None. (Cookie is set in document)
 //
-function SetMCookie(Name, Value, ExpireDays) {
+function SetMCookie() {
 
     var Cookie = {
-        S: State,
-        D: Day,
-        H: Homework,
-        C: Category,
+        S:  State,
+        LD: LessonLDay,
+        CD: LessonCDay,
+        SC: StartCDay,
+        C:  Category,
+        SI: SlideIntroSeen,
+        SM: SlideMultiSeen,
         };
 
     SetCookie(CookieName,Cookie,60);

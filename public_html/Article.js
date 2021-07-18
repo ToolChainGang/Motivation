@@ -63,13 +63,17 @@
 
 var ArticleNameRegex = /^[A-Z]{3}\d{2}$/;
 
-var NavTemplate =   '<div class="NavDiv"><hr class="NavSep"/><div class="NavBar">                                                                              \
+var NavTemplate = '<div class="NavDiv"><hr class="NavSep"/><div class="NavBar">                                   \
             <a id="NavFirst" class="First $FC" title="Start page"    onclick="NavID(\'$FIRST_PAGE\')">« first</a> \
             <a id="NavPrev"  class="Prev  $PC" title="Previous page" onclick="NavID(\'$PREV_PAGE\' )" >‹ prev</a> \
             <a id="NavUp"    class="Up    $UC" title="Up a level"    onclick="NavUp()"             >⌃up⌃</a>      \
             <a id="NavNext"  class="Next  $NC" title="Next page"     onclick="NavID(\'$NEXT_PAGE\' )" >next ›</a> \
             <a id="NavEnd"   class="Last  $LC" title="End page"      onclick="NavID(\'$LAST_PAGE\' )" >last »</a> \
             </div></div>';
+
+var CatTemplate = '<label class="radio-inline">                                                                 \
+                   <input type="radio" name="Categories" value="$CATNAME" onclick="ConfigSetCat(this.value)">   \
+                  $CATDISP</label><br>';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -89,19 +93,26 @@ function ShowArticle(ArticleName) {
     //
     var Banner  = Article.getElementsByClassName("DayBanner");
     if( Banner.length ) {
-        if( Day == 0 )
+        if( LessonLDay == 0 )
             Banner[0].style.display = "none";
         }
 
-    var ArticleHTML = Article.innerHTML.replaceAll("$DAY"     ,     Day)
-                                       .replaceAll("$MAXDAY"  ,  MaxDay)
-                                       .replaceAll("$CATEGORY",Category);
+    var ArticleHTML = Article.innerHTML.replaceAll("$DAY"      ,  LessonLDay)
+                                       .replaceAll("$MAXDAY"   ,     MaxLDay)
+                                       .replaceAll("$COOKIEURL",   CookieURL)
+                                       .replaceAll("$CATEGORY" ,    Category);
 
     //
     // All articles get a navbar, unless they have "class=NoNAV" set
     //
     if( !Article.classList.contains("NoNav") )
         ArticleHTML += NavBarHTML(ArticleName);
+
+    //
+    // Articles that contain CatList (ie - category configuration)
+    //
+    if( Article.classList.contains("CatList") )
+        ArticleHTML = ArticleHTML.replaceAll("$CATLIST",CatListHTML());
 
     ArticlePanel.innerHTML = ArticleHTML;
     ShowPanel("ArticlePanel");
@@ -169,6 +180,30 @@ function NavBarHTML(ArticleName) {
                              .replaceAll("$LAST_PAGE" , LastPage);
 
     return NavHTML;
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// CatListHTML - Return category list in HTML
+//
+// Inputs:      None.
+//
+// Outputs:     HTML of category list (as radio buttons)
+//
+function CatListHTML() {
+
+    var Categories = Object.keys(Projects);
+
+    ListHTML = "";
+    for( let Category of Categories ) {
+        var CatHTML = CatTemplate.replaceAll("$CATNAME",Category)
+                                 .replaceAll("$CATDISP",Projects[Category].Meta.Display);
+        ListHTML += CatHTML;
+        }
+  
+    return ListHTML;
     }
 
 

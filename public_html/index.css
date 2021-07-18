@@ -33,11 +33,21 @@ body {
     font-size:          100%;
     }
 
+kbd {
+    border-radius:      2px;
+    padding:            2px;
+    border:             1px solid black;
+    }
+
+.Hidden {
+    display:            none;
+    }
+
 /***********************************************************************
  *
  * Slideshow
  */
-#SlideshowBegin {
+.SlideshowBegin {
     border-radius:      9px;
     border:             none;
     background:         #06c668;        /* SpringGreen2 */
@@ -184,10 +194,21 @@ a.Cont {
  * Other pages
  */
 
-.WindowURL {        /* URL of page                  */
+.CookieURL {        /* URL needed for cookie exceptions */
     font-family:        helvetica, arial, sans serif;
     padding-left:       0px;
     font-weight:        bolder;
+    font-size:          80%;
+    text-align:         center;
+    margin-top:         2em;
+    padding-top:        0.5em;
+    padding-left:       1em;
+    padding-right:      1em;
+    background-color:   White;
+    border:             1px solid black;
+	margin-left:        auto;
+    margin-right:       auto;
+    width:              70ch;
     }
 
 .BeginSpan {
@@ -201,5 +222,25 @@ a.Cont {
 
     font-size:          300%;
     -moz-border-radius: 15px;
+    }
+
+.CatList {
+    margin-left:        4em;
+    }
+
+.TextEnter {
+    font-family:        helvetica, arial, sans serif;
+    padding-left:       0px;
+    font-weight:        bolder;
+    font-size:          80%;
+    margin-top:         2em;
+    padding-top:        0.5em;
+    padding-left:       1em;
+    padding-right:      1em;
+    background-color:   White;
+    border:             1px solid black;
+	margin-left:        auto;
+    margin-right:       auto;
+    width:              70ch;
     }
 

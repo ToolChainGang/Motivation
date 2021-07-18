@@ -38,6 +38,38 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// MOA00    Types of motivation, Choose weakest motivation
+// MOB00    
+//
+// NCA00    Neurochemistry of motivation
+//
+// FAI00    Dealing with failure
+//
+// ADD00    Addiction
+//
+// FLO00    Flow
+//
+
+//
+// Lesson management:
+//
+// LES00    Do you have time for today's lesson?
+// LEC00    This completes today's lesson
+// LEW00    Program will wait until lesson   complete
+// LEW01    Program will wait until homework complete
+// LEW02    Program will wait until day      complete
+// LEC10    This completes the course
+//
+// Slideshow:
+//
+// SLI00    Long intro to slideshow
+// SLI10    Multiple run caution
+// SLI20    Standard intro to slideshow
+//
+// SLE00    Choose 1 highlighted word of 4
+// SLE10    ESC aborted slideshow
+//
+
 var Calendar = [
     "",         // Day 01
     "",         // Day 02
@@ -51,7 +83,7 @@ var Calendar = [
     "",         // Day 10
     "",         // Day 11
     "",         // Day 12
-    "",         // Day 13
+    "NCA00",    // Day 13   Neurochemistry of motivation
     "",         // Day 14
     "",         // Day 15
     "",         // Day 16
@@ -101,6 +133,57 @@ var Calendar = [
     "",         // Day 60
     ];
 
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// InitLesson - Initialize lesson processing, prior to first lesson
+//
+// Inputs:      None. (Global vars are used)
+//
+// Outputs:     None. (Cookie is set in document)
+//
+function InitLesson() {
+
+    StartCDay   = TodayCDay;
+    LessonLDay  = 1;
+    LessonCDay  = StartCDay-1;
+
+    SetMCookie();
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// LessonComplete - The current lesson is complete, OK to increment to the next day.
+//
+// Inputs:      None. (Global vars are used)
+//
+// Outputs:     None. (Cookie is set in document)
+//
+function LessonComplete() {
+
+    IncLDay();
+    ShowArticle("LEC00");
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// HomeworkPending - User hasn't completed the homework assignment.
+//
+// Inputs:      None. (Global vars are used)
+//
+// Outputs:     None. (Cookie is set in document)
+//
+function HomeworkPending(HomeworkID) {
+
+    ShowArticle("LEW01");
+    }
+
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -132,28 +215,22 @@ function StartLesson() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// SkipLesson - Skip today's lesson
+// IncLDay - Increment the lesson day that the user has achieved.
 //
 // Inputs:      None. (Global vars are used)
 //
 // Outputs:     None. (Cookie is set in document)
 //
-function SkipLesson() {
+function IncLDay() {
 
-    Homework = 1;
-    ShowArticle("LEW00");       // "Pause until complete"
-    }
+    LessonCDay = TodayCDay
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// CompleteLesson - Complete today's lesson
-//
-// Inputs:      None. (Global vars are used)
-//
-// Outputs:     None. (Cookie is set in document)
-//
-function CompleteLesson() {
+    //
+    // The MaxLDay panel presents options to reset the course, so don't increment
+    //   past that point.
+    //   
+    if( LessonLDay < MaxLDay )
+        LessonLDay++;
 
-    ShowArticle("LEC00");
+    SetMCookie();
     }
