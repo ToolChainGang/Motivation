@@ -9,6 +9,7 @@
 //
 // Calendar[]       List of lessons per course day  (ex: LessonCalendar[3] => "LLM00")
 //
+// ResetLesson()    Initialize lesson, prior to running course
 // IsLessonToday()  Return TRUE if there is a lesson scheduled for today
 //
 // StartLesson()    Determine today's lesson and start it
@@ -49,7 +50,9 @@
 //
 // FLO00    Flow
 //
-
+// PRI00    Pride (best project)
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // Lesson management:
 //
@@ -137,19 +140,35 @@ var Calendar = [
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// InitLesson - Initialize lesson processing, prior to first lesson
+// ResetLesson - Initialize lesson processing, prior to first le
 //
 // Inputs:      None. (Global vars are used)
 //
-// Outputs:     None. (Cookie is set in document)
+// Outputs:     None. (Config is set in local storage)
 //
-function InitLesson() {
+function ResetLesson() {
 
-    StartCDay   = TodayCDay;
-    LessonLDay  = 1;
-    LessonCDay  = StartCDay-1;
+    Config.StartCDay   = TodayCDay;
+    Config.LessonLDay  = 1;
+    Config.LessonCDay  = Config.StartCDay-1;
 
-    SetMCookie();
+    SetConfig();
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// AskLesson - Ask if the user has time for todays lesson
+//
+// Inputs:      None. (Global vars are used)
+//
+// Outputs:     None. (Config is set in local storage)
+//
+function AskLesson() {
+
+    if( IsLessonToday ) ShowArticle("LES00");   // Ask user to start lesson
+    else                ShowArticle("LEN00");   // No lesson today
     }
 
 
@@ -160,7 +179,7 @@ function InitLesson() {
 //
 // Inputs:      None. (Global vars are used)
 //
-// Outputs:     None. (Cookie is set in document)
+// Outputs:     None. (Config is set in local storage)
 //
 function LessonComplete() {
 
@@ -176,7 +195,7 @@ function LessonComplete() {
 //
 // Inputs:      None. (Global vars are used)
 //
-// Outputs:     None. (Cookie is set in document)
+// Outputs:     None. (Config is set in local storage)
 //
 function HomeworkPending(HomeworkID) {
 
@@ -191,7 +210,7 @@ function HomeworkPending(HomeworkID) {
 //
 // Inputs:      None. (Global vars are used)
 //
-// Outputs:     None. (Cookie is set in document)
+// Outputs:     None. (Config is set in local storage)
 //
 function IsLessonToday() {
     return Calendar[Day] != "";
@@ -204,7 +223,7 @@ function IsLessonToday() {
 //
 // Inputs:      None. (Global vars are used)
 //
-// Outputs:     None. (Cookie is set in document)
+// Outputs:     None. (Config is set in local storage)
 //
 function StartLesson() {
 
@@ -219,18 +238,18 @@ function StartLesson() {
 //
 // Inputs:      None. (Global vars are used)
 //
-// Outputs:     None. (Cookie is set in document)
+// Outputs:     None. (Config is set in local storage)
 //
 function IncLDay() {
 
-    LessonCDay = TodayCDay
+    Config.LessonCDay = TodayCDay
 
     //
     // The MaxLDay panel presents options to reset the course, so don't increment
     //   past that point.
     //   
-    if( LessonLDay < MaxLDay )
-        LessonLDay++;
+    if( Config.LessonLDay < MaxLDay )
+        Config.LessonLDay++;
 
-    SetMCookie();
+    SetConfig();
     }

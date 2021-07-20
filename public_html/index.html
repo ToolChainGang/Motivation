@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="HandheldFriendly"   content="true" />
-  <title>Motivator</title>
+  <title>Motivation</title>
   <link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
   <link rel="stylesheet"    type="text/css"  href="index.css"  />
   <script src="Motivation.js"></script>
@@ -37,7 +37,7 @@
 <!-- Configuration ################################################################################################# -->
 
 <article id="COO00" class="NoNav">
-<h2>Cookies required</h2>
+<h2>Cookie required</h2>
 <p>The course uses cookies to track your progress.
 </p>
 <p>Please add this URL to your browser's cookie "allowed sites" settings:
@@ -57,12 +57,51 @@
 </ul>
 </article>
 
-<article id="CON00" class="CatList">
-<h2>&nbsp;</h2>
-<p>Choose the category that best describes your project:.
+<article id="CON00" class="CatList NoNav">
+<h2>Step 1: Choose a project</h2>
+<p>Think about your projects and choose the one you want motivation for.
 </p>
-<div class="CatList">$CATLIST</div>
+<p>Don't choose the one that would be most valuable, choose the one that
+would be most <b>enjoyable</b>. Imagine yourself working each of your
+projects, and choose the one that you think would bring the most enjoyment.
+</p>
+<p>Take some time and think it through carefully. It's important to get this right.
+</p>
+<p>You'll find out why a little later in the course.
+</p>
+<h2>&nbsp;</h2>
+<p><a class="Cont" title="Continue" onclick="NavID('CON01')">Continue ›</a></p>
 </article>
+
+<article id="CON01" class="CatList NoNav">
+<h2>Step 2: Project name</h2>
+<p>Complete the phrase below with a name for your project.
+</p>
+<p>Use a word that brings your project to mind: a generic word, such as "novel", or a specific term.
+</p>
+<p class="CenterDiv">My <input id="ProjectName" class="TextEnter" maxlength="10" style="width: 10ch;"> project.
+</p>
+
+<!--<div id="CON01a" class="Hidden">-->
+<p id="CatTitle" for="Category">Choose a category that best describes your project:</p>
+<div class="CenterDiv">
+<select required name="Category" id="SelectCat">
+    <option disabled selected value=""> -- choose -- </option>
+    $CATLIST
+    </select>
+    </div>
+<!--</div>-->
+
+</article>
+
+<script><!--
+function NavCON(State) {
+    if( State == 1 ) {
+        ConfigSetName(GetID("ProjectName").value);
+        NavID("CON02");
+        }
+    }
+--></script>
 
 <!-- Lesson management ############################################################################################# -->
 
@@ -110,7 +149,7 @@
 <h2>Course complete</h2>
 <p>You have completed the course "Motivation".
 </p>
-<p><a class="Cont" title="Restart" onclick="InitLesson()"  >Restart using same project ›</a></p><br />
+<p><a class="Cont" title="Restart" onclick="ResetLesson()" >Restart using same project ›</a></p><br />
 <p><a class="Cont" title="Abort"   onclick="NavID('CON00')">Configure new project and restart ›</a></p>
 
 </article>
@@ -122,7 +161,7 @@
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <p>This looks like your first time running the program.
 </p>
-<p>This first section consists of a slideshow, where words and images will appear on the
+<p>This first part consists of a slideshow, where words and images will appear on the
 screen. This takes about a minute, and uses <a href="https://en.wikipedia.org/wiki/Priming_(psychology)">priming</a>
 to get you to think about your project.
 </p>
@@ -192,27 +231,55 @@ it three times in the morning.
 <span class="BeginSpan"><button class="SlideshowBegin" onclick="BeginSlideshow()">Start</button></span>
 </article>
 
-<article id="SLE00" class="NoNav">
-<p>Which word was emphasized?
-</p>
-
-<input type="radio" id="HWord1" name="HWord" value="$HWORD1"><label for="HWord1">$HWORD1</label><br>
-<input type="radio" id="HWord2" name="HWord" value="$HWORD2"><label for="HWord2">$HWORD2</label><br>
-<input type="radio" id="HWord3" name="HWord" value="$HWORD3"><label for="HWord3">$HWORD3</label><br>
-<input type="radio" id="HWord4" name="HWord" value="$HWORD4"><label for="HWord4">$HWORD4</label><br>
-</article>
-
 <article id="SLE10" class="NoNav">
 <h2>Interrupted.</h2>
 
-<p><a class="Cont" title="Restart" onclick="RunSlideshow(Category)">Restart ›</a></p><br />
+<p><a class="Cont" title="Restart" onclick="RunSlideshow(Config.Category)">Restart ›</a></p><br />
 <p><a class="Cont" title="Abort"   onclick="NavID('LEW02')"        >Skip ›</a></p>
 
 </article>
 
+<article id="SLW00" class="NoNav">
+<p>Which word was emphasized?
+</p>
+
+<input type="radio" id="HWord1" name="$HWORD1" value="$HWORD1" onclick="">
+<label for="HWord1"><span class="HWord" style="width: 9ch;">$HWORD1</span></label><br>
+
+<input type="radio" id="HWord2" name="$HWORD2" value="$HWORD2" onclick="">
+<label for="HWord2"><span class="HWord" style="width: 9ch;">$HWORD2</span></label><br>
+
+<input type="radio" id="HWord3" name="$HWORD3" value="$HWORD3" onclick="">
+<label for="HWord3"><span class="HWord" style="width: 9ch;">$HWORD3</span></label><br>
+
+<input type="radio" id="HWor41" name="$HWORD4" value="$HWORD4" onclick="">
+<label for="HWord4"><span class="HWord" style="width: 9ch;">$HWORD4</span></label><br>
+
+</article>
+
+<article id="SLW01" class="NoNav">
+<p>During the slideshow, how many words were emphasized?
+</p>
+<input type="radio" id="NWord1" name="$NWORD1" value="$NWORD1" onclick="ShowID('SLE01a')">
+<label for="NWord1"><span class="HWord" style="width: 9ch;">1</span></label><br>
+
+<input type="radio" id="NWord2" name="$NWORD2" value="$NWORD2" onclick="">
+<label for="NWord2"><span class="HWord" style="width: 9ch;">2</span></label><br>
+
+<input type="radio" id="NWord3" name="$NWORD3" value="$NWORD3" onclick="">
+<label for="NWord3"><span class="HWord" style="width: 9ch;">3</span></label><br>
+
+<input type="radio" id="HWor41" name="$NWORD4" value="$NWORD4" onclick="">
+<label for="NWord4"><span class="HWord" style="width: 9ch;">4</span></label><br>
+
+<div id="SLE01a" class="Hidden">
+<p><a class="Cont" title="Continue" onclick="StartLesson()">Continue ›</a></p>
+</div>
+</article>
+
 <!-- Two types of motivation ####################################################################################### -->
 
-<article id="MOA00">
+<article id="TWA00">
 <h2>Extrinsic and intrinsic motivation</h2>
 
 <p><b>Extrinsic</b> motivations are what you get for completing a project, such as money, fame, encouragement,
@@ -229,10 +296,10 @@ likes, subscribers, or avoiding punishment. They are the rewards you get for fin
 <li><span class="ListHeader" style="width: 9ch;">Usefulness</span> - The project is valuable to you, your family, or the community</li>
 </ul>
 
-<p><a class="Cont" title="Continue" onclick="NavID('MOA01')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWA01')">Continue ›</a></p>
 </article>
 
-<article id="MOA01">
+<article id="TWA01">
 <p><b>Extrinsic</b> motivations work well for <em>routine, repetitive</em> tasks - things you can do automatically,
 without a lot of thought or planning.
 </p>
@@ -257,10 +324,10 @@ intrinsic motivations:</p>
 </p>
 <p>He enjoys the process.
 </p>
-<p><a class="Cont" title="Continue" onclick="NavID('MOA02')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWA02')">Continue ›</a></p>
 </article>
 
-<article id="MOA02">
+<article id="TWA02">
 <h2>Homework:</h2>
 <p>Before the next course day, when you get a moment, think about your project and choose the
 intrinsic motivation your project is weakest on.
@@ -285,61 +352,61 @@ Have your choice ready for the next lesson.
 <p><a class="Cont" title="Done" onclick="LessonComplete()">Done</a></p>
 </article>
 
-<article id="MOB00">
+<article id="TWB00">
 <h2>Homework turn-in</h2>
 <p>Last time you were asked to choose your project's weakest motivation.
 </p>
 
-<div id="MOB00a">
+<div id="TWB00a">
 <p>Have you completed this task?
 </p>
-<p><a class="Cont" title="No"  onclick="NavMOT(1)">Yes, I did ›</a></p><br />
-<p><a class="Cont" title="Yes" onclick="HomeworkPending('MOA02')" >No, I didn't have time ›</a></p>
+<p><a class="Cont" title="No"  onclick="NavTW(1)">Yes, I did ›</a></p><br />
+<p><a class="Cont" title="Yes" onclick="HomeworkPending('TWA02')" >No, I didn't have time ›</a></p>
 </div>
 
-<div id="MOB00b" class="Hidden">
+<div id="TWB00b" class="Hidden">
 <p>Which motivation is your weakest?</p>
-<input type="radio" id="Autonomy" name="WeakestMotivation" value="Autonomy"     onclick="NavMOT(2)">
+<input type="radio" id="Autonomy" name="WeakestMotivation" value="Autonomy"     onclick="NavTW(2)">
 <label for="Autonomy"><span class="ListHeader" style="width: 9ch;">
 Autonomy</span> - You make the decisions</label><br>
 
-<input type="radio" id="Growth"   name="WeakestMotivation" value="Growth"       onclick="NavMOT(2)">
+<input type="radio" id="Growth"   name="WeakestMotivation" value="Growth"       onclick="NavTW(2)">
 <label for="Growth"><span class="ListHeader" style="width: 9ch;">
 Growth</span>   - You learn something new, or practice something you're rusty at</label><br>
 
-<input type="radio" id="Excellence" name="WeakestMotivation" value="Excellence" onclick="NavMOT(2)">
+<input type="radio" id="Excellence" name="WeakestMotivation" value="Excellence" onclick="NavTW(2)">
 <label for="Autonomy"><span class="ListHeader" style="width: 9ch;">
 Excellence</span> - You do a good job</label><br>
 
-<input type="radio" id="Usefulness" name="WeakestMotivation" value="Usefulness" onclick="NavMOT(2)">
+<input type="radio" id="Usefulness" name="WeakestMotivation" value="Usefulness" onclick="NavTW(2)">
 <label for="Autonomy"><span class="ListHeader" style="width: 9ch;">
 Usefulness</span> - The project is valuable to you, your family, or the community</label><br>
 </div>
 
-<div id="MOB00c" class="Hidden">
-<p>Enter a few words that describe how you could make the weak part less weak. 
+<div id="TWB00c" class="Hidden">
+<p>Describe how you could strengthen this. 
 Nothing detailed, just a word or two that would remind you later on.
 </p>
-<p>Leave this field blank if you want.
+<p>If you don't know a way, just leave this field blank.
 </p>
-<input class="TextEnter" maxlength="80">
+<input class="TextEnter" maxlength="80" style="width: 80ch;">
 
-<p><a class="Cont" title="Continue" onclick="NavID('MOB01')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWB01')">Continue ›</a></p>
 </div>
 </article>
 
-<article id="MOB01">
+<article id="TWB01">
 <h2>Homework complete.</h2>
-<p>We won't ask you to actually strengthen your project motivation, but you can if you want.
+<p>We won't ask you to strengthen your weakest motivation, but you can if you want.
 </p>
 
 <p>The point is to get familiar with <b>Extrinsic</b> and <b>Intrinsic</b> motivations, and
 how they affect your project. This will be important in future lessons.
 </p>
 
-<p><b>Extrinsic</b> motivations are money, fame, encouragement, likes... any reward for completion.</p>
+<p><b>Extrinsic</b> motivations are any reward for completion, such as money, fame, or likes.</p>
 
-<p><b>Intrinsic</b> motivations are:</p>
+<p>The <b>Intrinsic</b> motivations are:</p>
 <ul>
 <li><span class="ListHeader" style="width: 9ch;">Autonomy</span> - You decide what to do</li>
 <li><span class="ListHeader" style="width: 9ch;">Growth</span>   - You learn something new, or practice something you're rusty at</li>
@@ -351,16 +418,70 @@ how they affect your project. This will be important in future lessons.
 </article>
 
 <script><!--
-function NavMOT(State) {
+function NavTW(State) {
     if( State == 1 ) {
-        HideID("MOB00a");
-        ShowID("MOB00b");
+        HideID("TWB00a");
+        ShowID("TWB00b");
         }
     if( State == 2 ) {
-        ShowID("MOB00c");
+        ShowID("TWB00c");
         }
     }
 --></script>
+
+<article id="TWC00">
+<h2>Decreasing motivation</h2>
+<p>Extrinsic motivations will cause a decrease in intrinsic motivations.
+</p>
+<p>In one study, nursery school students were given markers and encouraged to draw pictures
+during their free play time, an activity for which they had high intrinsic interest.
+</p>
+<p>Several weeks later, students in one group were given a “good player”
+award with a ribbon and gold star for drawing, while students in the control group were simply
+encouraged to draw for fun.
+</p>
+<p>Several weeks after that, both groups were monitored when the markers were brought out
+during playtime.
+</p>
+<p>Surprisingly, the children who had been given an extrinsic reward showed far less interest in drawing
+than the children who were not offered the reward.
+</p>
+<p>Something about the reward had reduced the children’s desire to draw.</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('TWC01')">Done ›</a></p>
+</article>
+
+<article id="TWC01">
+<h2>&nbsp;</h2>
+<p>In another study, two groups of college students were asked to perform
+activities that they already found interesting: solving puzzles and writing newspaper headlines.
+</p>
+<p>In the first phase of the study, both groups performed the activity with no rewards.</p>
+<p>In the second phase, one group was paid for the activity, while the second group acted as a control.
+</p>
+<p>In the third phase, both groups once again performed the activity with no rewards.</p>
+<p>Students who were paid during the second phase were less likely to continue the
+activities - activities that they originally found interesting - in the third phase.
+Students who were not paid were more likely to continue.
+</p>
+<p>Even though both groups had been equally interested
+to begin with, the extrinsic reward interfered with the
+enjoyment of the activity itself.
+</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('TWC02')">Done ›</a></p>
+</article>
+
+<article id="TWC02">
+<h2>Switching motivations</h2>
+<p>If you are having trouble finishing your projects, it's probably because you have
+replaced your intrinsic motivations with extrinsic ones.
+</p>
+<p>
+</p>
+
+<p><a class="Cont" title="Continue" onclick="LessonComplete()">Done ›</a></p>
+</article>
 
 <!-- Neurochemistry of motivation ################################################################################## -->
 
@@ -373,41 +494,37 @@ you make changes that will work, instead of making changes based on guesswork.
 <p>The following pages describe, in broad terms, how the brain manages motivation using neurotransmitters
 and neuroreceptors. We start with a quick overview of these concepts.
 </p>
-<p>If you already know about neurotransmitters and neuroreceptors, you can skip the overview and start
+<p>If you already know about neurotransmitters and neuroreceptors, feel free to skip the overview and begin
 with the section on motivation.
 </p>
-<p>If you don't know what neurotransmitters are, or you would like a refresher, start with that section.
-That section will automatically lead into the motivation section after.
+<p>If you don't know what neurotransmitters are, or you would like a refresher, start with that section: it will
+lead you to the motivation section after.
 </p>
 
 <p><a class="Cont" title="Read about neurotransmitters" onclick="NavID('NCA01')">Overview of neurotransmitters ›</a></p>
-<p><a class="Cont" title="Read about neurotransmitters" onclick="NavID('NCA01')">The Neurochemistry of motivation ›</a></p>
+<p><a class="Cont" title="Read about motivation"        onclick="NavID('NCA01')">The Neurochemistry of motivation ›</a></p>
 </article>
 
 <article id="NCA01">
 <h2>Neurotransmitters and neuroreceptors</h2>
 
-<p>Neurotransmitters are chemicals that a neuron uses to signal another neuron. 
+<p>Neurotransmitters are just chemicals that one neuron uses to signal another neuron. 
 </p>
-
 <p>This signalling happens at a special point called a "synapse" on the neuron body - it's a place where the
 body of one neuron almost touches the body of another. Whenever one neuron wants to signal another, it releases
 neurotransmitter molecules at the synapse junction. The molecules diffuse over to the other neuron and bind to the
 corresponding receptor, sending a signal that excites the target neuron.
 </p>
-
+<p>It's sort of like the bell at a hotel desk. Sending neurotransmitters through the synapse is like ringing
+a bell: it gets the attention of the target neuron.
+</p>
+<p>Once the signal is delivered, the receptor releases the neurotransmitters. The molecules diffuse back
+to the originating neuron, where they are collected and stored for future signaling.
+</p>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA02')">Continue ›</a></p>
 </article>
 
 <article id="NCA02">
-<p>Once the signal is delivered, the target neuron releases the neurotransmitters. The molecules diffuse back
-to the originating neuron, where they are collected and stored to use for future signaling.
-</p>
-
-<p><a class="Cont" title="Continue" onclick="NavID('NCA03')">Continue ›</a></p>
-</article>
-
-<article id="NCA03">
 <h2>Neurotransmitters and neuroreceptors</h2>
 
 <p>There are over 100 neurotransmitters used in the brain, but for our purposes we only need to know
@@ -415,10 +532,10 @@ about three: NorEpinephrine, Dopamine, and Serotonin, which are responsible for 
 and reward.
 </p>
 
-<p><a class="Cont" title="Continue" onclick="NavID('NCA04')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCA03')">Continue ›</a></p>
 </article>
 
-<article id="NCA04">
+<article id="NCA03">
 <p>Before we begin, we need to sort out some nomenclature.
 </p>
 <p>Adrenaline and Epinephrine are two names for the same chemical. It was discovered independently
@@ -436,10 +553,10 @@ equivalent names. Epinephrine/Adrenaline will be the "fight-or-flight" neurotran
 NorEpinephrine/NorAdrenaline will be the "action" neurotransmitter.
 </p>
 
-<p><a class="Cont" title="Continue" onclick="NavID('NCA05')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCA04')">Continue ›</a></p>
 </article>
 
-<article id="NCA05">
+<article id="NCA04">
 <h2>NorEpinephrine/NorAdrenaline, the neurotransmitter of action</h2>
 <p>Adrenaline/Epinephrine prepares your body (and mind) for a jolt of activity:
 fight or flight, something you might have to do to survive.
@@ -454,21 +571,25 @@ a little bit of Adrenaline/Epinephrine to start the action.
 is like burning rocket fuel.
 </p>
 
-<p><a class="Cont" title="Continue" onclick="NavID('NCA06')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCA05')">Continue ›</a></p>
 </article>
 
 <!-- Failure ####################################################################################################### -->
 
 <article id="FAI00">
-<h2>Project Failure</h2>
-<p>Imagining future failures can minimize their impact.
-Also, thinking about failure can encourage taking steps to avoid it.</p>
+<h2>Ignore Failure</h2>
+<p>Thomas Edison had over 10,000 failed attempts before he got a working light bulb.</p>
+<p>When asked by a reporter how it felt to fail 10,000 times, Edison replied:
+“I didn't fail 10,000 times, I’ve just found 10,000 ways that will not work.”
+</p>
 <p>This lesson isn't about getting more motivation <em>now</em>, it's
 about keeping motivation when you encounter a failure.
 </p>
-<p>Notice we said "when" and not "if" in the last line. It's nearly certain
+<p>Imagining future failures can minimize their impact.
+Also, thinking about failure can encourage taking steps to avoid it.</p>
+<p>Notice we said "when" and not "if". It's a near certainty
 that you'll encounter failure at some point, so getting properly
-oriented beforehand will help.
+oriented will help.
 </p>
 <p>The term for this is "prospection", and there's a 
 <a href="https://en.wikipedia.org/wiki/Prospection">Wikipedia page</a> for it.</p>
@@ -476,38 +597,125 @@ oriented beforehand will help.
 </article>
 
 <article id="FAI01">
-<h2>Dealing with failure</h2>
-<p>Thomas Edison made more than 10,000 attempts before finally getting a working light bulb. When asked
-by a reporter “How did it feel to fail 10,000 times?” Edison replied, “I didn't fail 10,000 times.
-I’ve successfully found 10,000 ways that will not work.”
+<p>So then, how should we handle failure?
+</p>
+<p>First, note that failure comes at the end of a project, or perhaps causes the end.
+If you're still trying, if there's still a way it might work, then you haven't failed.
+</p>
+<p>Next, in almost all cases failure is a stepping stone to success. There are innumerable
+examples of people failing repeatedly, only to succeed in the end. Thomas Edison is
+an extreme example (10,000 tries? Yikes!), but the principle happens everywhere.
+</p>
+<p>And finally, even when a project fails, is it a complete failure?
+</p>
+<p>Consider:</p>
+<ul>
+<li>Did you learn anything new?</li>
+<li>Did you improve your technique?</li>
+<li>Can you salvage something useful for another project?</li>
+</ul>
+<p>It's extremely rare for a project ro fail completely. In nearly all cases
+there is still value in having made the journey.
 </p>
 <p><a class="Cont" title="Continue" onclick="NavID('FAI02')">Continue ›</a></p>
 </article>
 
 <article id="FAI02">
-<p>So how should we handle failure?
+<p>Take a moment and think carefully about your project.
 </p>
-<p>Firstly, note that failure comes at the end, or perhaps causes the end of your project.
-If you're still working, if you still see a way to proceed, then you haven't failed.
+<p>
+Could it fail?
+<label class="radio-inline"><input type="radio" name="FAI02Y3" onclick="ShowID('FAI02b')">Yes</label>
+<label class="radio-inline"><input type="radio" name="FAI02N3" onclick="ShowID('FAI02b')">No</label>
 </p>
-<p>Secondly, in almost all cases failure is a stepping stone to success. There are innumerable
-examples of people failing over and over, only to succeed in the end. Thomas Edison is perhaps
-an extreme example (10,000 tries? Yikes!), but the principle is happens everywhere.
-</p>
-<p>Thirdly, even in the rare cases where a project fails, is it a complete failure?
-</p>
-<p>Consider:</p>
-<ul>
-<li>Did you learn anything new?</li>
-<li>Did you advance your technique?</li>
-<li>Can you salvage something useful for another project?</li>
-</ul>
-<p>It's extremely rare for a project ro fail completely. In nearly all cases
-there will still be some value in having made the journey.
-</p>
-<p>To summarize: <b>Don't be discouraged by failure.</b></p>
 
+<div id="FAI02b" class="Hidden">
+<p>
+Does that matter?
+<label class="radio-inline"><input type="radio" name="FAI02Y1" onclick="ShowID('FAI02c')">Yes</label>
+<label class="radio-inline"><input type="radio" name="FAI02N1" onclick="ShowID('FAI02c')">No</label>
+</p>
+</div>
+
+<div id="FAI02c" class="Hidden">
+<h2>&nbsp;</h2>
+<p class="BeginSpan">Failure is part of the process.</p>
+<p class="BeginSpan">Don't be discouraged by failure.</p>
+<h2>&nbsp;</h2>
 <p><a class="Cont" title="Done" onclick="LessonComplete()">Done</a></p>
+</div>
+</article>
+
+<!-- Pride ######################################################################################################### -->
+
+<article id="PRI00">
+<h2>Your best project</h2>
+<p>People take this course for motivation to finish projects, which usually means they have finished
+projects in the past but no longer have the motivation.
+</p>
+<p>Take a moment to think about projects you have completed, and choose the one you're most
+proud of.
+</p>
+<p>Take your time, and choose a good one - the best you've ever done. When you're ready, click
+to continue.
+</p>
+<p><a class="Cont" title="Continue" onclick="NavID('PRI01')">Continue ›</a></p>
+</article>
+
+<article id="PRI01">
+<h2>Your best project</h2>
+<p>With your best project in mind, now think about everything that went into it: how you
+came to decide to do it, how you planned it, the steps you took, and what the results were.
+</p>
+<p>Take a few minutes to remember as much as you can about your best project.
+<p><a class="Cont" title="Continue" onclick="NavID('PRI02')">Continue ›</a></p>
+</article>
+
+<article id="PRI02">
+<h2>Your best project</h2>
+<p>For your best project:
+</p>
+<p>
+Did you do a good job?
+<label class="radio-inline"><input type="radio" name="PRI02Y3" onclick="ShowID('PRI02b')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N3" onclick="ShowID('PRI02b')">No</label>
+</p>
+
+<div id="PRI02b" class="Hidden">
+<p>
+Did you learn something new?
+<label class="radio-inline"><input type="radio" name="PRI02Y1" onclick="ShowID('PRI02c')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N1" onclick="ShowID('PRI02c')">No</label>
+</p>
+</div>
+
+<div id="PRI02c" class="Hidden">
+<p>
+Did you make decisions and try things?
+<label class="radio-inline"><input type="radio" name="PRI02Y2" onclick="ShowID('PRI02d')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N2" onclick="ShowID('PRI02d')">No</label>
+</p>
+</div>
+
+<div id="PRI02d" class="Hidden">
+<p>
+Was the project result useful or valuable?
+<label class="radio-inline"><input type="radio" name="PRI02Y4" onclick="ShowID('PRI02e')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N4" onclick="ShowID('PRI02e')">No</label>
+</p>
+</div>
+
+<div id="PRI02e" class="Hidden">
+<h2>&nbsp;</h2>
+<p>For your best project: <b><em>did you enjoy doing it?</em></b>
+<label class="radio-inline"><input type="radio" name="PRI02Y4" onclick="ShowID('PRI02f')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N4" onclick="ShowID('PRI02f')">No</label>
+</p>
+</div>
+
+<div id="PRI02f" class="Hidden">
+<p><a class="Cont" title="Continue" onclick="LessonComplete()">Done ›</a></p>
+</div>
 </article>
 
 <!-- Addiction ##################################################################################################### -->

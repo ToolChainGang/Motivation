@@ -1,2 +1,2 @@
     Display: 'Sculpting',
-    Dir:     'Sculpting',
+    Doer:    'Sculptor',

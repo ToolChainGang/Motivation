@@ -1,2 +1,2 @@
     Display: 'Jewelry',
-    Dir:     'Jewelry',
+    Doer:    'Jeweler',

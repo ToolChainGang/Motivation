@@ -43,6 +43,19 @@ kbd {
     display:            none;
     }
 
+.CenterDiv {
+	margin-left:        auto;
+    margin-right:       auto;
+    }
+
+.CenterText {
+    text-align:         center;
+    }
+
+.Red {
+    color:              red;
+    }
+
 /***********************************************************************
  *
  * Slideshow
@@ -83,6 +96,10 @@ kbd {
 .SlideWord {        /* <div> containing slide word  */
     }
 
+.HWord {
+    display:            inline-block;
+    font-weight:        bold;
+    }
 
 /***********************************************************************
  *
@@ -193,22 +210,14 @@ a.Cont {
  *
  * Other pages
  */
-
-.CookieURL {        /* URL needed for cookie exceptions */
-    font-family:        helvetica, arial, sans serif;
-    padding-left:       0px;
-    font-weight:        bolder;
-    font-size:          80%;
+#CatTitle {
+    padding-bottom      1em;
     text-align:         center;
-    margin-top:         2em;
-    padding-top:        0.5em;
-    padding-left:       1em;
-    padding-right:      1em;
-    background-color:   White;
-    border:             1px solid black;
-	margin-left:        auto;
-    margin-right:       auto;
-    width:              70ch;
+    }
+
+#SelectCat {
+    text-align-last:    center;
+    width:              20ch;
     }
 
 .BeginSpan {
@@ -241,6 +250,5 @@ a.Cont {
     border:             1px solid black;
 	margin-left:        auto;
     margin-right:       auto;
-    width:              70ch;
     }
 

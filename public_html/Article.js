@@ -71,9 +71,7 @@ var NavTemplate = '<div class="NavDiv"><hr class="NavSep"/><div class="NavBar"> 
             <a id="NavEnd"   class="Last  $LC" title="End page"      onclick="NavID(\'$LAST_PAGE\' )" >last »</a> \
             </div></div>';
 
-var CatTemplate = '<label class="radio-inline">                                                                 \
-                   <input type="radio" name="Categories" value="$CATNAME" onclick="ConfigSetCat(this.value)">   \
-                  $CATDISP</label><br>';
+var CatTemplate = '<option value="$CATNAME">$CATDISP</option>';
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -93,14 +91,14 @@ function ShowArticle(ArticleName) {
     //
     var Banner  = Article.getElementsByClassName("DayBanner");
     if( Banner.length ) {
-        if( LessonLDay == 0 )
+        if( Config.LessonLDay == 0 )
             Banner[0].style.display = "none";
         }
 
-    var ArticleHTML = Article.innerHTML.replaceAll("$DAY"      ,  LessonLDay)
-                                       .replaceAll("$MAXDAY"   ,     MaxLDay)
-                                       .replaceAll("$COOKIEURL",   CookieURL)
-                                       .replaceAll("$CATEGORY" ,    Category);
+    var ArticleHTML = Article.innerHTML.replaceAll("$DAY"      ,  Config.LessonLDay)
+                                       .replaceAll("$CATEGORY" ,  Config.Category  )
+                                       .replaceAll("$MAXDAY"   ,            MaxLDay)
+                                       .replaceAll("$COOKIEURL",          CookieURL);
 
     //
     // All articles get a navbar, unless they have "class=NoNAV" set
@@ -217,8 +215,6 @@ function CatListHTML() {
 // Outputs:     None.
 //
 function NavID(ArticleName) { 
-
-    console.log("Nav: " + ArticleName);
 
     ShowArticle(ArticleName);
     }

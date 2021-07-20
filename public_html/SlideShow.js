@@ -8,18 +8,18 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// RunSlideshow     Create and start the slideshow
-// BeginSlideshow   Begin the actual slideshow process
-// NextSlide        Show the next slide in the slideshow
-// ProcessKBESC     Process ESC chars typed during the slideshow
-// ShowSlide        Show a slideshow slide
-// ShowWord         Show single word slideshow slide
-// ShowImage        Show image slideshow slide
-// HighlightWord    Highlight single word slideshow slide
+// RunSlideshow             Create and start the slideshow
+// BeginSlideshow           Begin the actual slideshow process
+// NextSlide                Show the next slide in the slideshow
+// ShowSlide                Show a slideshow slide
+// ShowWord                 Show single word slideshow slide
+// ShowImage                Show image slideshow slide
+// HighlightWord            Highlight single word slideshow slide
+//
+// StyleWord(Word,Style)    Show single word slideshow slide with specified style
 //
 // --- Highlighting functions ---
 //
-// ColorWord - Show single word slideshow slide with colored word
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -48,21 +48,36 @@
 //      ["Type"]    // "ShowWord" || "ShowImage" || "HighlightWord"
 //      ["Data"]    // The text word to show, or the URL of the image to show
 //
-var NumSlides = 60;         // Number of slides to show
+var NumSlides = 10;         // Number of slides to show
 var SlideMS   = 700;        // MS per slide
 var ImgChance = 2.0/6.0;    // Prob that a slide will have an image
 
 var SlideNo;                // Number of slide we're currently at (0 .. NumSlides-1)
 var Slides = [];            // Array of slides to show
-
-var HWords = [];            // Words which might be highlighted (for radio button)
-var HWord;                  // Word that actually is highlighted
+var SlideTimer;
 
 var HighlightFunctions = [
-    ColorWord,
+    RedWord,
+    GreenWord,
+    BlueWord,
+    OutlineWord,
+    UpperWord,
+    Outline2,
+    PosWord,
+    PosWord2,
+    PosWordT,               // Used for testing
+//    FlashRed,
+//    FlashUpper,
     ];
 
-var SlideTimer;
+//
+// We show 1, 2, or 3 hidden words. The 3 case never keeps track of the individual
+//   words, it just asks the user how many there were.
+//
+var NumHW;                  // Number of hidden words
+var HWords = [];            // Words which are highlighted
+var HW2Pct = 5;             // % chance of 2 hidden words
+var HW3Pct = 1;             // % chance of 3 hidden words
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -82,27 +97,37 @@ function RunSlideshow(Category) {
         return;
         }
 
-    if( SlideIntroSeen == 0 ) {         // First time: Give a longer, more explanatory description
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // First time                  : Show a longer, mor explanatory description.
+    // Second viewing on single day: Show caution about multiple views
+    // Normal                      : Show a brief description
+    //
+    if( Config.SlideIntroSeen == 0 ) {          // First time: Give a longer, more explanatory description
         ShowArticle("SLI00");
-        SlideIntroSeen = 1;
-        SetMCookie();
+        Config.SlideIntroSeen = 1;
+        SetConfig();
         }
     else {
-        if( LessonCDay == TodayCDay ) { // Second viewing on single day
+        if( Config.LessonCDay == TodayCDay ) {  // Second viewing on single day
             ShowArticle("SLI10");
-            SlideMultiSeen = 1;
-            SetMCookie();
+            Config.SlideMultiSeen = 1;
+            SetConfig();
             }
         else {
-            ShowArticle("SLI20");       // Normal: Show a brief description
+            ShowArticle("SLI20");               // Normal: Show a brief description
             }
         }
 
-    Words  = Shuffle(Projects[Category].Words);
-    Images = Shuffle(Projects[Category].Images);
-
-    RWords  = Shuffle(Words);
-    RImages = Shuffle(Images);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Shuffle the slides and choose the deck.
+    //      
+    //     33%  Images
+    //     66%  Words
+    //
+    var RWords   = Shuffle(Projects[Category].Words);
+    var RImages  = Shuffle(Projects[Category].Images);
 
     Slides = [];
     for( var i=0; i<NumSlides; i++ ) {
@@ -111,23 +136,42 @@ function RunSlideshow(Category) {
         else               Slides.push({Type: "ShowWord" , Data: RWords .pop()});
         }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // Find 4 random words in the slideshow
+    // Randomly Choose the number of hidden words.
+    //      
+    //      1%  Three hidden words
+    //      5%  Two   hidden words
+    //     94%  One   hidden word
     //
-    HWords = [];
+    var Die = D100();
 
-    for( var i=0; i < 4; i++ ) {
+    NumHW = 1;
+    if( Die <= HW2Pct ) NumHW = 2;
+    if( Die <= HW3Pct ) NumHW = 3;
+
+    HWords = [];
+    for( var i = 0; i < NumHW; i++ ) {
         while(1) {
-            Slide = Draw(Slides);
-            if( Slide.Type != "ShowWord" )
+
+            SlideNo = Uniform(NumSlides);
+
+            if( Slides[SlideNo].Type != "ShowWord" )
                 continue;
 
-            var Word = Slide.Data;
+            if( SlideNo <= 2 )              // Don't highlight the 1st two words.
+                continue;
+
+            if( SlideNo == NumSlides-1 )    // Don't highlight the last word.
+                continue;
+
+            var Word = Slides[SlideNo].Data;
 
             if( HWords.includes(Word) )
                 continue;
 
             HWords.push(Word);
+            Slides[SlideNo].Type = "Highlight";
             break;
             }
         }
@@ -198,7 +242,7 @@ function NextSlide() {
     //
     clearInterval(SlideTimer);
 
-    var EndPanel = GetID("SLE00");
+    var EndPanel = GetID("SLW00");
 
     EndHTML = EndPanel.innerHTML.replaceAll("$HWORD1",HWords[0])
                                 .replaceAll("$HWORD2",HWords[1])
@@ -232,9 +276,9 @@ function ShowSlide(SlideNo) {
     var SlideType = Slides[SlideNo].Type;
     var SlideData = Slides[SlideNo].Data;
 
-    if     ( SlideType == "ShowWord"      ) ShowWord     (SlideData);
-    else if( SlideType == "ShowImage"     ) ShowImage    (SlideData);
-    else if( SlideType == "HighlightWord" ) HighlightWord(SlideData);
+    if     ( SlideType == "ShowWord"  ) ShowWord     (SlideData);
+    else if( SlideType == "ShowImage" ) ShowImage    (SlideData);
+    else if( SlideType == "Highlight" ) HighlightWord(SlideData);
     else throw new Error("Unknown slide type (" + SlideType + ").");
     }
 
@@ -323,17 +367,55 @@ function HighlightWord(Word) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// ColorWord - Show single word slideshow slide with colored word
+// StyleWord - Show single word slideshow slide with specified style
 //
 // Inputs:      Word to show
+//              Style to show
 //
 // Outputs:     None.
 //
-function ColorWord(Word) {
+function StyleWord(Word,Style) {
 
-    var WordHTML = WordTemplate.replaceAll("$WORD",Word);
+    var WordHTML = '<span style="' + Style + '">' + Word + '</span>';
 
     WordPanel.innerHTML = WordHTML;
 
     ShowPanel("WordPanel");
     }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// FlashWord - Show single word slideshow slide and "flash" the style at the user
+//
+// Inputs:      Word to show
+//              Style to show
+//
+// Outputs:     None.
+//
+function FlashWord(Word,Style) {
+
+    ShowWord(Word);
+
+    var StyleTimer = setInterval(function () {
+        clearInterval(StyleTimer);
+        StyleWord(Word,Style);
+        StyleTimer = setInterval(function () {
+            clearInterval(StyleTimer);
+            ShowWord(Word);
+            },SlideMS/2);
+        },SlideMS/4);
+    }
+
+function     RedWord(Word) { StyleWord(Word,"color: red;"); }
+function   GreenWord(Word) { StyleWord(Word,"color: green;"); }
+function    BlueWord(Word) { StyleWord(Word,"color: blue;"); }
+function OutlineWord(Word) { StyleWord(Word,"border: 3px solid    red; border-radius: 9px;"); }
+function    Outline2(Word) { StyleWord(Word,"border: 3px dashed green; border-radius: 2px;"); }
+function    Outline2(Word) { StyleWord(Word,"border: 3px dotted blue; border-radius: 2px;"); }
+function     PosWord(Word) { StyleWord(Word,"position: absolute;"); }
+function    PosWord2(Word) { StyleWord(Word,"writing-mode:vertical-rl;"); }
+function   UpperWord(Word) { FlashWord(Word,"text-transform: uppercase;"); }
+function    FlashRed(Word) { FlashWord(Word,"color: red;"); }
+function  FlashUpper(Word) { FlashWord(Word,"text-transform: uppercase;color: red;"); }
+function    PosWordT(Word) { StyleWord(Word,"direction:rtl;"); }

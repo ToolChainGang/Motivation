@@ -19,17 +19,19 @@
 // FadeCancel(Element)          Cancel fade process, and reset element
 //
 // SetCookie(Name,Var,ExpDays)  Set a cookie for later retrieval
-// GetCookie(Name)              Get a previously stored cookie
-//
-// Var = GetCookie(Name)        Get previously stored cookie
-//
 // DeleteCookie(Name)           Remove previously stored cookie
 // CookiesEnabled()             Return TRUE if cookies can be set
 //
+// Var = GetCookie(Name)        Get previously stored cookie
+//
+// SetLocalData(Name,Var)       Set local data for later retrieval
+// DeleteLocalData(Name)        Remove previously stored local data
+// LocalDataEnabled()           Return TRUE if local data can be set
+//
+// Var = GetLocalData(Name)     Get previously stored local data
+//
 // JSONURI(Var)                 Encode var into JSON, URI compatible
 // URIJSON(URI)                 Decode var from URI,  JSON encoded
-//
-// TestCookies                  Test the cookie storage mechanism (for debugging)
 //
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -328,6 +330,75 @@ function CookiesEnabled() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
+// SetLocalData - Set local data for later retrieval
+//
+// Inputs:      Name of data to set
+//              Value to set
+//
+// Outputs:     None. (Data is locally stored)
+//
+function SetLocalData(Name, Value) {
+
+    localStorage.setItem(Name,JSON.stringify(Value));
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// GetLocalData - Get previously stored local data
+//
+// Inputs:      Name of data to get
+//
+// Outputs:     Cookie value, if cookie exists
+//              Zero-length string otherwise
+//
+function GetLocalData(Name) {
+
+    return JSON.parse(localStorage.getItem(Name));
+    }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// DeleteLocalData - Remove previously stored local data
+//
+// Inputs:      Name of cookie
+//
+// Outputs:     None.
+//
+function DeleteLocalData(Name) {
+
+    localStorage.removeItem(Name);
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+// LocalDataEnabled - Return TRUE if local data can be set
+//
+// Inputs:      None.
+//
+// Outputs:     TRUE  if local data can be set
+//              FALSE otherwise
+//
+function LocalDataEnabled() {
+
+    try {
+        localStorage.setItem("Test", 1);
+        localStorage.removeItem("Test");
+        return true;
+        } 
+    catch(e) {
+        return false;
+        }
+    }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//
 // JSONURI - Encode var into JSON, URI compatible
 // URIJSON - Decode var from URI,  JSON encoded
 //
@@ -337,48 +408,3 @@ function CookiesEnabled() {
 //
 function JSONURI(Var) { return encodeURIComponent(JSON.stringify(Var)); }
 function URIJSON(URI) { return JSON.parse(    decodeURIComponent(URI)); }
-
-/*
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// TestCookies - Test the cookie/var mechanism
-//
-// Inputs:  None.
-//
-// Outputs: None. Will throw message if cookies don't work
-//
-function TestCookies() {
-
-var Test1 = 
-{
-"evt": [{
-    "id": "2;4",
-    "qty": "2"
-}, {
-    "id": "3",
-    "qty": "7"
-}],
-"exc": [{
-    "id": "2",
-    "qty": "3"
-}, {
-    "id": "1",
-    "qty": "6"
-}],
-"qt": "15",
-"ti": "067e61623b6f4ae2a1712470b63dff00",
-"rm": {
-    "aci": "6",
-    "rt": "5"
-    }
-};
-
-SetCookie("Froboz",Test1,30);
-var Test2 = GetCookie("Froboz");
-
-if( JSON.stringify(Test1) !== JSON.stringify(Test2) )
-    throw new Error("Cookies are broken.");
-}
-
-*/

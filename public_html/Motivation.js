@@ -20,11 +20,11 @@
 //
 //      No Arguments:
 //
-//          Run the project motivation state machine. With no configured cookie,
+//          Run the project motivation state machine. With no configured project,
 //            will show the "Intro" article and allow the user to browse the
 //            documentation and configure the course.
 //
-//          With a configured cookie, run the portion of the course indicated by
+//          With a configured project, run the portion of the course indicated by
 //            the recorded progress.
 //
 //      [...]index.html?Slideshow=$Category
@@ -93,30 +93,29 @@
     var ImagePanel;
     var ArticlePanel;
 
+    var CookieURL = window.location.href.split('?')[0];
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
-    // The cookie is limited to 4K bytes and has significant encoding size, so we pack and unpack it
-    //   using short (and non-mnemonic) identifiers in the MCookie() functions (below).
+    // Everything stored locally is in the "Config" variable.
     //
-    // The following vars are the unpacked versions of cookie vars.
-    //
-    var CookieName     = "Motivation";
-    var CookieURL      = window.location.href.split('?')[0];
-    var StartCDay      = 0;     // Calendar day when lesson arc started
-    var LessonLDay     = 0;     // Current lesson   day user is at
-    var LessonCDay     = 0;     // Current calendar day user achieved leddon
-    var SlideIntroSeen = 0;     // FALSE on very first slideshow
-    var SlideMultiSeen = 0;     // FALSE unless 2nd slideshow in single day
-    var Category;               // Category of user's project (ex: "Pottery")
+    var Config = {
+        StartCDay:      0,      // Calendar day when lesson arc started
+        LessonLDay:     0,      // Current lesson   day user is at
+        LessonCDay:     0,      // Current calendar day user achieved leddon
+        SlideIntroSeen: 0,      // FALSE on very first slideshow
+        SlideMultiSeen: 0,      // FALSE unless 2nd slideshow in single day
+        Category:       "",     // Category of user's project (ex: "Pottery")
+        };
 
-    var StateEnum   = {
+    var StateEnum = {
         Intro:      1,          // Never configured, at intro page
         Manual:     2,          // Manual control, by (for example) URL arg
         Slideshow:  3,          // In slideshow
         Abort:      4,          // Abort (temp state for slideshow)
         Run:        5,          // Standard run
         };
-    var State       = StateEnum.Intro;
+    var State = StateEnum.Intro;
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //
@@ -138,18 +137,17 @@
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
-        // Set our day, and grab the cookie data. If cookies can't be set, then cannot run program.
+        // Set our day, and grab the config data. If data can't be set, then cannot run program.
         //
         var Now = new Date();
         TodayCDay  = Math.floor((Now.getTime() - Now.getTimezoneOffset()*60000)/8.64e7);
 
-        if( !CookiesEnabled() ) {
-            var CookieURL = window.location.href.split('?')[0];         // Remove any arguments
-            ShowArticle("COO00");
+        if( !LocalDataEnabled() ) {
+            ShowArticle("COO00");       // JDJ JDJ JDJ
             return;
             }
 
-        GetMCookie();
+        GetConfig();
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         //
@@ -174,16 +172,17 @@
         // Show a specific slideshow and then exit.
         //
         if( Args["Slideshow"] != undefined ) {
-            Category = Args["Slideshow"];
-            State    = StateEnum.Manual;
+            Config.Category = Args["Slideshow"];
+            State           = StateEnum.Manual;
 
-            if( Projects[Category] == undefined ) {
-                throw new Error("Unknown project type (" + Category + ").");
+            if( Projects[Config.Category] == undefined ) {
+                alert("Unknown project type (" + Config.Category + ").");
+                throw new Error("Unknown project type (" + Config.Category + ").");
                 return;
                 }
 
-console.log("Slideshow: "+ Category);
-            RunSlideshow(Category);
+console.log("Slideshow: "+ Config.Category);
+            RunSlideshow(Config.Category);
             return;
             }
 
@@ -195,6 +194,13 @@ console.log("Slideshow: "+ Category);
         //
         if( Args["Lesson"] != undefined ) {
             ArticleID = Args["Lesson"];
+
+            if( GetID(ArticleID) == undefined ) {
+                alert("Unknown ArticleID (" + ArticleID + ").");
+                throw new Error("Unknown ArticleID (" + ArticleID + ").");
+                return;
+                }
+
             State = StateEnum.Manual;
             ShowArticle(ArticleID);
 
@@ -209,7 +215,7 @@ console.log("Lesson: "+ ArticleID);
         // Set the system to a particular day, and run
         //
         if( Args["Day"] != undefined ) {
-            LessonDay = Args["Day"];
+            Config.LessonLDay = Args["Day"];
             State = StateEnum.Manual;
 
 console.log("Lesson: "+ ArticleID);
@@ -218,8 +224,8 @@ console.log("Lesson: "+ ArticleID);
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        if( LessonLDay > 0 ) RunSlideshow(Category);
-        else                 ShowArticle("TOC00");
+        if( Config.LessonLDay > 0 ) RunSlideshow(Config.Category);
+        else                        ShowArticle("TOC00");
         }
 
 
@@ -298,62 +304,42 @@ function ProcessKB(Event) {
 //
 // Inputs:      Element user clicked on
 //
-// Outputs:     None. (Cookie is set in document)
+// Outputs:     None. (Configuration is set locally)
 //
 function ConfigSetCat(UserCategory) {
 
-    Category = UserCategory;
-    SetMCookie();
+    Config.Category = UserCategory;
+    SetConfig();
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// GetMCookie - Retrieve motivational info from a browser cookie
+// SetConfig  - Save configuration info locally
+// GetConfig  - Retrieve configuration info from local storage
+// InitConfig - Initialize config for first run
 //
 // Inputs:      None. (Global vars are used)
 //
-// Outputs:     None. (Cookie is set in document)
+// Outputs:     None. (Global var Config is set)
 //
-function GetMCookie() {
+function SetConfig() { SetLocalData("Config",Config); }
 
-    var Cookie = GetCookie(CookieName);
+function GetConfig() { 
+    Config = GetLocalData("Config");
 
-    //
-    // No cookie set - program has never been run, or cookies disabled.
-    //
-    if( Cookie.length == 0 )
-        return;
-
-    State          = Cookie.S;
-    LessonLDay     = Cookie.LD;
-    LessonCDay     = Cookie.CD;
-    StartCDay      = Cookie.SC;
-    Category       = Cookie.C;
-    SlideIntroSeen = Cookie.SI;
-    SlideMultiSeen = Cookie.SM;
+    if( Config == null )
+        InitConfig();
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//
-// SetMCookie - Save motivational info in a browser cookie
-//
-// Inputs:      None. (Global vars are used)
-//
-// Outputs:     None. (Cookie is set in document)
-//
-function SetMCookie() {
+function InitConfig() { 
 
-    var Cookie = {
-        S:  State,
-        LD: LessonLDay,
-        CD: LessonCDay,
-        SC: StartCDay,
-        C:  Category,
-        SI: SlideIntroSeen,
-        SM: SlideMultiSeen,
+    Config = {
+        StartCDay:      0,      // Calendar day when lesson arc started
+        LessonLDay:     0,      // Current lesson   day user is at
+        LessonCDay:     0,      // Current calendar day user achieved leddon
+        SlideIntroSeen: 0,      // FALSE on very first slideshow
+        SlideMultiSeen: 0,      // FALSE unless 2nd slideshow in single day
+        Category:       "",     // Category of user's project (ex: "Pottery")
         };
-
-    SetCookie(CookieName,Cookie,60);
     }

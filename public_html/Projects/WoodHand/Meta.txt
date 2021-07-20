@@ -1,2 +1,2 @@
     Display: 'Woodworking/hand tools',
-    Dir:     'WoodHand',
+    Doer:    'Woodworker',

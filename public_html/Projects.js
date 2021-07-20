@@ -44,6 +44,7 @@ var Projects = {
     Automotive: {
         Meta: {
                 Display: 'Automotive',
+                Doer:    'Mechanic',
                 Dir:     'Automotive',
             },
         Words: [
@@ -278,6 +279,7 @@ var Projects = {
     Ceramics: {
         Meta: {
                 Display: 'Ceramics/Pottery',
+                Doer:    'Potter',
                 Dir:     'Ceramics',
             },
         Words: [
@@ -809,6 +811,7 @@ var Projects = {
     Chemistry: {
         Meta: {
                 Display: 'Chemistry',
+                Doer:    'Chemist',
                 Dir:     'Chemistry',
             },
         Words: [
@@ -1364,6 +1367,7 @@ var Projects = {
     Electronics: {
         Meta: {
                 Display: 'Electronics',
+                Doer:    'Electronics Engineer',
                 Dir:     'Electronics',
             },
         Words: [
@@ -2382,6 +2386,7 @@ var Projects = {
     Fitness: {
         Meta: {
                 Display: 'Fitness',
+                Doer:    'Bodybuilder',
                 Dir:     'Fitness',
             },
         Words: [
@@ -2908,6 +2913,7 @@ var Projects = {
     HomeRepair: {
         Meta: {
                 Display: 'Home repair',
+                Doer:    'Handyman',
                 Dir:     'HomeRepair',
             },
         Words: [
@@ -3411,6 +3417,7 @@ var Projects = {
     Jewelry: {
         Meta: {
                 Display: 'Jewelry',
+                Doer:    'Jeweler',
                 Dir:     'Jewelry',
             },
         Words: [
@@ -4253,6 +4260,7 @@ var Projects = {
     Machining: {
         Meta: {
                 Display: 'Machining',
+                Doer:    'Machinist',
                 Dir:     'Machining',
             },
         Words: [
@@ -4408,6 +4416,7 @@ var Projects = {
     MovieVideo: {
         Meta: {
                 Display: 'Movie/video',
+                Doer:    'Moviemaker',
                 Dir:     'MovieVideo',
             },
         Words: [
@@ -4767,6 +4776,7 @@ var Projects = {
     MusicalInstrument: {
         Meta: {
                 Display: 'Musical Instrument',
+                Doer:    'Musician',
                 Dir:     'MusicalInstrument',
             },
         Words: [
@@ -5240,6 +5250,7 @@ var Projects = {
     Painting: {
         Meta: {
                 Display: 'Painting',
+                Doer:    'Painter',
                 Dir:     'Painting',
             },
         Words: [
@@ -6553,6 +6564,7 @@ var Projects = {
     Science: {
         Meta: {
                 Display: 'Science',
+                Doer:    'Scientist',
                 Dir:     'Science',
             },
         Words: [
@@ -6931,6 +6943,7 @@ var Projects = {
     Sculpting: {
         Meta: {
                 Display: 'Sculpting',
+                Doer:    'Sculptor',
                 Dir:     'Sculpting',
             },
         Words: [
@@ -7609,6 +7622,7 @@ var Projects = {
     Sewing: {
         Meta: {
                 Display: 'Sewing',
+                Doer:    'Seamstress',
                 Dir:     'Sewing',
             },
         Words: [
@@ -8160,6 +8174,7 @@ var Projects = {
     Software: {
         Meta: {
                 Display: 'Software',
+                Doer:    'Coder',
                 Dir:     'Software',
             },
         Words: [
@@ -8455,6 +8470,7 @@ var Projects = {
     Songwriting: {
         Meta: {
                 Display: 'Songwriting',
+                Doer:    'Songwriter',
                 Dir:     'Songwriting',
             },
         Words: [
@@ -8732,6 +8748,7 @@ var Projects = {
     Welding: {
         Meta: {
                 Display: 'Welding',
+                Doer:    'Weldor',
                 Dir:     'Welding',
             },
         Words: [
@@ -8877,6 +8894,7 @@ var Projects = {
     WoodHand: {
         Meta: {
                 Display: 'Woodworking/hand tools',
+                Doer:    'Woodworker',
                 Dir:     'WoodHand',
             },
         Words: [
@@ -9344,6 +9362,7 @@ var Projects = {
     WoodPower: {
         Meta: {
                 Display: 'Woodworking/power tools',
+                Doer:    'Woodworker',
                 Dir:     'WoodPower',
             },
         Words: [
@@ -9645,6 +9664,7 @@ var Projects = {
     Writing: {
         Meta: {
                 Display: 'Writing',
+                Doer:    'Writer',
                 Dir:     'Writing',
             },
         Words: [

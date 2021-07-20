@@ -1,2 +1,2 @@
     Display: 'Ceramics/Pottery',
-    Dir:     'Ceramics',
+    Doer:    'Potter',

@@ -1,2 +1,2 @@
     Display: 'Chemistry',
-    Dir:     'Chemistry',
+    Doer:    'Chemist',

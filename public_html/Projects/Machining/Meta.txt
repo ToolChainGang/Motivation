@@ -1,2 +1,2 @@
     Display: 'Machining',
-    Dir:     'Machining',
+    Doer:    'Machinist',

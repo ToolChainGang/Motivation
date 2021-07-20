@@ -1,2 +1,2 @@
     Display: 'Home repair',
-    Dir:     'HomeRepair',
+    Doer:    'Handyman',

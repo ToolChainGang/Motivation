@@ -52,7 +52,9 @@ use strict;
 use warnings;
 use Carp;
 
+use Cwd qw(cwd);
 use File::Slurp;
+use File::Basename;
 
 ########################################################################################################################
 ########################################################################################################################
@@ -197,12 +199,15 @@ sub AddCategory {
 
     my @Meta = read_file($MetaFile, { chomp => 1 });
 
-     die "No meta info found for project $Category"
+    die "No meta info found for project $Category"
          unless scalar @Meta;
 
     push @{$Projects{$Category}{Meta}},$_
         foreach @Meta;
 
+    my $Dir = basename cwd();
+    push @{$Projects{$Category}{Meta}},"    Dir:     '$Dir',";
+    
     chdir "..";
     }
 

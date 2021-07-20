@@ -1,2 +1,2 @@
     Display: 'Welding',
-    Dir:     'Welding',
+    Doer:    'Weldor',

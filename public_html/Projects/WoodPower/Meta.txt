@@ -1,2 +1,2 @@
     Display: 'Woodworking/power tools',
-    Dir:     'WoodPower',
+    Doer:    'Woodworker',

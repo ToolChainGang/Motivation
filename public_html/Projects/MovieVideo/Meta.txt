@@ -1,2 +1,2 @@
     Display: 'Movie/video',
-    Dir:     'MovieVideo',
+    Doer:    'Moviemaker',

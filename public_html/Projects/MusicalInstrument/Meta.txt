@@ -1,2 +1,2 @@
     Display: 'Musical Instrument',
-    Dir:     'MusicalInstrument',
+    Doer:    'Musician',

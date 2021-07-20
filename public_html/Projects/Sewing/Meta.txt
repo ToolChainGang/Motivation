@@ -1,2 +1,2 @@
     Display: 'Sewing',
-    Dir:     'Sewing',
+    Doer:    'Seamstress',

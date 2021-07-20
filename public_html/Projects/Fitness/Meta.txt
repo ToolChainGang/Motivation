@@ -1,2 +1,2 @@
     Display: 'Fitness',
-    Dir:     'Fitness',
+    Doer:    'Bodybuilder',
