@@ -1,2 +1,0 @@
-    Display: 'Musical Instrument',
-    Doer:    'Musician',

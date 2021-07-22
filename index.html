@@ -4,18 +4,19 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="HandheldFriendly"   content="true" />
   <title>Motivation</title>
-  <link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
-  <link rel="stylesheet"    type="text/css"  href="index.css"  />
-  <script src="Motivation.js"></script>
-  <script src=    "Random.js"></script>
-  <script src=       "Lib.js"></script>
-  <script src= "SlideShow.js"></script>
-  <script src=   "Article.js"></script>
-  <script src=   "Lessons.js"></script>
-  <script src=  "Projects.js"></script>
+  <link rel="shortcut icon" type="image/jpg" href="favicon.png"  />
+  <link rel="stylesheet"    type="text/css"  href="lib/index.css"/>
+  <script src="lib/Motivation.js"></script>
+  <script src=    "lib/Config.js"></script>
+  <script src=    "lib/Random.js"></script>
+  <script src=       "lib/Lib.js"></script>
+  <script src= "lib/SlideShow.js"></script>
+  <script src=   "lib/Article.js"></script>
+  <script src=   "lib/Lessons.js"></script>
+  <script src=  "lib/Projects.js"></script>
   </head>
 
-<body onkeydown="ProcessKB()">
+<body onkeydown="ProcessKB()" onkeyup="ProcessKB()">
 
 <div id="LoadingPage" style="display: block;" class="Panel">
     <h1>One moment...</h1>
@@ -36,17 +37,33 @@
 
 <!-- Configuration ################################################################################################# -->
 
-<article id="COO00" class="NoNav">
+<article id="EnableCookies">
 <h2>Cookie required</h2>
 <p>The course uses cookies to track your progress.
 </p>
-<p>Please add this URL to your browser's cookie "allowed sites" settings:
+<p>Add this URL to your browser's cookie "allowed sites" settings, then click reload.
 </p>
 
 <input class="CookieURL" value="$COOKIEURL" maxlength="80">
+<h2>&nbsp;</h2>
+<p><a class="Cont" title="Reload" onclick="location.reload();">Reload ›</a></p>
 </article>
 
-<article id="TOC00" class="NoNav">
+<article id="Hackaday">
+<h2>Hackaday prize judging</h2>
+<p>For convenience in hackaday prize judging:</p>
+<p>ALT-D will increment the lesson day, and ALT-L will show that day's lesson.</p>
+<p>ALT-S will show the slideshow, and ALT-R will reset the program.</p>
+<p>This will let you examine the project without waiting a day for each lesson.
+<br>You will need to configure a project first.
+</p>
+<p>(This will not be in the released project.)
+</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('Contents')" >Continue ›</a></p><br />
+</article>
+
+<article id="Contents">
 <h2>Welcome to Motivation!</h2>
 <p>If this is your first time running the program, you probably want "quickstart".
 </p>
@@ -103,69 +120,19 @@ function NavCON(State) {
     }
 --></script>
 
-<!-- Lesson management ############################################################################################# -->
-
-<article id="LES00" class="NoNav">
-<h2>&nbsp;</h2>
-<p>Do you have time for today's lesson?
-</p>
-<p><a class="Cont" title="Continue" onclick="StartLesson()"  >Yes, show today's lesson ›</a></p>
-<p><a class="Cont" title="Continue" onclick="NavID('LEW00')" >No, I don't have time right now ›</a></p>
-</article>
-
-<article id="LEC00" class="NoNav">
-<h2>Motivation!</h2>
-<p>This completes today's lesson.
-</p>
-<p>Until next time.
-</p>
-</article>
-
-<article id="LEW00" class="NoNav">
-<h2>&nbsp;</h2>
-<p>This program will wait at day $DAY of $MAXDAY until you have completed the lesson.
-</p>
-<p>Until next time.
-</p>
-</article>
-
-<article id="LEW01" class="NoNav">
-<h2>&nbsp;</h2>
-<p>This program will wait at day $DAY of $MAXDAY until you have completed the homework.
-</p>
-<p>Until next time.
-</p>
-</article>
-
-<article id="LEW02" class="NoNav">
-<h2>&nbsp;</h2>
-<p>This program will wait at day $DAY of $MAXDAY until completed.
-</p>
-<p>Until next time.
-</p>
-</article>
-
-<article id="LEC10" class="NoNav">
-<h2>Course complete</h2>
-<p>You have completed the course "Motivation".
-</p>
-<p><a class="Cont" title="Restart" onclick="ResetLesson()" >Restart using same project ›</a></p><br />
-<p><a class="Cont" title="Abort"   onclick="NavID('CON00')">Configure new project and restart ›</a></p>
-
-</article>
-
 <!-- Slideshow ##################################################################################################### -->
 
-<article id="SLI00" class="NoNav">
+<article id="SSDay1">
 <h2>Welcome to motivation!</h2>
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
-<p>This looks like your first time running the program.
+<p>This is your first lesson day.
 </p>
-<p>This first part consists of a slideshow, where words and images will appear on the
-screen. This takes about a minute, and uses <a href="https://en.wikipedia.org/wiki/Priming_(psychology)">priming</a>
+<p>It starts with a slideshow, where words and images appear on the
+screen. This takes about a minute, and uses
+<a target="_blank" href="https://en.wikipedia.org/wiki/Priming_(psychology)">priming</a>
 to get you to think about your project.
 </p>
-<p>During the slideshow, one of the words will be somehow "emphasized": it might be in
+<p>During the slideshow, one of the words will be emphasized: it might be in
 color, or a different position, or upside down, or outlined, or shaking... something
 will be different and it will be easy to spot.
 </p>
@@ -174,34 +141,37 @@ word was emphasized you'll have to rewatch the slideshow.
 </p>
 
 <h2>&nbsp;</h2>
-<p><a class="Cont" title="Continue" onclick="NavID('SLI01')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('SSDay1a')">Continue ›</a></p>
 </article>
 
-<article id="SLI01" class="NoNav">
+<article id="SSDay1a">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
-<p>Once you've correctly identified the emphasized word, you'll be shown some lesson text to read
-and maybe asked to do a small task. The texts are short (less then 5 min), the tasks are simple,
+<h2>&nbsp;</h2>
+<p>When you've correctly identified the emphasized word, you'll be shown the lesson
+text and maybe asked to do a small task.
+</p>
+<p>The texts are short (less then 5 min), the tasks are simple,
 and not all days have lessons, so the course shouldn't take up much of your time.
 </p>
 <p>At the end of the course - after 30 days of running this program - you should have better
 motivation to finish your project.
 </p>
 <h2>&nbsp;</h2>
-<p><a class="Cont" title="Continue" onclick="NavID('SLI02')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('SSDay1b')">Continue ›</a></p>
 </article>
 
-<article id="SLI02" class="NoNav">
+<article id="SSDay1b">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
-<p>One last thing: Occasionally, there will be more than one word highlighted.</p>
+<h2>&nbsp;</h2>
+<p>One last thing: Occasionally, more than one word will be highlighted.</p>
 <p>Watch out for that.</p>
-<p>When you're ready, click the button to start the slideshow.
+<p>When you're ready, click the start button.
 </p>
 <h2>&nbsp;</h2>
 <span class="BeginSpan"><button class="SlideshowBegin" onclick="BeginSlideshow()">Start</button></span>
-<p><a class="Cont" title="Continue" onclick="BeginSlideshow()">Begin slideshow ›</a></p>
 </article>
 
-<article id="SLI10" class="NoNav">
+<article id="SS2ndView">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <p>Running the course multiple times per day will result in a stronger effect...
 </p>
@@ -213,10 +183,10 @@ it three times in the morning.
 <p>Your brain needs to process and integrate the information, this usually happens during sleep.
 </p>
 <h2>&nbsp;</h2>
-<p><a class="Cont" title="Continue" onclick="NavID('SLI20')">I understand. Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('SSToday')">I understand. Continue ›</a></p>
 </article>
 
-<article id="SLI20" class="NoNav">
+<article id="SSToday">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>Slideshow ($CATEGORY)</h2>
 <p>Watch the words and images as they appear on your screen.
@@ -231,50 +201,155 @@ it three times in the morning.
 <span class="BeginSpan"><button class="SlideshowBegin" onclick="BeginSlideshow()">Start</button></span>
 </article>
 
-<article id="SLE10" class="NoNav">
+<article id="SSInterrupt">
 <h2>Interrupted.</h2>
 
-<p><a class="Cont" title="Restart" onclick="RunSlideshow(Config.Category)">Restart ›</a></p><br />
-<p><a class="Cont" title="Abort"   onclick="NavID('LEW02')"        >Skip ›</a></p>
+<p><a class="Cont" title="Restart"    onclick="RunSlideshow(Config.Category)">Restart ›</a></p><br />
+<p><a class="Cont" title="Skip today" onclick="NavID('WaitDay')"             >Skip ›</a></p>
 
 </article>
 
-<article id="SLW00" class="NoNav">
+<article id="SSWords">
+<h2>&nbsp;</h2>
 <p>Which word was emphasized?
 </p>
+<div class="CenterDiv">
+<input type="radio" id="HWord1" name="$HWORD1" value="$HWORD1" onclick="CheckSSWords('$HWORD1',1)">
+<label for="HWord1"><span class="HWord">$HWORD1</span></label><br>
+<input type="radio" id="HWord2" name="$HWORD2" value="$HWORD2" onclick="CheckSSWords('$HWORD2',1)">
+<label for="HWord2"><span class="HWord">$HWORD2</span></label><br>
+<input type="radio" id="HWord3" name="$HWORD3" value="$HWORD3" onclick="CheckSSWords('$HWORD3',1)">
+<label for="HWord3"><span class="HWord">$HWORD3</span></label><br>
+<input type="radio" id="HWord4" name="$HWORD4" value="$HWORD4" onclick="CheckSSWords('$HWORD4',1)">
+<label for="HWord4"><span class="HWord">$HWORD4</span></label><br>
+</div>
 
-<input type="radio" id="HWord1" name="$HWORD1" value="$HWORD1" onclick="">
-<label for="HWord1"><span class="HWord" style="width: 9ch;">$HWORD1</span></label><br>
+<div id="SSWord2" class="Hidden">
+<p>Which other word was emphasized?</p>
+<div class="CenterDiv">
+<input type="radio" id="HWord5" name="$HWORD5" value="$HWORD5" onclick="CheckSSWords('$HWORD5',0)">
+<label for="HWord5"><span class="HWord">$HWORD5</span></label><br>
+<input type="radio" id="HWord6" name="$HWORD6" value="$HWORD6" onclick="CheckSSWords('$HWORD6',0)">
+<label for="HWord6"><span class="HWord">$HWORD6</span></label><br>
+<input type="radio" id="HWord7" name="$HWORD7" value="$HWORD7" onclick="CheckSSWords('$HWORD7',0)">
+<label for="HWord7"><span class="HWord">$HWORD7</span></label><br>
+<input type="radio" id="HWord8" name="$HWORD8" value="$HWORD8" onclick="CheckSSWords('$HWORD8',0)">
+<label for="HWord8"><span class="HWord">$HWORD8</span></label><br>
+</div>
+</div>
 
-<input type="radio" id="HWord2" name="$HWORD2" value="$HWORD2" onclick="">
-<label for="HWord2"><span class="HWord" style="width: 9ch;">$HWORD2</span></label><br>
+<div id="SSWordWrong" class="Hidden">
+<h2>&nbsp;</h2>
+<p>That's not right.</p>
+<p>Would you like to try again?</p>
+<h2>&nbsp;</h2>
+<p><a class="Cont" title="Continue" onclick="RunSlideshow(Config.Category)">Yes, try again ›</a><br></p>
+<p><a class="Cont" title="Continue" onclick="NavID('WaitDay')">No, I don't have time right now ›</a></p>
+</div>
 
-<input type="radio" id="HWord3" name="$HWORD3" value="$HWORD3" onclick="">
-<label for="HWord3"><span class="HWord" style="width: 9ch;">$HWORD3</span></label><br>
-
-<input type="radio" id="HWor41" name="$HWORD4" value="$HWORD4" onclick="">
-<label for="HWord4"><span class="HWord" style="width: 9ch;">$HWORD4</span></label><br>
-
+<div id="SSWordDone" class="Hidden">
+<h2>&nbsp;</h2>
+<p><a class="Cont" title="Continue" onclick="RunLesson()">Continue ›</a></p>
+</div>
 </article>
 
-<article id="SLW01" class="NoNav">
+
+<article id="SSNums">
 <p>During the slideshow, how many words were emphasized?
 </p>
-<input type="radio" id="NWord1" name="$NWORD1" value="$NWORD1" onclick="ShowID('SLE01a')">
+<div class="CenterDiv" style="margin-left: auto;">
+<input type="radio" id="NWord1" name="$NWORD1" value="$NWORD1" onclick="UnHide('SSNumA')">
 <label for="NWord1"><span class="HWord" style="width: 9ch;">1</span></label><br>
 
-<input type="radio" id="NWord2" name="$NWORD2" value="$NWORD2" onclick="">
+<input type="radio" id="NWord2" name="$NWORD2" value="$NWORD2" onclick="UnHide('SSNumA')">
 <label for="NWord2"><span class="HWord" style="width: 9ch;">2</span></label><br>
 
-<input type="radio" id="NWord3" name="$NWORD3" value="$NWORD3" onclick="">
+<input type="radio" id="NWord3" name="$NWORD3" value="$NWORD3" onclick="UnHide('SSNumB')">
 <label for="NWord3"><span class="HWord" style="width: 9ch;">3</span></label><br>
 
-<input type="radio" id="HWor41" name="$NWORD4" value="$NWORD4" onclick="">
+<input type="radio" id="HWor41" name="$NWORD4" value="$NWORD4" onclick="UnHide('SSNumA')">
 <label for="NWord4"><span class="HWord" style="width: 9ch;">4</span></label><br>
-
-<div id="SLE01a" class="Hidden">
-<p><a class="Cont" title="Continue" onclick="StartLesson()">Continue ›</a></p>
 </div>
+
+<div id="SSNumA" class="Hidden">
+<h2>&nbsp;</h2>
+<p>That's not right.</p>
+<p>Would you like to try again?</p>
+<h2>&nbsp;</h2>
+<p><a class="Cont" title="Continue" onclick="RunSlideshow(Config.Category)">Yes, try again ›</a><br></p>
+<p><a class="Cont" title="Continue" onclick="NavID('WaitDay')">No, I don't have time right now ›</a></p>
+</div>
+
+<div id="SSNumB" class="Hidden">
+<h2>&nbsp;</h2>
+<p><a class="Cont" title="Continue" onclick="RunLesson()">Continue ›</a></p>
+</div>
+</article>
+
+<!-- Lesson management ############################################################################################# -->
+
+<article id="AskLesson">
+<h2>Motivation!</h2>
+<h2>&nbsp;</h2>
+<p>Do you have time for today's lesson?
+</p>
+<p><a class="Cont" title="Continue" onclick="ShowLesson()"        >Yes, show today's lesson ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('WaitLesson')" >No, I don't have time right now ›</a></p>
+</article>
+
+<article id="NoLesson">
+<h2>Motivation!</h2>
+<h2>&nbsp;</h2>
+<p>There is no lesson text today.
+</p>
+<p>Until next time.
+</p>
+</article>
+
+<article id="LessonComplete">
+<h2>Motivation!</h2>
+<h2>&nbsp;</h2>
+<p>This completes today's lesson.
+</p>
+<p>Until next time.
+</p>
+</article>
+
+<article id="WaitDay">
+<h2>Motivation!</h2>
+<h2>&nbsp;</h2>
+<p>This program will wait at day $DAY of $MAXDAY until completed.
+</p>
+<p>Until next time.
+</p>
+</article>
+
+<article id="WaitLesson">
+<h2>Motivation!</h2>
+<h2>&nbsp;</h2>
+<p>This program will wait at day $DAY of $MAXDAY until you have completed the lesson.
+</p>
+<p>Until next time.
+</p>
+</article>
+
+<article id="WaitHW" class="NoNav">
+<h2>Motivation!</h2>
+<h2>&nbsp;</h2>
+<p>This program will wait at day $DAY of $MAXDAY until you have completed the homework.
+</p>
+<p>Until next time.
+</p>
+</article>
+
+<article id="Done" class="NoNav">
+<h2>Motivation complete!</h2>
+<h2>&nbsp;</h2>
+<p>You have completed the course "Motivation".
+</p>
+<p><a class="Cont" title="Restart" onclick="ResetLesson()" >Restart using same project ›</a></p><br />
+<p><a class="Cont" title="Abort"   onclick="NavID('CON00')">Configure new project and restart ›</a></p>
+
 </article>
 
 <!-- Two types of motivation ####################################################################################### -->
@@ -420,11 +495,11 @@ how they affect your project. This will be important in future lessons.
 <script><!--
 function NavTW(State) {
     if( State == 1 ) {
-        HideID("TWB00a");
-        ShowID("TWB00b");
+        Hide("TWB00a");
+        UnHide("TWB00b");
         }
     if( State == 2 ) {
-        ShowID("TWB00c");
+        UnHide("TWB00c");
         }
     }
 --></script>
@@ -446,7 +521,7 @@ during playtime.
 <p>Surprisingly, the children who had been given an extrinsic reward showed far less interest in drawing
 than the children who were not offered the reward.
 </p>
-<p>Something about the reward had reduced the children’s desire to draw.</p>
+<p>Something about the reward reduced the children’s desire to draw.</p>
 
 <p><a class="Cont" title="Continue" onclick="NavID('TWC01')">Done ›</a></p>
 </article>
@@ -461,23 +536,35 @@ activities that they already found interesting: solving puzzles and writing news
 </p>
 <p>In the third phase, both groups once again performed the activity with no rewards.</p>
 <p>Students who were paid during the second phase were less likely to continue the
-activities - activities that they originally found interesting - in the third phase.
-Students who were not paid were more likely to continue.
+activities in the third phase. Students who were not paid were more likely to continue.
 </p>
-<p>Even though both groups had been equally interested
-to begin with, the extrinsic reward interfered with the
-enjoyment of the activity itself.
+<p>Both groups started out equally interested, but the extrinsic reward reduced one
+group's motivation.
 </p>
 
-<p><a class="Cont" title="Continue" onclick="NavID('TWC02')">Done ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWC02')">Continue ›</a></p>
 </article>
 
 <article id="TWC02">
-<h2>Switching motivations</h2>
-<p>If you are having trouble finishing your projects, it's probably because you have
-replaced your intrinsic motivations with extrinsic ones.
+<h2>&nbsp;</h2>
+<p>This is called the 
+<a target="_blank" href="https://en.wikipedia.org/wiki/Overjustification_effect">
+overjustification effect</a>, and there's a Wikipedia page for it.
 </p>
-<p>
+<p>Essentially, your mind notices you're being rewarded for an activity, and assumes
+this is the reason you're doing it. Extrinsic motivations replace the 
+intrinsic ones, and your intrinsic motivations fade away.
+</p>
+<p>But then, the extrinsic rewards only come when the project is complete...
+</p>
+<p>So with no intrinsic motivation to sustain you, making progress on your projects
+becomes a boring drudgery. You lose interest over time, and eventually give up.
+</p>
+<p>If you have trouble finishing your projects, it's probably because your
+intrinsic motivations have been replaced with extrinsic ones, leaving you with no
+motivation to sustain you during your project.
+</p>
+<p>You will need to fix that.
 </p>
 
 <p><a class="Cont" title="Continue" onclick="LessonComplete()">Done ›</a></p>
@@ -592,7 +679,7 @@ that you'll encounter failure at some point, so getting properly
 oriented will help.
 </p>
 <p>The term for this is "prospection", and there's a 
-<a href="https://en.wikipedia.org/wiki/Prospection">Wikipedia page</a> for it.</p>
+<a target="_blank" href="https://en.wikipedia.org/wiki/Prospection">Wikipedia page</a> for it.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('FAI01')">Continue ›</a></p>
 </article>
 
@@ -625,15 +712,15 @@ there is still value in having made the journey.
 </p>
 <p>
 Could it fail?
-<label class="radio-inline"><input type="radio" name="FAI02Y3" onclick="ShowID('FAI02b')">Yes</label>
-<label class="radio-inline"><input type="radio" name="FAI02N3" onclick="ShowID('FAI02b')">No</label>
+<label class="radio-inline"><input type="radio" name="FAI02Y3" onclick="UnHide('FAI02b')">Yes</label>
+<label class="radio-inline"><input type="radio" name="FAI02N3" onclick="UnHide('FAI02b')">No</label>
 </p>
 
 <div id="FAI02b" class="Hidden">
 <p>
 Does that matter?
-<label class="radio-inline"><input type="radio" name="FAI02Y1" onclick="ShowID('FAI02c')">Yes</label>
-<label class="radio-inline"><input type="radio" name="FAI02N1" onclick="ShowID('FAI02c')">No</label>
+<label class="radio-inline"><input type="radio" name="FAI02Y1" onclick="UnHide('FAI02c')">Yes</label>
+<label class="radio-inline"><input type="radio" name="FAI02N1" onclick="UnHide('FAI02c')">No</label>
 </p>
 </div>
 
@@ -677,39 +764,39 @@ came to decide to do it, how you planned it, the steps you took, and what the re
 </p>
 <p>
 Did you do a good job?
-<label class="radio-inline"><input type="radio" name="PRI02Y3" onclick="ShowID('PRI02b')">Yes</label>
-<label class="radio-inline"><input type="radio" name="PRI02N3" onclick="ShowID('PRI02b')">No</label>
+<label class="radio-inline"><input type="radio" name="PRI02Y3" onclick="UnHide('PRI02b')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N3" onclick="UnHide('PRI02b')">No</label>
 </p>
 
 <div id="PRI02b" class="Hidden">
 <p>
 Did you learn something new?
-<label class="radio-inline"><input type="radio" name="PRI02Y1" onclick="ShowID('PRI02c')">Yes</label>
-<label class="radio-inline"><input type="radio" name="PRI02N1" onclick="ShowID('PRI02c')">No</label>
+<label class="radio-inline"><input type="radio" name="PRI02Y1" onclick="UnHide('PRI02c')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N1" onclick="UnHide('PRI02c')">No</label>
 </p>
 </div>
 
 <div id="PRI02c" class="Hidden">
 <p>
 Did you make decisions and try things?
-<label class="radio-inline"><input type="radio" name="PRI02Y2" onclick="ShowID('PRI02d')">Yes</label>
-<label class="radio-inline"><input type="radio" name="PRI02N2" onclick="ShowID('PRI02d')">No</label>
+<label class="radio-inline"><input type="radio" name="PRI02Y2" onclick="UnHide('PRI02d')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N2" onclick="UnHide('PRI02d')">No</label>
 </p>
 </div>
 
 <div id="PRI02d" class="Hidden">
 <p>
 Was the project result useful or valuable?
-<label class="radio-inline"><input type="radio" name="PRI02Y4" onclick="ShowID('PRI02e')">Yes</label>
-<label class="radio-inline"><input type="radio" name="PRI02N4" onclick="ShowID('PRI02e')">No</label>
+<label class="radio-inline"><input type="radio" name="PRI02Y4" onclick="UnHide('PRI02e')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N4" onclick="UnHide('PRI02e')">No</label>
 </p>
 </div>
 
 <div id="PRI02e" class="Hidden">
 <h2>&nbsp;</h2>
 <p>For your best project: <b><em>did you enjoy doing it?</em></b>
-<label class="radio-inline"><input type="radio" name="PRI02Y4" onclick="ShowID('PRI02f')">Yes</label>
-<label class="radio-inline"><input type="radio" name="PRI02N4" onclick="ShowID('PRI02f')">No</label>
+<label class="radio-inline"><input type="radio" name="PRI02Y4" onclick="UnHide('PRI02f')">Yes</label>
+<label class="radio-inline"><input type="radio" name="PRI02N4" onclick="UnHide('PRI02f')">No</label>
 </p>
 </div>
 
@@ -732,8 +819,9 @@ Was the project result useful or valuable?
 
 <article id="FLO00">
 <h2>Flow States</h2>
-<p>A <a href="https://en.wikipedia.org/wiki/Flow_(psychology)" target="_blank">flow state</a> is when
-you're doing something and you lose track of time. Many people experience flow states while driving
+<p>A
+<a target="_blank" href="https://en.wikipedia.org/wiki/Flow_(psychology)" target="_blank">flow state</a>
+is when you're doing something and you lose track of time. Many people experience flow states while driving
 - you're thinking about something, turning over a problem in your mind, and arrive at your
 destination without any memory of driving or of thepassage of time.
 </p>

@@ -76,7 +76,7 @@ kbd {
     font-weight:        bold;
     }
 
-#SlideshowBegin:hover {
+.SlideshowBegin:hover {
     background:         #0ad482;        /* SpringGreen 3 */
     border-color:       #0ad482;        /* SpringGreen 3 */
     }

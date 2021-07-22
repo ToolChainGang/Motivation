@@ -1,2 +1,0 @@
-    Display: 'Welding',
-    Doer:    'Weldor',
