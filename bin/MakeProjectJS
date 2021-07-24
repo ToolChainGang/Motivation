@@ -21,7 +21,7 @@
 ##
 ##      MakeProjectJS
 ##
-##      Scans the Projects directory, and creates the file "Project.js" in the web directory.
+##      Scans the Projects directory, and creates the file "Projects.js" in the right place.
 ##
 ########################################################################################################################
 ########################################################################################################################
@@ -124,9 +124,9 @@ END_HEADER
 ########################################################################################################################
 
 #
-# If there's a Projects dir in the current directory, then we work from here.
+# If there's a Projects dir in the current directory, then work from here.
 #
-die "Cannot find 'Projects' directory."
+die "Cannot find 'Projects' in current directory."
     unless -d "Projects";
 
 chdir "Projects";
@@ -139,11 +139,11 @@ foreach my $Category (<*>) {
     AddCategory($Category);
     }
 
-chdir "..";
-
 WriteProjectsJS();
 
-print "Done. $JSFile written to current directory\n";
+print "Done. Generated Projects/$JSFile file.\n";
+
+chdir "..";
 
 exit(0);
 
@@ -170,6 +170,13 @@ sub AddCategory {
     chdir $Category;
 
     ####################################################################################################################
+    #
+    # Images subdir
+    #
+    die "No Images dir found for $Category"
+        unless -d "Images";
+
+    chdir "Images";
 
     my @Images = <*.jpg *.jpeg *.gif *.png *.bmp>;
 
@@ -179,21 +186,27 @@ sub AddCategory {
     push @{$Projects{$Category}{Images}},$_
         foreach @Images;
 
-    ####################################################################################################################
+    chdir "..";
 
+    ####################################################################################################################
+    #
+    # Words.txt
+    #
     die "No $WordsFile file found for $Category"
         unless -e $WordsFile;
 
     my @Words = read_file($WordsFile, { chomp => 1 });
 
-#    die "No words found for project $Category"
-#        unless scalar @Words;
+    die "No words found for project $Category"
+        unless scalar @Words;
 
     push @{$Projects{$Category}{Words}},$_
         foreach @Words;
 
     ####################################################################################################################
-
+    #
+    # Meta.txt
+    #
     die "No $MetaFile file found for $Category"
         unless -e $MetaFile;
 
@@ -245,7 +258,7 @@ sub WriteProjectsJS {
         print JS "            ],\n";
 
         print JS "        Images: [\n";
-        print JS "            'Projects/$Category/$_',\n"
+        print JS "            '$_',\n"
             foreach @{$Projects{$Category}{Images}};
         print JS "            ]\n";
 
@@ -270,8 +283,8 @@ sub WriteProjectsJS {
 sub EscapeWord {
     my $Word = shift;
 
-    $Word =~ s/\"/\\\"/g;
-    $Word =~ s/\'/\\\'/g;
+    $Word =~ s/\"/\\x22/g;
+    $Word =~ s/\'/\\x27/g;
 
     return $Word;
     }

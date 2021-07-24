@@ -1,0 +1,35 @@
+alloy
+anode
+arcs
+braze
+cathode
+combine
+conductance
+conductivity
+dielectric
+discharge
+electric arc
+electric discharge
+electrical conductor
+electrically
+electricity
+electron
+flame
+flux
+fuse
+fusible
+join
+joint
+melt
+metal
+mig
+mix
+oxyacetylene
+patch
+solder
+spark
+spot weld
+spot-weld
+tig
+tungsten
+workpiece

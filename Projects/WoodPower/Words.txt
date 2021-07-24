@@ -1,0 +1,71 @@
+antique
+article of furniture
+artisan
+balsa
+basswood
+beech
+birch
+board
+cabinetmaking
+cabinetry
+card table
+carpentry
+cedar
+coffee table
+craftsman
+cypress
+dado
+desk
+dresser
+elm
+fir
+floor
+flooring
+forest
+furniture
+hardwood
+hazel
+hickory
+joinery
+laminate
+lignin
+log
+lumber
+lumberyard
+mahogany
+maple
+matchwood
+mills
+millwork
+oak
+paneling
+particle board
+piece of furniture
+pine
+plyboard
+plywood
+poplar
+pulpwood
+redwood
+refinishing
+rosewood
+sawdust
+sawmill
+sawmills
+sideboard
+softwood
+spruce
+tabletop
+tea table
+teak
+timber
+tree
+tulipwood
+vanity
+walnut
+whitewood
+willow
+wood
+wooden
+woodturning
+worktable

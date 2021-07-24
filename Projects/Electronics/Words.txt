@@ -1,0 +1,143 @@
+4-bit
+ampere
+amplifier
+applications
+attenuator
+audio
+base
+battery
+biasing
+bit
+bypass capacitor
+capacitance
+capacitor
+ceramic capacitor
+cermet
+choke
+circuitry
+coil
+computer
+computer circuit
+computer memory
+computerized
+computers
+condenser
+cpu
+cut off
+cybernetic
+decoder
+device
+devices
+dielectric
+digital
+diode
+dipole
+eeprom
+electric
+electric circuit
+electric current
+electric field
+electrical
+electrical circuit
+electrical condenser
+electrical conductor
+electrical device
+electrical resistance
+electrode
+electrolytic
+electrolytic capacitor
+electromagnetic coil
+electromagnetic interference
+electromechanical
+electron
+electronic component
+electronics
+embedded system
+energy
+eprom
+equipment
+equivalent series resistance
+ferrite
+ferromagnetic
+fet
+field-effect transistor
+film capacitor
+flash memory
+flywheel
+frequency
+fuse
+germanium
+hardware
+ics
+impedance
+inductance
+inductor
+input/output
+insulator
+integrated circuit
+interface
+inverter
+junction transistor
+magnetic core
+magnetic field
+magnetic flux
+magnetic permeability
+memory chip
+mica
+micro chip
+microchip
+microprocessor
+mosfet
+motherboard
+ohm
+ohm's law
+operating temperature
+optical
+overvoltage
+pc
+pcb
+peripheral
+permittivity
+portable
+potentiometer
+processor
+processors
+programmable read-only memory
+radio
+read-only memory
+resistance
+resistor
+resonant circuit
+robotics
+route
+semiconductor
+semiconductor device
+series circuit
+silicon
+skin effect
+software
+solid-state
+sophisticated
+supercapacitor
+surface-mount technology
+switch
+system on a chip
+tantalum
+technology
+temperature coefficient
+thermionic valve
+toroidal
+track
+transformer
+transistor
+transmitter
+vacuum
+vacuum tube
+variable resistor
+volt
+voltage
+voltage divider
+voltages
+watt
+wireless
+wiring

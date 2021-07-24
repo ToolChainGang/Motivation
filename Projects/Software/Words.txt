@@ -1,0 +1,133 @@
+algorithm
+android
+app
+applet
+application
+application program
+applications
+applications programme
+apply
+assembler
+automation
+backend
+bios
+browser
+c
+c++
+caching
+central processing unit
+chrome os
+code
+coder
+compiler
+computer
+computer hardware
+computer language
+computer network
+computer program
+computer programmer
+computer programming
+computer science
+computer system
+computers
+computing
+cpu
+data
+debian
+debug
+debugging
+desk
+desktop
+desktop environment
+developer
+disk
+document
+documentation
+embedded system
+engineer
+fedora
+file
+firmware
+free software
+freebsd
+freeware
+ftp
+functionality
+gnome
+gnu
+gnu general public license
+gnu project
+graphics
+groupware
+hacker
+hardware
+host
+http
+ibm
+implementation
+interface
+internet
+interpreter
+java
+kernel
+keyboard
+linux
+linux distribution
+linux kernel
+machine
+machine code
+mainframe
+mainframe computer
+memory
+microprocessor
+microsoft
+motherboard
+multimedia
+operating system
+package
+parser
+pc
+peripheral
+perl
+personal computer
+platform
+porting
+practical application
+processor
+program
+programme
+programmer
+programmers
+programmes
+proprietary software
+router
+scheduler
+scheme
+screen
+screen background
+server
+shareware
+smartphone
+software
+software engineer
+source code
+spyware
+subprogram
+subroutine
+subsystem
+supercomputer
+suse
+system
+systems
+techie
+technologist
+technology
+ubuntu
+unix
+unix-like
+usage
+user
+utility program
+web browser
+widgets
+workstation

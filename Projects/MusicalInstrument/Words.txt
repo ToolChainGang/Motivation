@@ -1,0 +1,67 @@
+acoustic guitar
+arrange
+bagpipes
+bass clarinet
+bass viol
+bassoon
+bowed stringed instrument
+brass instrument
+bugle
+calliope
+cello
+clarinet
+clavier
+contrabass
+cornet
+electric guitar
+fingerboard
+flute
+french horn
+guitar
+harmonica
+harp
+harpsichord
+headphones
+horn
+hurdy gurdy
+instrumental
+key
+keyboardist
+keyboards
+mandolin
+marimba
+microphone
+musical instrument
+oboe
+orchestra
+orchestral
+organ
+percussion
+percussion instrument
+piano
+piano keyboard
+pianoforte
+piccolo
+reed
+reed instrument
+saxophone
+sequence
+sousaphone
+string along
+string bass
+string up
+strings
+synthesizer
+timpani
+trombone
+trumpet
+trumpets
+tuba
+viol
+viola
+violin
+violoncello
+woodwind
+woodwind instrument
+woodwinds
+xylophone
