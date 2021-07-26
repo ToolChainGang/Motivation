@@ -153,6 +153,8 @@ sub ScrapeTerm {
 
     print "Term: $Term\n";
 
+    $Term =~ s/ /%20/g;         # Replace spaces w/HTML equivalent
+
     my $URL = $TopURL;
     $URL =~ s/SEARCH_TERM/$Term/;
 

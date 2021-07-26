@@ -56,6 +56,10 @@ kbd {
     color:              red;
     }
 
+.Bolder {
+    font-weight:        530;
+    }
+
 /***********************************************************************
  *
  * Slideshow
@@ -183,6 +187,11 @@ a.Next, a.Last {
     font-weight:        bold;
     }
 
+.ListTitle {
+    padding-bottom:     0;
+    margin-bottom:      0;
+    }
+
 .NoSpc {
     padding-top:        0;
     padding-left:       3em;
@@ -204,6 +213,22 @@ a.Cont {
     text-decoration:    underline blue;
     font-family:        monospace;
     font-weight:        bold;
+    }
+
+.ImageLeft {
+    width:              220px;
+    height:             auto;
+    float:              left;
+    }
+
+.RightText {
+    width:              45ch;
+    float:              right;
+    vertical-align:     center;
+    }
+
+.Right {
+    float:              right;
     }
 
 /***********************************************************************
