@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="HandheldFriendly"   content="true" />
   <title>Motivation</title>
-  <link rel="shortcut icon" type="image/jpg" href="favicon.png"  />
+  <link rel="shortcut icon" type="image/jpg" href="lib/favicon.png"  />
   <link rel="stylesheet"    type="text/css"  href="lib/index.css"/>
   <script src="lib/Motivation.js"></script>
   <script src=    "lib/Config.js"></script>
@@ -50,13 +50,21 @@
 
 <article id="Hackaday">
 <h2>Hackaday prize judging</h2>
-<p>For convenience in hackaday prize judging:</p>
-<p>ALT-D will increment the lesson day, and ALT-L will show that day's lesson.</p>
-<p>ALT-S will show the slideshow, and ALT-R will reset the program.</p>
-<p>This will let you examine the project without waiting a day for each lesson.
-<br>You will need to configure a project first.</p>
-<p>(This will not be in the released project.)</p>
-
+<p>For convenience in hackaday prize judging, ALT-L will begin the next day's lesson
+without having to wait a full day.</p>
+<p class="ListTitle">So for purposes of judging:</p>
+<ul>
+<li>Configure a project and run the program</li>
+<li>View the slideshow for day 1, and the lesson for day 1</li>
+<li>Press ALT-L to see the lesson for the day 2</li>
+<li>Press ALT-L to see the lesson for the day 3</li>
+<li>...and so on.</li>
+</ul>
+<p class="ListTitle">Other commands:</p>
+<ul>
+<li>ALT-S will show  the slideshow</li>
+<li>ALT-R will reset the program to day 1.</li>
+</ul>
 <p><a class="Cont" title="Continue" onclick="NavID('Contents')" >Continue ›</a></p><br />
 </article>
 
@@ -143,7 +151,7 @@ This is the FAQ page</p>
 <article id="SSDay1">
 <h2>Welcome to motivation!</h2>
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
-<p>This is your first lesson day.</p>
+<p>This is your first day.</p>
 <p>
 It starts with a slideshow, where words and images appear on the
 screen. This takes about a minute, and uses
@@ -170,6 +178,7 @@ text and maybe asked to do a small task.</p>
 <p>
 The texts are short (less then 5 min), the tasks are simple,
 and not all days have lessons, so the course shouldn't take up much of your time.</p>
+<p>In fact, this first day doesn't have a lesson. Lessons start on day two.</p>
 <p>
 At the end of the course - after 30 days of running this program - you should have better
 motivation to finish your project.</p>
@@ -189,13 +198,16 @@ motivation to finish your project.</p>
 
 <article id="SS2ndView">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
-<p>Running the course multiple times per day will result in a stronger effect...</p>
+<p>Running the course multiple times per day will result in a stronger effect</p>
 <p>
-but don't overdo it. Three times a day is good, but more than five is
-probably too much. Also, it's better to let some time elapse between runs. Running
+...but don't overdo it.</p>
+<p>
+Three times a day is good, but more than five is
+probably too much.</p>
+<p>Also, it's better to let some time elapse between runs. Running
 the program once in the morning, afternoon, and night will be better than running
 it three times in the morning.</p>
-<p>Your brain needs to process and integrate the information, this usually happens during sleep.</p>
+<p>Your brain needs to process and integrate the information, which usually happens during sleep.</p>
 <h2>&nbsp;</h2>
 <p><a class="Cont" title="Continue" onclick="NavID('SSToday')">I understand. Continue ›</a></p>
 </article>
@@ -307,7 +319,7 @@ it three times in the morning.</p>
 <h2>Motivation!</h2>
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>&nbsp;</h2>
-<p>There is no lesson the first day, lessons begin on day 2.</p>
+<p>Lessons begin on day 2.</p>
 <p>Enjoy the rest of your day, and remember to think about your project!</p>
 </article>
 
@@ -463,9 +475,9 @@ Describe how you could strengthen this. Nothing detailed, just a word or two tha
 <p>We won't ask you to strengthen your weakest motivation, but you can if you want.</p>
 <p>
 The point is to think about your project in terms of <b>Extrinsic</b> and <b>Intrinsic</b> motivations.
-The next lesson will make use of this.</p>
+The next few lessons will make use of this.</p>
 <p><b>Extrinsic</b> motivations are any reward for completion, such as money, fame, or likes.</p>
-<p class="ListTitle">The <b>Intrinsic</b> motivations are:</p>
+<p class="ListTitle"><b>Intrinsic</b> motivations are:</p>
 <ul>
 <li><span class="ListHeader" style="width: 9ch;">Autonomy</span> - You decide what to do</li>
 <li><span class="ListHeader" style="width: 9ch;">Growth</span>   - You learn something new, or practice something you're rusty at</li>
@@ -487,10 +499,8 @@ award with a ribbon and gold star for drawing, while students in the control gro
 encouraged to draw for fun.</p>
 <p>
 Several weeks after that, both groups were monitored when the markers were brought out
-during playtime.</p>
-<p>
-Surprisingly, the children who had been given an extrinsic reward showed far less interest in drawing
-than the children who were not offered the reward.</p>
+during playtime. Surprisingly, the children who had been given an extrinsic reward showed
+far less interest in drawing than the children who were not offered the reward.</p>
 <p>Something about the reward reduced the children’s desire to draw.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWC01')">Continue ›</a></p>
 </article>
@@ -514,46 +524,28 @@ for one group.</p>
 </article>
 
 <article id="TWC02">
-<h2>&nbsp;</h2>
+<h2>The Overjustification Effect</h2>
 <p>
 This is called the 
 <a target="_blank" href="https://en.wikipedia.org/wiki/Overjustification_effect">
 overjustification effect</a>.</p>
 <p>
-Essentially, your mind notices you're being rewarded for an activity, and assumes
-this is the reason you're doing it. Extrinsic motivations replace the 
-intrinsic ones, and your intrinsic motivations fade away.</p>
+Essentially, your mind notices being rewarded for an activity, and assumes
+this is the reason you're doing it. Extrinsic motivations replace your 
+intrinsic ones, and the intrinsic motivations fade away.</p>
 <p>But then, the extrinsic rewards only come when the project is complete...</p>
 <p>
 So with no intrinsic motivation to sustain you, making progress on your projects
 becomes a boring drudgery. You lose interest over time, and eventually give up.</p>
 <p>
 If you have trouble finishing your projects, it's probably because your
-intrinsic motivations have been replaced with extrinsic ones, leaving you no
+intrinsic motivations have been replaced with extrinsic ones, leaving no
 motivation to sustain you while working on your project.</p>
 <p>You'll need to fix that.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWC03')">Continue ›</a></p>
 </article>
 
 <article id="TWC03">
-<h2>Homework:</h2>
-<p>
-Before the next course day, consider your project motivations and see if you
-can think of a way to replace your extrinsic motives with intrinsic ones.</p>
-<p>
-You know the types of motivation and how they work, now try to invent ways to
-rekindle your interest.</p>
-<div>
-<img class="ImageLeft" alt="Pad and pen" src="images/PadAndPen.gif">
-<div class="RightText">
-<h2>&nbsp;</h2>
-Also, have pen (or pencil) and paper handy. You'll need it for the next lesson.
-</div>
-</div>
-<p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
-</article>
-
-<article id="TWD00">
 <h2>Defining your motivations</h2>
 <p>
 To refocus on intrinsic motivations, start by writing them down.</p>
@@ -566,22 +558,21 @@ rewards in a separate section below.</p>
 <div class="RightText">
 <h2>&nbsp;</h2>
 Do this by hand and not, for example, by typing into a computer.
-Writing this out longhand will give you a stronger effect, and no one knows
-why.<br>
+Writing this out longhand will give you a stronger effect, but no one knows
+why this is so.<br>
 </div>
 </div>
-<p><a class="Cont" title="Continue" onclick="NavID('TWD01')">Continue ›</a></p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWC04')">Continue ›</a></p>
 </article>
 
-<article id="TWD01">
+<article id="TWC04">
 <h2>Homework:</h2>
 <p>
-Keep your motivation list with you over the course of the day: in your wallet or
+Keep your motivation sheet with you today: in your wallet or
 pocketbook, beside your monitor, or wherever's convenient.</p>
 <p>
-When you have spare moments,
-think about the project and try to find other motivations or rewards. If you think
-of any new ones, add them to the list.</p>
+When you have spare moments, think about your project and if you think
+of any new motives, add them to the list.</p>
 <p>
 Keep the intrinsic motives at the top, and the rewards at the bottom, though.
 You'll see why at the next lesson.</p>
@@ -589,97 +580,88 @@ You'll see why at the next lesson.</p>
 <img class="ImageLeft" alt="Pad with motivations" src="images/PadMessy.gif">
 <div class="RightText">
 <h2>&nbsp;</h2>
-It's OK to make a mess while adding motivations. Make the list
-yours, let it hold all the reasons why you're doing the project.
+It's OK to make a mess while adding motivations, just try to make a
+complete list.
 <br>
 </div>
 </div>
 <p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
 </article>
 
-<article id="TWE00">
-<h2>The concordant self image</h2>
-<p>Your actions can change your opinions.</p>
-<p>In one study researchers asked students to perform a boring task for an hour.
-Once the hour was up, the researchers asked half to try to convince
-another person (an actor) that the task was interesting and engaging.</p>
+<article id="TWD00">
+<h2>Homework turn-in</h2>
+<p>Last time you were asked make a list of project motivations.</p>
+<p>Have you completed this task?</p>
+<p><a class="Cont" title="No"  onclick="NavID('TWD01')">Yes, I did ›</a></p>
+<p><a class="Cont" title="Yes" onclick="WaitHW()">No, I didn't have time ›</a></p>
+</article>
+
+<article id="TWD01">
+<h2>Actions can change Beliefs</h2>
+<p>Your actions can change your beliefs.</p>
+<p>In one study researchers had two groups perform a boring
+task for an hour. Subjects from the first group then tried to convince
+another person (an actor) that the task was interesting and engaging, while 
+the second group acted as a control.</p>
 <p>
-Curiously, the subjects who tried to convince a third person that the task was
+Curiously, subjects who tried to convince a third person that the task was
 actually interesting rated the tasks less boring than the subjects in the
 control group.</p>
 <p>
-Their brains noticed a disconnect between their beliefs and actions, and
-changed their opinions to make their self image consistent with their actions.</p>
-<p><a class="Cont" title="Continue" onclick="NavID('TWE01')">Continue ›</a></p>
+Their brains noticed a disconnect between their beliefs and their actions, and
+changed their beliefs to become consistent.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWD02')">Continue ›</a></p>
 </article>
 
-<article id="TWE01">
+<article id="TWD02">
 <h2>&nbsp;</h2>
 <p>
-In a second study, when participants were asked to give an impromptu speech supporting
-an opinion they disagree with, their private opinion moves closer to the opinion in the
+In another study, when participants were asked to give an impromptu speech supporting
+an opinion they disagreed with, their private opinion moved closer to the opinion in the
 speech.</p>
 <p>
 Again, it seems that their brains noticed the disconnect between what they believed and
-what they did, and their brains changed to make a more consistent self image.</p>
-<p>
-We can use this effect to change how your brain sees your project motivations.</p>
-<p><a class="Cont" title="Continue" onclick="NavID('TWE02')">Continue ›</a></p>
+how they acted, and changed beliefs to make a more consistent self image.</p>
+<p>We can use this effect to change our project beliefs.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWD03')">Continue ›</a></p>
 </article>
 
-<article id="TWE02">
-<h2>&nbsp;</h2>
+<article id="TWD03">
+<h2>Taking action</h2>
 <p>
-Take the list of motivations you made in the previous lesson, and fold the
-bottom up so that it covers the extrinsic rewards. Cover the entire
-rewards section, so that you can't see any of it, and crease the bottom
-with your fingernail.</p>
-<p>Tape the fold so that it won't open up again.</p>
+Fold up the bottom of your motivation list so that it covers the extrinsic
+rewards. Cover the entire rewards section, so that you can't see any of it,
+and crease the fold with your fingernail.</p>
+<p>Tape the fold so that it can't open up again.</p>
 <div>
 <img class="ImageLeft" alt="Pad with motivations" src="images/PadFolded.gif">
 <div class="RightText">
 <br>
-As you do this, consider the hidden rewards and think to yourself: 
+As you do this, consider the hidden rewards and think:
 <span class="Bolder"><em>"I won't worry about these right now."</em></span><br><br>
-Closing the flap, force yourself to really think this and believe it.<br><br>
+Close the flap, and really think this and believe it.<br><br>
 The rewards are still there, you haven't deleted them, but right now you
-can't see them. Tell yourself that you will focus on the goals you <em>can</em> see.
+can't see them. Tell yourself you'll focus on the goals you <em>can</em> see.
 </div>
 </div>
-Take a few moments and concentrate on the remaining visible motives.
-<p><a class="Cont" title="Continue" onclick="NavID('TWE03')">Continue ›</a></p>
+<h2>&nbsp;</h2>
+Take a few moments to think about the visible motives.
+<p><a class="Cont" title="Continue" onclick="NavID('TWD04')">Continue ›</a></p>
 </article>
 
-<article id="TWE03">
+<article id="TWD04">
 <h2>&nbsp;</h2>
 <p>
-Now take a moment to think about your project and write the conditions for completion
+Think about the end of your project and write the conditions for completion
 on the flap.</p>
+<h2>&nbsp;</h2>
 <div>
 <img class="ImageLeft" alt="Pad with motivations" src="images/PadCompleted.gif">
 <div class="RightText">
-<h2>&nbsp;</h2>
-Place this where you can see it occasionally. On your office desk next to the
-phone, or taped to the monitor, or anywhere where you will encounter it from time
-to time.
-<br>
-</div>
-</div>
-<p><a class="Cont" title="Continue" onclick="NavID('TWE04')">Continue ›</a></p>
-</article>
-
-<article id="TWE04">
-<h2>&nbsp;</h2>
-<p>
-Mantras...</p>
-<div>
-<img class="ImageLeft" alt="Pad with motivations" src="images/PadCompleted.gif">
-<div class="RightText">
-<h2>&nbsp;</h2>
-Place this where you can see it occasionally. On your office desk next to the
-phone, or taped to the monitor, or anywhere where you will encounter it from time
-to time.
-<br>
+Then place the list where you can see it occasionally.
+<p>On your desk, next to the
+monitor, taped to the refrigerator, or anywhere where you will see it from time
+to time.</p>
 </div>
 </div>
 <p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
