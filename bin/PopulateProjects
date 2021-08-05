@@ -64,7 +64,7 @@ my $MetaFile    = "Meta.txt";
 
 my %Projects = (
 Automotive => {
-    Cull    => "IW",
+    Cull    => "IWp",
     Display => "Automotive",
     Dir     => "Automotive",
     Keys    => [ mechanic carburetor transmission tires ],

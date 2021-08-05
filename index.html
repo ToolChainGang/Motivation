@@ -17,19 +17,19 @@
   <script src="Projects/GenericWords.js"></script>
   </head>
 
-<body onkeydown="ProcessKB()" onkeyup="ProcessKB()">
+<body onkeydown="ProcessKB(); return true;" onkeyup="return ProcessKB(); return true;">
 
-<div id="LoadingPage" style="display: block;" class="Panel">
+<div id="LoadingPage"  class="Panel" style="display: block;" >
     <h1>One moment...</h1>
     </div>
 
-<div id="WordPanel"    class="Panel" onkeydown="ProcessKB()">
+<div id="WordPanel"    class="Panel">
     </div>
 
-<div id="ImagePanel"   class="Panel" onkeydown="ProcessKB()">
+<div id="ImagePanel"   class="Panel">
     </div>
 
-<div id="ArticlePanel" class="Panel" onkeydown="ProcessKB()">
+<div id="ArticlePanel" class="Panel">
     <div id="ArticleText">
         </div>
     </div>
@@ -70,18 +70,20 @@ without having to wait a full day.</p>
 
 <article id="Contents">
 <h2>Welcome to Motivation!</h2>
-<p>If this is your first time running the program, you probably want "quickstart".</p>
-<ul>
-<li><span class="ListHeader" style="width: 9ch;">Quickstart</span> - Quickly get to running the app.</li>
-<li><span class="ListHeader" style="width: 9ch;">Configure</span> - Choose else</li>
-<li>
-<span class="ListHeader" style="width: 9ch;"><a class="Cont" title="FAQ" onclick="NavID('FAQ01')">
-FAQ</a></span> - Frequently asked questions</li>
-</ul>
+<p>If this is your first time, you probably want "overview".</p>
+<div class="TOC">
+<a class="TOCLink" title="Overview"          onclick="NavID('Overview')"     >Overview ›         </a><br>
+<a class="TOCLink" title="Configure and run" onclick="NavID('CON01')"        >Configure and run ›</a><br>
+<a class="TOCLink" title="Today's lesson"    onclick="ShowLesson()"          >Today's lesson ›   </a><br>
+<a class="TOCLink" title="Previous lesson"   onclick="ShowPrevLesson()"      >Previous lesson ›  </a><br>
+<a class="TOCLink" title="Methods"           onclick="CallNotes('Contents')" >Methods ›          </a><br>
+</div>
 </article>
 
 <article id="CON0A" class="CatList NoNav">
 <h2>Step 1: Enter your name</h2>
+
+<<If configured already, ask OK to reset >>
 <p>Enter your first name in the box provided.</p>
 <p>
 You'll get a stronger effect if you use your real name - something that you would
@@ -134,17 +136,50 @@ function NavCON(State) {
     }
 --></script>
 
-<!-- FAQ ########################################################################################################### -->
+<!-- Overview ###################################################################################################### -->
 
-<article id="FAQ01">
-<h2>Frequently Asked Questions</h2>
-
+<article id="Overview" class="NoNav">
+<h2>Welcome to Motivation!</h2>
 <p>
-This is the FAQ page</p>
-
-<h2>&nbsp;</h2>
-<p><a class="Cont" title="Back" onclick="NavID('Contents')">Back ›</a></p>
+Many people have difficulty bringing their projects to completion.</p>
+<p>They get excited at first, but the excitement soon fades, and the
+project languishes for lack of time.</p>
+<p>
+Then you get a new idea that seems wonderful and exciting, but in a little
+while this new excitement also fades, and now you have two projects
+languishing for lack of time.</p>
+<p>Rinse, and repeat.</p>
+<p>
+Over time, the end result is that many people have several, perhaps dozens, of projects
+that they recognize as valuable, and would "really like" to get back into, but they
+never seem to have the time or motivation to do so.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('Overview1')">Continue ›</a></p>
 </article>
+
+<article id="Overview1" class="NoNav">
+<h2>&nbsp;</h2>
+<p>
+This program uses psychological methods to increase your motivation for completing projects.
+Run it once a day for 30 days, and you should see an improvement in project motivation.</p>
+<p>
+Each run consists of a one-minute slideshow of words and images that bring your project to mind,
+plus a short lesson on some psychological aspect of motivation.</p>
+<p>
+The slideshow gets your mind thinking about the project, and the lessons help you make
+small changes to your behavior and attitude that should boost your project motivation.</p>
+<p>
+The techniques are well documented and backed by scientific studies, no tricks or subliminal
+messaging is involved. A full description of the techniques is included under the "Methods"
+link on the main page.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('Overview2')">Continue ›</a></p>
+</article>
+
+<article id="Overview2" class="NoNav">
+<h2>&nbsp;</h2>
+
+<p><a class="Cont" title="Done" onclick="NavID('Contents')">Done ›</a></p>
+</article>
+
 
 <!-- Slideshow ##################################################################################################### -->
 
@@ -158,11 +193,11 @@ screen. This takes about a minute, and uses
 <a target="_blank" href="https://en.wikipedia.org/wiki/Priming_(psychology)">priming</a>
 to get you to think about your project.</p>
 <p>
-During the slideshow, one of the words will be emphasized: it might be in
+During the slideshow, one of the words will stand out: it might be in
 color, or a different position, or upside down, or outlined, or shaking... something
 will be different and it will be easy to spot.</p>
 <p>
-After the slide show you will be asked to identify the emphasized word. If you didn't see which
+After the slide show you will be asked to identify the standout word. If you didn't see which
 word was emphasized you'll have to rewatch the slideshow.</p>
 
 <h2>&nbsp;</h2>
@@ -173,7 +208,7 @@ word was emphasized you'll have to rewatch the slideshow.</p>
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>&nbsp;</h2>
 <p>
-When you've correctly identified the emphasized word, you'll be shown the lesson
+When you've correctly identified the standout word, you'll be shown the lesson
 text and maybe asked to do a small task.</p>
 <p>
 The texts are short (less then 5 min), the tasks are simple,
@@ -189,7 +224,7 @@ motivation to finish your project.</p>
 <article id="SSDay1b">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>&nbsp;</h2>
-<p>One last thing: Occasionally, more than one word will be highlighted.</p>
+<p>One last thing: Occasionally, more than one word will stand out.</p>
 <p>Watch out for that.</p>
 <p>When you're ready, click the start button.</p>
 <h2>&nbsp;</h2>
@@ -199,8 +234,7 @@ motivation to finish your project.</p>
 <article id="SS2ndView">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <p>Running the course multiple times per day will result in a stronger effect</p>
-<p>
-...but don't overdo it.</p>
+<p class="CenterText">...but don't overdo it.</p>
 <p>
 Three times a day is good, but more than five is
 probably too much.</p>
@@ -216,8 +250,8 @@ it three times in the morning.</p>
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>Slideshow ($CATEGORY)</h2>
 <p>Watch the words and images as they appear on your screen.</p>
-<p>See if you can find the emphasized word.</p>
-<p>Occasionaly, more than one word will be emphasized...</p>
+<p>See if you can find the standout word.</p>
+<p>Occasionaly, more than one word will stand out...</p>
 <h2>&nbsp;</h2>
 <span class="BeginSpan"><button class="SlideshowBegin" onclick="BeginSlideshow()">Start</button></span>
 </article>
@@ -230,7 +264,7 @@ it three times in the morning.</p>
 
 <article id="SSWords">
 <h2>&nbsp;</h2>
-<p>Which word was emphasized?</p>
+<p>Which word stood out?</p>
 <div class="CenterDiv">
 <input type="radio" id="HWord1" name="$HWORD1" value="$HWORD1" onclick="CheckSSWords('$HWORD1',1)">
 <label for="HWord1"><span class="HWord">$HWORD1</span></label><br>
@@ -243,7 +277,7 @@ it three times in the morning.</p>
 </div>
 
 <div id="SSWord2" class="Hidden">
-<p>Which other word was emphasized?</p>
+<p>Which other word stood out?</p>
 <div class="CenterDiv">
 <input type="radio" id="HWord5" name="$HWORD5" value="$HWORD5" onclick="CheckSSWords('$HWORD5',0)">
 <label for="HWord5"><span class="HWord">$HWORD5</span></label><br>
@@ -273,7 +307,7 @@ it three times in the morning.</p>
 
 
 <article id="SSNums">
-<p>During the slideshow, how many words were emphasized?
+<p>During the slideshow, how many words stood out?
 </p>
 <div class="CenterDiv" style="margin-left: auto;">
 <input type="radio" id="NWord1" name="$NWORD1" value="$NWORD1" onclick="UnHide('SSNumA')">
@@ -474,8 +508,11 @@ Describe how you could strengthen this. Nothing detailed, just a word or two tha
 <h2>Homework complete.</h2>
 <p>We won't ask you to strengthen your weakest motivation, but you can if you want.</p>
 <p>
-The point is to think about your project in terms of <b>Extrinsic</b> and <b>Intrinsic</b> motivations.
-The next few lessons will make use of this.</p>
+Different projects have different proportions of the intrinsic motivations. Whether to add
+motivation or not is completely up to you.</p>
+<p>The important part is knowing the difference between <b>Extrinsic</b> and <b>Intrinsic</b>
+motivations, and to think about about your project in those terms.</p>
+<p>The next few lessons will expand on this.</p>
 <p><b>Extrinsic</b> motivations are any reward for completion, such as money, fame, or likes.</p>
 <p class="ListTitle"><b>Intrinsic</b> motivations are:</p>
 <ul>
@@ -590,7 +627,7 @@ complete list.
 
 <article id="TWD00">
 <h2>Homework turn-in</h2>
-<p>Last time you were asked make a list of project motivations.</p>
+<p>Last time you were asked make a project motivation list.</p>
 <p>Have you completed this task?</p>
 <p><a class="Cont" title="No"  onclick="NavID('TWD01')">Yes, I did ›</a></p>
 <p><a class="Cont" title="Yes" onclick="WaitHW()">No, I didn't have time ›</a></p>
@@ -652,11 +689,11 @@ Take a few moments to think about the visible motives.
 <article id="TWD04">
 <h2>&nbsp;</h2>
 <p>
-Think about the end of your project and write the conditions for completion
+Think about the end of your project and write the conditions<br>for completion
 on the flap.</p>
 <h2>&nbsp;</h2>
 <div>
-<img class="ImageLeft" alt="Pad with motivations" src="images/PadCompleted.gif">
+<img class="ImageLeft" alt="Pad completed" src="images/PadCompleted.gif">
 <div class="RightText">
 Then place the list where you can see it occasionally.
 <p>On your desk, next to the
@@ -665,6 +702,153 @@ to time.</p>
 </div>
 </div>
 <p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
+</article>
+
+<article id="TWE00">
+<h2>Mantras</h2>
+<p>The concordant self-image technique uses actions to change your project beliefs.</p>
+<p>Masking the rewards portion of your list will help change your beliefs,
+but this is only a single action.</p>
+<div>
+<img class="ImageLeft" alt="Pad completed" src="images/PadCompleted.gif">
+<div class="RightText">
+<br>
+We can get a stronger effect using more actions.<br>&nbsp;<br>
+We do this by adding a mantra: a word or phrase recited during the day to
+reinforce the motivational beliefs.
+</div>
+</div>
+<p><a class="Cont" title="Continue" onclick="NavID('TWE01')">Continue ›</a></p>
+</article>
+
+<article id="TWE01">
+<h2>&nbsp;</h2>
+<p>
+Mantras get a lot of bad press, and probably for good reason. They are used for
+all sorts of vague and sketchy reasons, and have a strong
+mystical component.</p>
+<p>
+We won't be doing anything mystical, just adding an action to help
+your self-image become concordant. Concordant with a maker who enjoys
+the process.</p>
+<p>
+Think of it as just using the word "mantra" because it's a descriptive 
+term with no good synonyms.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWE02')">Continue ›</a></p>
+</article>
+
+<article id="TWE02">
+<h2>Homework</h2>
+<p>
+Look over your motivation list and think of a mantra that will reinforce
+your self-image. Something that speaks to you, something you like.</p>
+<p>
+Nothing long, just a couple of words. It can be generic,
+such as "I enjoy the process", or specific to your project such as "I love
+writing detective novels".</p>
+<div>
+<img class="ImageLeft" alt="Pad completed" src="images/PadMantra.gif">
+<div class="RightText">
+Use personal pronouns and put your verb in present tense. Starting with "I"
+is typical.<br>&nbsp;<br>
+A mantra should also be positive, in the logical sense. Don't say "I don't"
+or "I won't", brains have a harder time with inverted logic.
+Phrase it in terms of what you <em>will</em> do, instead of what you won't.
+<br>&nbsp;<br>
+‹- Hint: For a stronger effect, write it down.
+</div>
+</div>
+<p>
+Over the course of the next day as you have spare moments, recite
+your mantra to yourself. Do this frequently, and try to
+visualize yourself living up to the mantra.</p>
+<p>
+This will encourage the concordant self-image process.</p>
+<p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
+</article>
+
+<article id="TWF00">
+<h2>Homework turn-in</h2>
+<p>Last time we asked you to create a mantra to help modify your project motives.</p>
+<p>Have you completed this task?</p>
+<p><a class="Cont" title="No"  onclick="NavID('TWF01')">Yes, I did ›</a></p>
+<p><a class="Cont" title="Yes" onclick="WaitHW()">No, I didn't have time ›</a></p>
+</article>
+
+<article id="TWF01">
+<h2>Motivational focus</h2>
+<p>
+Recall that intrinsic motivations work well for creative tasks, and extrinsic motivations
+(rewards) work well for dull, repetitive tasks.</p>
+<p>
+Some projects are a mixture of both.</p>
+<p>
+For example, a car project might end with wet-sanding and painting.
+You might not find sanding and painting as interesting as the engine rebuild.</p>
+<p>
+An electronics project might be followed by video editing and dubbing sessions
+for a YouTube channel.</p>
+<p>
+After creating a beautiful ceramic piece, a tedious session of photographing,
+writeup, pricing, and listing may be required.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWF02')">Continue ›</a></p>
+</article>
+
+<article id="TWF02">
+<h2>&nbsp;</h2>
+<p>If your project has a boring part at the end, you can change the endpoint of your
+project.</p>
+<p>
+Place your motivation list on top of an empty sheet of paper, and fold the bottom up
+over the existing end point. Write in a new end point up to, but not including, the
+boring bits that come at the end.</p>
+<div>
+<img class="ImageLeft" alt="Pad completed" src="images/PadNewEnd.gif">
+<div class="RightText">
+<br>
+As before, tape the flap shut and tell yourself you won't worry about those tasks.
+<br>&nbsp;<br>
+Look over the list for a few moments to let that sink in.
+</div>
+</div>
+<p><a class="Cont" title="Continue" onclick="NavID('TWF03')">Continue ›</a></p>
+</article>
+
+<article id="TWF03">
+<h2>&nbsp;</h2>
+<p>
+You can also try switching motivations. This can work if a long, boring task
+comes in the middle. When you reach the boring task, switch from intrinsic motivations
+to extrinsic ones.</p>
+<p>
+Promise yourself a reward for successful completion: go out to dinner, eat a bowl of ice cream,
+take a walk in the park - whatever you enjoy, use that as a reward for finishing the
+boring section.</p>
+<p>
+Keep your task motivations separate. Any overlap between the rewards and
+the enjoyment will reduce your enjoyment.</p>
+<p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
+</article>
+
+<!-- Getting back to your project ################################################################################## -->
+
+<article id="RST00">
+<h2>Restarting your project</h2>
+<p>
+At some point during this program you may feel the itch to get back into your project.</p>
+<p>
+When that happens, go for it!</p>
+<p>
+Don't wait until the end of this course to continue your project - you'll get a stronger effect
+if you're working on something while learning about motivation.</p>
+<p>
+Take a moment to visualize yourself working on your project. Try and see yourself taking up where
+you left off, doing the next tasks, planning the next steps... whatever comes next in your project.</p>
+<p>
+Visualize yourself doing this before the end of tomorrow night. See yourself today, or tonight, or tomorrow,
+or tomorrow night getting back to your project. Try to visualize this as clearly as you can, for
+several seconds.</p>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done ›</a></p>
 </article>
 
 <!-- Neurochemistry of motivation ################################################################################## -->
@@ -691,32 +875,44 @@ lead you to the motivation section after.</p>
 <article id="NCA01">
 <h2>Neurotransmitters and neuroreceptors</h2>
 
-<p>Neurotransmitters are just chemicals that one neuron uses to signal another neuron. </p>
-<p>
-This signalling happens at a special point called a "synapse" on the neuron body - it's a place where the
-body of one neuron almost touches the body of another. Whenever one neuron wants to signal another, it releases
-neurotransmitter molecules at the synapse junction. The molecules diffuse over to the other neuron and bind to the
-corresponding receptor, sending a signal that excites the target neuron.</p>
-<p>
-It's sort of like the bell at a hotel desk. Sending neurotransmitters through the synapse is like ringing
-a bell: it gets the attention of the target neuron.</p>
-<p>
-Once the signal is delivered, the receptor releases the neurotransmitters. The molecules diffuse back
-to the originating neuron, where they are collected and stored for future signaling.</p>
+<p>Neurotransmitters are chemicals that one neuron uses to signal another. </p>
+<p class="NoTop">
+This happens at a special point called a synapse, where one neuron
+almost touches another. When the neuron wants to send a signal, it
+releases neurotransmitter molecules at the synapse, which diffuse to the
+other neuron and bind to corresponding receptors.</p>
+<div>
+<img class="BigImageLeft" alt="Synapse diagram" src="images/Synapse.gif">
+<div class="RightText1">
+<br>
+It's sort of like ringing a desk bell. Sending neurotransmitters through the synapse
+gets the attention of the target neuron.<br>&nbsp;<br>
+After the signal is delivered, the molecules drift back to the source neuron
+where they are collected and stored for future signaling.
+</div>
+</div>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA02')">Continue ›</a></p>
 </article>
 
 <article id="NCA02">
 <h2>Neurotransmitters and neuroreceptors</h2>
 <p>
-There are over 100 neurotransmitters used in the brain, but for our purposes we only need to know
-about three: NorEpinephrine, Dopamine, and Serotonin, which are responsible for activity, pleasure,
-and reward.</p>
+There are over 100 neurotransmitters used in the brain, but we only need to know
+about three: 
+<a target="_blank" href="https://en.wikipedia.org/wiki/Norepinephrine">Norepinephrine</a>,
+<a target="_blank" href="https://en.wikipedia.org/wiki/Dopamine">Dopamine</a>, and
+<a target="_blank" href="https://en.wikipedia.org/wiki/Serotonin">Serotonin</a>,
+which the brain uses for effort, pleasure, and happiness.</p>
+<ul>
+<li><span class="ListHeader" style="width: 16ch;">Norepinephrine</span> ‹-› Effort.</li>
+<li><span class="ListHeader" style="width: 16ch;">Dopamine</span> ‹-›Pleasure</li>
+<li><span class="ListHeader" style="width: 16ch;">Serotonin</span> ‹-›Happiness</li>
+<ul>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA03')">Continue ›</a></p>
 </article>
 
 <article id="NCA03">
-<p>Before we begin, we need to sort out some nomenclature.</p>
+<p>Before we explain the mechanisms, we need to sort out some nomenclature.</p>
 <p>
 Adrenaline and Epinephrine are two names for the same chemical. It was discovered independently
 by two laboratories at about the same time.
@@ -987,6 +1183,149 @@ That's not something this program can help with, other than to point to the prob
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </div>
 </article>
+
+<!-- Notes ######################################################################################################### -->
+
+<article id="Notes">
+<h2>Lesson notes</h2>
+<ul>
+<li><a onclick="NavID('NoteP')">Priming</a></li>
+<li><a onclick="NavID('NoteS')">The standout word</a></li>
+<li><a onclick="NavID('Note2')">Extrinsic and intrinsic motivations</a></li>
+<li><a onclick="NavID('NoteO')">The Overjustification Effect</a></li>
+<li><a onclick="NavID('NoteC')">Concordant self-image</a></li>
+<li><a onclick="NavID('NoteM')">Mantras</a></li>
+</ul>
+<p><a class="Cont" title="Return" onclick="NotesReturn()">Return ›</a></p>
+</article>
+
+<article id="NoteP">
+<h2>Priming</h2>
+<p>
+Priming is when a stimulus raises the brain's awareness of related concepts.</p>
+<p>
+An example should make this clear. Read the following passage, then answer the
+question on the next page.</p>
+<p id="Shoes">
+<em>For my money, there was never a better shoe than the Anaheim sneaker.
+Whatever the surface or the size of the arena, any time a short-sided
+game crept up, you would find me wearing Anaheims. Mid-rise collar for stability
+and a natural fit for small feet, elastic laces and hook & loop closure made
+it easy to get on and off. Traction, cushioning, and the overall feel
+provided excellent grip on any surface.<br>&nbsp;<br>
+The biggest issue for me was an odd fit/looseness in the heel. 
+This happened every time I put the shoes on, but it went away
+after a few minutes of use.</em></p>
+<p>
+Hint: It helps to read the passage aloud. See if you can discover
+it's odd nature.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('NotePa')">Continue ›</a></p>
+</article>
+
+<article id="NotePa">
+<h2>&nbsp;</h2>
+<p>
+Think of a 4-letter word beginning with S, O, L.</p>
+<p>
+When you have one, type a letter to enter your word.</p>
+<p class="CenterDiv">
+SOL<input id="PrimeLetter" type="text" maxlength="1" onkeydown="return NavPrim(event)">
+</p>
+<div id="NotePa1" class="Hidden">
+<div class="ProbTable">
+Probability of English words:<br>&nbsp;<br>
+<div class="ProbWords">
+"SOLD": 0.00493391% (about once every&nbsp;&nbsp;20200 words)<br>
+"SOLE": 0.00271912% (about once every&nbsp;&nbsp;36700 words)<br>
+"SOLO": 0.00017536% (about once every&nbsp;570200 words)<br>
+<br>
+</div>
+</div>
+<p>
+People typically guess "SOLD", since it is the most common.</p>
+<p>
+Surprisingly, people who first read the shoe passage often answer "SOLE".
+The paragraph primes other shoe related concepts in the brain,
+even though "SOLE" did not appear in the paragraph, even as a substring.</p>
+<p>Priming activated the related concept.</p>
+<p>
+You are now primed. Shoe related items are now emphasized in your brain, and
+this will affect your decisions and actions until the effect wears off.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('NotePb')">Continue ›</a></p>
+</div>
+</article>
+
+<article id="NotePb">
+<h2>&nbsp;</h2>
+<p>
+Priming fades with time, but there is no consensus for how long it lasts. Some
+studies claim it decays over a few hours, but others have shown a small effect
+measurable a week after the original stimulus.</p>
+<p>
+There are also different types of priming, and it is not known if the different types
+have different durations.</p>
+<p>
+The slideshow uses priming to get your mind thinking about the project.</p>
+<p>
+We show images and words related to your project, and repeat this daily over the
+course of the program.
+</p>
+<p>
+You can find out more about this on the internet. The Wikipedia page on priming is a good
+place to start.</p>
+<p><a class="Cont" title="Done" onclick="NavID('Notes')">Done ›</a></p>
+</article>
+
+<article id="NoteS">
+<h2>The Standout Word</h2>
+<p><a class="Cont" title="Back" onclick="NavID('Notes')">Back ›</a></p>
+</article>
+
+<article id="Note2">
+<h2>Extrinsic and intrinsic motivation</h2>
+<p>
+<b>Extrinsic</b> motivations are what you get for completing a project, such as money, fame, encouragement,
+likes, subscribers, or avoiding punishment. They are the rewards you get in exchange for being done.</p>
+<p>
+<b>Intrinsic</b> motivations come from the project itself, and there are four types:</p>
+<ul>
+<li><span class="ListHeader" style="width: 9ch;">Autonomy</span> - You decide what to do</li>
+<li><span class="ListHeader" style="width: 9ch;">Growth</span>   - You learn something new, or practice something you're rusty at</li>
+<li><span class="ListHeader" style="width: 9ch;">Excellence</span> - You do a good job</li>
+<li><span class="ListHeader" style="width: 9ch;">Usefulness</span> - The project is valuable to you, your family, or the community</li>
+</ul>
+<p><a class="Cont" title="Back" onclick="NavID('Notes')">Back ›</a></p>
+</article>
+
+<article id="NoteO">
+<h2>The Overjustification Effect</h2>
+<p>
+The
+<a target="_blank" href="https://en.wikipedia.org/wiki/Overjustification_effect">
+overjustification effect</a> is when your mind notices being rewarded for an activity,
+and assumes this is the reason you're doing it. Extrinsic motivations replace your 
+intrinsic ones, and the intrinsic motivations fade away.</p>
+<p><a class="Cont" title="Back" onclick="NavID('Notes')">Back ›</a></p>
+</article>
+
+<article id="NoteC">
+<h2>Concordant self-image</h2>
+<p>Your brain maintains a concordant self-image.</p>
+<p>
+When your brain notices a 
+<a target="_blank" href="https://en.wikipedia.org/wiki/Cognitive_dissonance">
+discrepancy between your beliefs and your actions</a>, it will
+change beliefs to become consistent.</p>
+<p><a class="Cont" title="Back" onclick="NavID('Notes')">Back ›</a></p>
+</article>
+
+<article id="NoteM">
+<h2>Mantra</h2>
+<p>
+A repeated word or phrase, especially in advocacy or for motivation.</p>
+<p><a class="Cont" title="Return" onclick="NavID('Notes')">Return ›</a></p>
+</article>
+
 
 <!-- ############################################################################################################### -->
 

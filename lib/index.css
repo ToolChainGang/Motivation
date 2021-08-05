@@ -146,7 +146,7 @@ a.Next, a.Last {
     padding-left:       1em;
     }
 
-.Up {
+.Notes {
     flex-grow:          1;
     text-align:         center;
     }
@@ -227,14 +227,93 @@ a.Cont {
     vertical-align:     center;
     }
 
+.RightText1 {
+    width:              30ch;
+    float:              right;
+    vertical-align:     center;
+    }
+
+.BigImageLeft {
+    width:              380px;
+    height:             auto;
+    float:              left;
+    }
+
 .Right {
     float:              right;
+    }
+
+.Left {
+    float:              left;
+    }
+
+.NoBot {
+    margin-bottom:      0;
+    }
+
+.NoTop {
+    margin-top:         0;
+    }
+
+/***********************************************************************
+ *
+ * Priming
+ */
+#Shoes {
+	margin-left:        auto;
+    margin-right:       auto;
+    Width:              90%;
+    font-family:        helvetica, arial, sans serif;
+    }
+
+#PrimeLetter {
+    font-size:          inherit;
+    font-family:        inherit;
+    font-weight:        inherit;
+    background-color:   WhiteSmoke;
+    border-top:         none;
+    border-left:        none;
+    border-right:       none;
+    border-bottom:      1px solid black;
+    width:              2ch;
+    margin-left:        0;
+    margin-right:       0;
+    padding-left:       0;
+    padding-right:      0;
+    text-transform:     uppercase;
+    outline:            none;
+    }
+
+.ProbTable {
+    font-family:        monospace;
+    font-weight:        bold;
+    font-size:          80%;
+    width:              100%;
+    }
+
+.ProbWords {
+	margin-left:        auto;
+    margin-right:       auto;
+    width:              fit-content;
     }
 
 /***********************************************************************
  *
  * Other pages
  */
+.TOC {
+	margin-left:        auto;
+    margin-right:       auto;
+    }
+
+.TOCLink {
+	margin-left:        0;
+    text-align:         left;
+    text-decoration:    underline blue;
+    font-family:        monospace;
+    font-weight:        bold;
+    }
+
 #CatTitle {
     padding-bottom      1em;
     text-align:         center;
@@ -276,4 +355,3 @@ a.Cont {
 	margin-left:        auto;
     margin-right:       auto;
     }
-
