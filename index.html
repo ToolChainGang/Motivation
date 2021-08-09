@@ -10,6 +10,7 @@
   <script src=    "lib/Config.js"></script>
   <script src=    "lib/Random.js"></script>
   <script src=       "lib/Lib.js"></script>
+  <script src=        "lib/KB.js"></script>
   <script src= "lib/SlideShow.js"></script>
   <script src=   "lib/Article.js"></script>
   <script src=   "lib/Lessons.js"></script>
@@ -41,29 +42,31 @@
 <article id="EnableCookies">
 <h2>Cookie required</h2>
 <p>The course uses cookies to track your progress.</p>
-<p>Add this URL to your browser's cookie "allowed sites" settings, then click reload.</p>
-
-<input class="CookieURL" value="$COOKIEURL" maxlength="80">
+<p>Add this URL to your browser's cookie "allowed sites" settings, then reload.</p>
+<br>&nbsp;<br>
+<input class="CookieURL CenterText" value="$COOKIEURL" maxlength="80">
 <h2>&nbsp;</h2>
 <p><a class="Cont" title="Reload" onclick="location.reload();">Reload ›</a></p>
 </article>
 
 <article id="Hackaday">
 <h2>Hackaday prize judging</h2>
-<p>For convenience in hackaday prize judging, ALT-L will begin the next day's lesson
-without having to wait a full day.</p>
+<p>The program is normally 1 slideshow plus 1 lesson each day for 30 days.</p>
+<p>For convenience in hackaday prize judging, ALT-D ("day") will bump the course
+to the next day, and ALT-L ("lesson") will skip the slideshow start that day's lesson.</p>
 <p class="ListTitle">So for purposes of judging:</p>
 <ul>
 <li>Configure a project and run the program</li>
 <li>View the slideshow for day 1, and the lesson for day 1</li>
+<li>Press ALT-D to bump the the program to day 2</li>
 <li>Press ALT-L to see the lesson for the day 2</li>
+<li>Press ALT-D to bump the the program to day 3</li>
 <li>Press ALT-L to see the lesson for the day 3</li>
 <li>...and so on.</li>
 </ul>
 <p class="ListTitle">Other commands:</p>
 <ul>
-<li>ALT-S will show  the slideshow</li>
-<li>ALT-R will reset the program to day 1.</li>
+<li>ALT-R ("reset") will reset the program to day 1.</li>
 </ul>
 <p><a class="Cont" title="Continue" onclick="NavID('Contents')" >Continue ›</a></p><br />
 </article>
@@ -83,7 +86,7 @@ without having to wait a full day.</p>
 <article id="CON0A" class="CatList NoNav">
 <h2>Step 1: Enter your name</h2>
 
-<<If configured already, ask OK to reset >>
+...If configured already, ask OK to reset...
 <p>Enter your first name in the box provided.</p>
 <p>
 You'll get a stronger effect if you use your real name - something that you would
@@ -139,10 +142,10 @@ function NavCON(State) {
 <!-- Overview ###################################################################################################### -->
 
 <article id="Overview" class="NoNav">
-<h2>Welcome to Motivation!</h2>
+<h2>Overview</h2>
 <p>
-Many people have difficulty bringing their projects to completion.</p>
-<p>They get excited at first, but the excitement soon fades, and the
+Many people have difficulty bringing their projects to completion.
+They get excited at first, but it soon fades and the
 project languishes for lack of time.</p>
 <p>
 Then you get a new idea that seems wonderful and exciting, but in a little
@@ -150,8 +153,8 @@ while this new excitement also fades, and now you have two projects
 languishing for lack of time.</p>
 <p>Rinse, and repeat.</p>
 <p>
-Over time, the end result is that many people have several, perhaps dozens, of projects
-that they recognize as valuable, and would "really like" to get back into, but they
+Over time, many people amass multiple, sometimes dozens, of projects
+that they recognize as valuable, and would "really like" to get back to, but they
 never seem to have the time or motivation to do so.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('Overview1')">Continue ›</a></p>
 </article>
@@ -163,23 +166,33 @@ This program uses psychological methods to increase your motivation for completi
 Run it once a day for 30 days, and you should see an improvement in project motivation.</p>
 <p>
 Each run consists of a one-minute slideshow of words and images that bring your project to mind,
-plus a short lesson on some psychological aspect of motivation.</p>
+plus a short lesson on some aspect of motivation.</p>
 <p>
 The slideshow gets your mind thinking about the project, and the lessons help you make
 small changes to your behavior and attitude that should boost your project motivation.</p>
 <p>
 The techniques are well documented and backed by scientific studies, no tricks or subliminal
-messaging is involved. A full description of the techniques is included under the "Methods"
+messaging is used. A full description of the techniques is included under the "Methods"
 link on the main page.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('Overview2')">Continue ›</a></p>
 </article>
 
 <article id="Overview2" class="NoNav">
 <h2>&nbsp;</h2>
-
+<p class="HWord">Q: Does this work?<br>&nbsp;<br>
+A: No one knows.</p>
+<p>
+The premise of this program is that your intrinsic motives have been replaced by
+extrinsic goals, and your intrinsic motives have faded.
+That this can happen is well established in the literature.</p>
+<p>
+What is not known, because it hasn't been studied, is whether this situation
+can be reversed. Hence this program.
+<p>It's 5 minutes of your time each morning for 30 days.</p>
+<p>All I can say is "try it", it's experimental, and if it doesn't work then
+you're no worse off than you were at the start.</p>
 <p><a class="Cont" title="Done" onclick="NavID('Contents')">Done ›</a></p>
 </article>
-
 
 <!-- Slideshow ##################################################################################################### -->
 
@@ -506,10 +519,10 @@ Describe how you could strengthen this. Nothing detailed, just a word or two tha
 
 <article id="TWB01">
 <h2>Homework complete.</h2>
-<p>We won't ask you to strengthen your weakest motivation, but you can if you want.</p>
+<p>You don't have to strengthen your weakest motivation, but you can if you want.</p>
 <p>
 Different projects have different proportions of the intrinsic motivations. Whether to add
-motivation or not is completely up to you.</p>
+motivation to yours is completely up to you.</p>
 <p>The important part is knowing the difference between <b>Extrinsic</b> and <b>Intrinsic</b>
 motivations, and to think about about your project in those terms.</p>
 <p>The next few lessons will expand on this.</p>
@@ -526,18 +539,19 @@ motivations, and to think about about your project in those terms.</p>
 
 <article id="TWC00">
 <h2>Decreasing motivation</h2>
-<p>Having extrinsic motivations will decrease the intrinsic motivations.</p>
+<p>Extrinsic motivations will decrease the intrinsic motivations.</p>
 <p>
 In one study, nursery school students were given markers and encouraged to draw pictures
 during their free play time, an activity for which they had high intrinsic interest.</p>
 <p>
 Several weeks later, students in one group were given a “good player”
 award with a ribbon and gold star for drawing, while students in the control group were simply
-encouraged to draw for fun.</p>
-<p>
+encouraged to draw for fun.
 Several weeks after that, both groups were monitored when the markers were brought out
-during playtime. Surprisingly, the children who had been given an extrinsic reward showed
-far less interest in drawing than the children who were not offered the reward.</p>
+during playtime.</p>
+<p>
+Surprisingly, children given an extrinsic reward showed far less interest in drawing
+than the children who were not offered the reward.</p>
 <p>Something about the reward reduced the children’s desire to draw.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWC01')">Continue ›</a></p>
 </article>
@@ -569,13 +583,13 @@ overjustification effect</a>.</p>
 <p>
 Essentially, your mind notices being rewarded for an activity, and assumes
 this is the reason you're doing it. Extrinsic motivations replace your 
-intrinsic ones, and the intrinsic motivations fade away.</p>
+intrinsic ones, and the intrinsic motivations fade.</p>
 <p>But then, the extrinsic rewards only come when the project is complete...</p>
 <p>
 So with no intrinsic motivation to sustain you, making progress on your projects
 becomes a boring drudgery. You lose interest over time, and eventually give up.</p>
 <p>
-If you have trouble finishing your projects, it's probably because your
+If you have trouble finishing your projects, probably your
 intrinsic motivations have been replaced with extrinsic ones, leaving no
 motivation to sustain you while working on your project.</p>
 <p>You'll need to fix that.</p>
@@ -587,7 +601,7 @@ motivation to sustain you while working on your project.</p>
 <p>
 To refocus on intrinsic motivations, start by writing them down.</p>
 <p>
-On a piece of paper, write all the motivations you have for doing your project.</p>
+On a piece of paper, list all the motivations you have for doing your project.</p>
 <p>Put the internal motivations in four sections at the top, and keep the external
 rewards in a separate section below.</p>
 <div>
@@ -608,8 +622,8 @@ why this is so.<br>
 Keep your motivation sheet with you today: in your wallet or
 pocketbook, beside your monitor, or wherever's convenient.</p>
 <p>
-When you have spare moments, think about your project and if you think
-of any new motives, add them to the list.</p>
+When you have spare moments, think about your project and if you can think
+of more motives, add them to the list.</p>
 <p>
 Keep the intrinsic motives at the top, and the rewards at the bottom, though.
 You'll see why at the next lesson.</p>
@@ -637,7 +651,7 @@ complete list.
 <h2>Actions can change Beliefs</h2>
 <p>Your actions can change your beliefs.</p>
 <p>In one study researchers had two groups perform a boring
-task for an hour. Subjects from the first group then tried to convince
+task for an hour. Subjects from the first group were then asked to convince
 another person (an actor) that the task was interesting and engaging, while 
 the second group acted as a control.</p>
 <p>
@@ -651,7 +665,7 @@ changed their beliefs to become consistent.</p>
 </article>
 
 <article id="TWD02">
-<h2>&nbsp;</h2>
+<h2>Concordant self-image</h2>
 <p>
 In another study, when participants were asked to give an impromptu speech supporting
 an opinion they disagreed with, their private opinion moved closer to the opinion in the
@@ -659,7 +673,10 @@ speech.</p>
 <p>
 Again, it seems that their brains noticed the disconnect between what they believed and
 how they acted, and changed beliefs to make a more consistent self image.</p>
-<p>We can use this effect to change our project beliefs.</p>
+<p>
+Your brain tries to maintain a concordant self-image. When your actions aren't
+consistent with your beliefs, your mind will change beliefs to match your actions.
+<p>You can use this effect to change your project motivations.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWD03')">Continue ›</a></p>
 </article>
 
@@ -682,23 +699,23 @@ can't see them. Tell yourself you'll focus on the goals you <em>can</em> see.
 </div>
 </div>
 <h2>&nbsp;</h2>
-Take a few moments to think about the visible motives.
+Take a few moments to think about the remaining (visible) motives.
 <p><a class="Cont" title="Continue" onclick="NavID('TWD04')">Continue ›</a></p>
 </article>
 
 <article id="TWD04">
 <h2>&nbsp;</h2>
 <p>
-Think about the end of your project and write the conditions<br>for completion
+Now think about the end of your project and write the conditions<br>for completion
 on the flap.</p>
 <h2>&nbsp;</h2>
 <div>
 <img class="ImageLeft" alt="Pad completed" src="images/PadCompleted.gif">
 <div class="RightText">
-Then place the list where you can see it occasionally.
-<p>On your desk, next to the
-monitor, taped to the refrigerator, or anywhere where you will see it from time
-to time.</p>
+Put the list where you can see it occasionally:
+on your desk, next to the
+monitor, taped to the refrigerator, anywhere you will see it from time
+to time.
 </div>
 </div>
 <p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
@@ -708,12 +725,12 @@ to time.</p>
 <h2>Mantras</h2>
 <p>The concordant self-image technique uses actions to change your project beliefs.</p>
 <p>Masking the rewards portion of your list will help change your beliefs,
-but this is only a single action.</p>
+but this is only one action.</p>
 <div>
 <img class="ImageLeft" alt="Pad completed" src="images/PadCompleted.gif">
 <div class="RightText">
 <br>
-We can get a stronger effect using more actions.<br>&nbsp;<br>
+We can get a stronger effect by using more actions.<br>&nbsp;<br>
 We do this by adding a mantra: a word or phrase recited during the day to
 reinforce the motivational beliefs.
 </div>
@@ -725,15 +742,11 @@ reinforce the motivational beliefs.
 <h2>&nbsp;</h2>
 <p>
 Mantras get a lot of bad press, and probably for good reason. They are used for
-all sorts of vague and sketchy reasons, and have a strong
-mystical component.</p>
+all sorts of vague and sketchy reasons, with a strong mystical component.</p>
 <p>
 We won't be doing anything mystical, just adding an action to help
 your self-image become concordant. Concordant with a maker who enjoys
 the process.</p>
-<p>
-Think of it as just using the word "mantra" because it's a descriptive 
-term with no good synonyms.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWE02')">Continue ›</a></p>
 </article>
 
@@ -761,15 +774,19 @@ Phrase it in terms of what you <em>will</em> do, instead of what you won't.
 <p>
 Over the course of the next day as you have spare moments, recite
 your mantra to yourself. Do this frequently, and try to
-visualize yourself living up to the mantra.</p>
+visualize yourself living up to the intent.</p>
 <p>
 This will encourage the concordant self-image process.</p>
+<p>
+If you like, along with repeating your mantra you can write it out
+a couple of times during the day. Writing the mantra has a stronger
+effect than simply repeating it, but no one knows why this is.</p>
 <p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
 </article>
 
 <article id="TWF00">
 <h2>Homework turn-in</h2>
-<p>Last time we asked you to create a mantra to help modify your project motives.</p>
+<p>Last time you were asked to create a mantra to help change your project motives.</p>
 <p>Have you completed this task?</p>
 <p><a class="Cont" title="No"  onclick="NavID('TWF01')">Yes, I did ›</a></p>
 <p><a class="Cont" title="Yes" onclick="WaitHW()">No, I didn't have time ›</a></p>
@@ -778,7 +795,7 @@ This will encourage the concordant self-image process.</p>
 <article id="TWF01">
 <h2>Motivational focus</h2>
 <p>
-Recall that intrinsic motivations work well for creative tasks, and extrinsic motivations
+Intrinsic motivations work well for creative tasks, and extrinsic motivations
 (rewards) work well for dull, repetitive tasks.</p>
 <p>
 Some projects are a mixture of both.</p>
@@ -789,7 +806,7 @@ You might not find sanding and painting as interesting as the engine rebuild.</p
 An electronics project might be followed by video editing and dubbing sessions
 for a YouTube channel.</p>
 <p>
-After creating a beautiful ceramic piece, a tedious session of photographing,
+And after creating a beautiful ceramic piece, a tedious session of photographing,
 writeup, pricing, and listing may be required.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWF02')">Continue ›</a></p>
 </article>
@@ -827,6 +844,9 @@ boring section.</p>
 <p>
 Keep your task motivations separate. Any overlap between the rewards and
 the enjoyment will reduce your enjoyment.</p>
+<p>
+Be clear with yourself that the rewards are for completing the task, and not for
+the entire project. Think about the rest of the project in terms of intrinsic enjoyment.</p>
 <p><a class="Cont" title="Continue" onclick="LessonDone()">Done ›</a></p>
 </article>
 
@@ -835,14 +855,14 @@ the enjoyment will reduce your enjoyment.</p>
 <article id="RST00">
 <h2>Restarting your project</h2>
 <p>
-At some point during this program you may feel the itch to get back into your project.</p>
+At some point during this program you may feel the urge to get back into your project.</p>
 <p>
 When that happens, go for it!</p>
 <p>
-Don't wait until the end of this course to continue your project - you'll get a stronger effect
+Don't wait until the end of this course to continue your project, you'll get a stronger effect
 if you're working on something while learning about motivation.</p>
 <p>
-Take a moment to visualize yourself working on your project. Try and see yourself taking up where
+Take a moment to imagine yourself working on your project. Try and see yourself taking up where
 you left off, doing the next tasks, planning the next steps... whatever comes next in your project.</p>
 <p>
 Visualize yourself doing this before the end of tomorrow night. See yourself today, or tonight, or tomorrow,
@@ -855,26 +875,16 @@ several seconds.</p>
 
 <article id="NCA00">
 <h2>The neurochemistry of motivation</h2>
-
 <p>
-Knowing the neurochemistry of motivation can help. Knowing how things work and how they interrelate can help
-you make changes that will work, instead of making changes based on guesswork.</p>
-<p>
-The following pages describe, in broad terms, how the brain manages motivation using neurotransmitters
-and neuroreceptors. We start with a quick overview of these concepts.</p>
-<p>
-If you already know about neurotransmitters and neuroreceptors, feel free to skip the overview and begin
-with the section on motivation.</p>
-<p>
-If you don't know what neurotransmitters are, or you would like a refresher, start with that section: it will
-lead you to the motivation section after.</p>
-<p><a class="Cont" title="Read about neurotransmitters" onclick="NavID('NCA01')">Overview of neurotransmitters ›</a></p>
-<p><a class="Cont" title="Read about motivation"        onclick="NavID('NCA01')">The Neurochemistry of motivation ›</a></p>
+Knowing the neurochemistry of motivation can help. Knowing how things work and how they
+interrelate will help you make informed decisions about your motivation.</p>
+The next few lesson days describe, in broad terms, how the brain manages motivation
+using neurotransmitters and neuroreceptors.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCA01')">Continue ›</a></p>
 </article>
 
 <article id="NCA01">
 <h2>Neurotransmitters and neuroreceptors</h2>
-
 <p>Neurotransmitters are chemicals that one neuron uses to signal another. </p>
 <p class="NoTop">
 This happens at a special point called a synapse, where one neuron
@@ -885,8 +895,8 @@ other neuron and bind to corresponding receptors.</p>
 <img class="BigImageLeft" alt="Synapse diagram" src="images/Synapse.gif">
 <div class="RightText1">
 <br>
-It's sort of like ringing a desk bell. Sending neurotransmitters through the synapse
-gets the attention of the target neuron.<br>&nbsp;<br>
+It's sort of like ringing a desk bell. Sending neurotransmitter molecules
+through the synapse alerts the target neuron.<br>&nbsp;<br>
 After the signal is delivered, the molecules drift back to the source neuron
 where they are collected and stored for future signaling.
 </div>
@@ -895,75 +905,125 @@ where they are collected and stored for future signaling.
 </article>
 
 <article id="NCA02">
-<h2>Neurotransmitters and neuroreceptors</h2>
+<h2></h2>
 <p>
-There are over 100 neurotransmitters used in the brain, but we only need to know
-about three: 
-<a target="_blank" href="https://en.wikipedia.org/wiki/Norepinephrine">Norepinephrine</a>,
-<a target="_blank" href="https://en.wikipedia.org/wiki/Dopamine">Dopamine</a>, and
-<a target="_blank" href="https://en.wikipedia.org/wiki/Serotonin">Serotonin</a>,
-which the brain uses for effort, pleasure, and happiness.</p>
+There are over 100 neurotransmitters used in the brain, but we only need to learn
+about three: Norepinephrine, Dopamine</a>, and Serotonin.</p>
+<p>The brain uses these for effort, pleasure, and happiness.</p>
 <ul>
 <li><span class="ListHeader" style="width: 16ch;">Norepinephrine</span> ‹-› Effort.</li>
 <li><span class="ListHeader" style="width: 16ch;">Dopamine</span> ‹-›Pleasure</li>
 <li><span class="ListHeader" style="width: 16ch;">Serotonin</span> ‹-›Happiness</li>
-<ul>
+</ul>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA03')">Continue ›</a></p>
 </article>
 
 <article id="NCA03">
-<p>Before we explain the mechanisms, we need to sort out some nomenclature.</p>
+<h2>Norepinephrine is effort</h2>
+<p>The first neurotransmitter of interest is norepinephrine, the neurotransmitter of effort.</p>
 <p>
-Adrenaline and Epinephrine are two names for the same chemical. It was discovered independently
-by two laboratories at about the same time.
-NorEpinephrine and NorAdrenaline are two names for a different chemical. It was
-discovered by the same laboratories at about the same time.</p>
+You may have heard of epinephrine, also known as adrenaline (two words for the same
+substance). It's the chemical in
+<a target="_blank" href="https://en.wikipedia.org/wiki/Epinephrine_autoinjector">EpiPens</a>
+used to treat severe allergic reaction. It's released when you're afraid or angry, and
+causes your heart to race, your blood pressure to
+rise, and releases glucose into the blood for quick energy.
+Epinephrine/Adrenaline prepares your body (and mind) for a jolt of activity:
+fight or flight, something you might have to do to survive.</p>
 <p>
-Epinephrine and NorEpinephrine are the names used in the US, while Adrenaline and NorAdrenaline are
-used in the UK. Across the rest of the world different countries use one term or the other.</p>
-<p>Such is the way of science.</p>
-<p>
-For the rest of the course, this program will use both terms with a slash between the
-equivalent names. Epinephrine/Adrenaline will be the "fight-or-flight" neurotransmitter, and
-NorEpinephrine/NorAdrenaline will be the "action" neurotransmitter.</p>
-
+Nor-epinephrine, also known as
+nor-adrenaline (again, two words, same substance),
+is a weaker version used for day-to-day actions. Every time you decide
+to do (or not to do) something, your brain uses norepinephrine/noradrenaline.</p>
+<p>If you've heard the expression "burning the candle at both ends", nor-epinephrine is
+like burning a candle, while epinephrine is like burning rocket fuel.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA04')">Continue ›</a></p>
 </article>
 
 <article id="NCA04">
-<h2>NorEpinephrine/NorAdrenaline, the neurotransmitter of action</h2>
+<h2>The effort counter</h2>
 <p>
-Adrenaline/Epinephrine prepares your body (and mind) for a jolt of activity:
-fight or flight, something you might have to do to survive.</p>
+When your brain decides to act, it also starts a counter that monitors
+the amount of norepinephrine used.
+<br>&nbsp;<br>
+When the total amount exceeds
+a certain threshold, the counter will generate frustration, irritation,
+dissatisfaction, and annoyance to encourage the brain to stop.
+</p>
+<div>
+<br>&nbsp;<br>
+<img class="BigImageLeft" alt="Epinephrine counter diagram" src="images/NorEpi.png">
+<div class="RightText1">
+Here are two tasks showing their epinephrine usage.
 <p>
-NorAdrenaline/NorEpinephrine is a weaker version that's used for day-to-day decision
-making. Every time you decide to do something (or not to do something), your brain uses
-a little bit of Adrenaline/Epinephrine to start the action.</p>
-<p>You may have heard the expression "burning the candle at both ends".</p>
+The first task is complex, requiring many decisions. The total norepinephrine
+eventually exceeds the counter limit, resulting in frustration and annoyance.
+The brain tires of the task, and quits before reaching the goal.</p>
 <p>
-If NorAdrenaline/NorEpinephrine is like burning a candle, Adrenaline/Epinephrine
-is like burning rocket fuel.</p>
+The second task is less demanding, requiring fewer and easier decisions. The
+task is complete before the counter reaches the limit.</p>
+</div>
+</div>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA05')">Continue ›</a></p>
+</article>
+
+<article id="NCA05">
+<h2>Homework</h2>
+<p>
+Now that you know about norepinephrine, try to come up with a way to use less effort
+in your project: fewer decisions, easier decisions, simpler tasks.</p>
+<p>
+For example, is there a tool you don't have that would make the work easier? A software
+package? Better knowledge about something? Would a special jig to hold the workpiece
+make things easier?</p>
+<p>Could you adjust the conditions for completion to make the project simpler?</p>
+<p>
+Before the next course day, think over your project and try to come up with
+at least one way to make it easier.</p>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
+
+<article id="NCB00">
+<h2>Homework turn-in</h2>
+<p>Last time you were asked to come up with ways to make your project easier.</p>
+<p>
+There may be no easy way to do this: tools are expensive, software is hard to use,
+the conditions for completion might be fixed and unchangeable.</p>
+<p>
+You don't have to make the changes, but you can if you want.</p>
+<p>
+The important part is knowing how the difficulty of your project can lead
+to annoyance and frustration, and to consider ways to make things easier.</p>
+<p>Making things easier often makes the projects more enjoyable.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCB01')">Continue ›</a></p>
+</article>
+
+<article id="NCB01">
+<h2>Dopamine is enjoyment</h2>
+<p>The second (of three) neurotransmitter is dopamine, the neurotransmitter of enjoyment.</p>
+<p>
+like burning a candle, while epinephrine is like burning rocket fuel.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCB02')">Continue ›</a></p>
 </article>
 
 <!-- Failure ####################################################################################################### -->
 
 <article id="FAI00">
-<h2>Ignore Failure</h2>
-<p>Thomas Edison had over 10,000 failed attempts before he got a working light bulb.</p>
+<h2>Ignoring Failure</h2>
+<p>Thomas Edison made over 10,000 failed attempts before he got a working light bulb.</p>
 <p>
 When asked by a reporter how it felt to fail 10,000 times, Edison replied:
 “I didn't fail 10,000 times, I’ve just found 10,000 ways that will not work.”</p>
 <p>
-This lesson isn't about getting more motivation <em>now</em>, it's
+This lesson isn't about motivation <em>now</em>, it's
 about keeping motivation when you encounter a failure.</p>
 <p>
 Imagining future failures can minimize their impact.
 Also, thinking about failure can encourage taking steps to avoid it.</p>
 <p>
-Notice we said "when" and not "if". It's a near certainty
-that you'll encounter failure at some point, so getting properly
-oriented will help.</p>
+Note the word "when" and not "if" above. It's a near certainty
+that you'll encounter failure at some point, and getting properly
+oriented beforehand will help.</p>
 <p>The term for this is
 <a target="_blank" href="https://en.wikipedia.org/wiki/Prospection">"prospection"</a>.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('FAI01')">Continue ›</a></p>
@@ -986,7 +1046,7 @@ an extreme example (10,000 tries? Yikes!), but the principle happens everywhere.
 <li>Can you salvage something useful for another project?</li>
 </ul>
 <p>
-It's extremely rare for a project ro fail completely. In nearly all cases
+It's extremely rare for a project to fail completely. In nearly all cases
 there is still value in having made the journey.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('FAI02')">Continue ›</a></p>
 </article>
@@ -1021,13 +1081,13 @@ Does that matter?
 <article id="PRI00">
 <h2>Your best project</h2>
 <p>
-People take this course for motivation to finish projects, which usually means they have finished
-projects in the past but no longer have the motivation.</p>
+People take this course for increased motivation to finish projects, which usually means
+they have finished projects in the past but no longer have that motivation.</p>
 <p>
-Take a moment to think about projects you have completed, and choose the one you're most
+Take a moment to think about your completed projects, and choose the one you're most
 proud of.</p>
 <p>
-Take your time, and choose a good one - the best you've ever done. When you're ready, click
+Take some time and choose a good one, the best you've ever done. When you're ready, click
 to continue.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('PRI01')">Continue ›</a></p>
 </article>
@@ -1083,25 +1143,15 @@ came to decide to do it, how you planned it, the steps you took, and what the re
 </div>
 </article>
 
-<!-- Addiction ##################################################################################################### -->
-
-<article id="ADD00">
-<h2>Creative addiction</h2>
-
-
-<p><a class="Cont" title="Continue" onclick="NavID('ADD01')">Continue ›</a></p>
-</article>
-
-
 <!-- Flow ########################################################################################################## -->
 
 <article id="FLO00">
 <h2>Flow States</h2>
 <p>
 A <a href="https://en.wikipedia.org/wiki/Flow_(psychology)" target="_blank">flow state</a>
-is when you're doing something and you lose track of time. Many people experience flow states while driving
-- you're thinking about something, turning over a problem in your mind, and arrive at your
-destination without any memory of driving or of the passage of time.</p>
+is when you're doing something and you lose track of time. Many people experience flow states while driving:
+you're thinking about something, turning over a problem in your mind, and arrive at your
+destination with no memory of driving or of the passage of time.</p>
 <p>
 Some people experience flow states in their projects. They sit down to work, get caught up in the
 activity, and look up hours later wondering where the time went.</p>
@@ -1184,10 +1234,104 @@ That's not something this program can help with, other than to point to the prob
 </div>
 </article>
 
+<!-- Project as Journey ############################################################################################ -->
+
+<article id="JOA00">
+<h2>Project as Journey</h2>
+<p>
+Norepinephrine is the neurotransmitter that gets you going, and dopamine is released when you
+are on the right path. The word "path" is appropriate because the NE circuit evolved to
+get us walking towards our goal.</p>
+<p>
+Our ancestors  needed food, shelter, or safety which were found at different places, and the
+neurotransmitters act to get us there.</p>
+<p>
+Since this is the mechanism that makes working on projects enjoyable, we can strengthen
+the effect by framing our projects as a journey.
+<p>
+We can link our projects more strongly to this mechanism by describing our project as a journey.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOA01')">Continue ›</a></p>
+</article>
+
+<article id="JOA01">
+<h2>&nbsp;</h2>
+<p>
+Take a moment to think about your project, then write down the major steps you need to complete it.</p>
+<p>
+Don't add too much detail, just five or six steps or so that each describe a major milestone of
+of your project.</p>
+<p>
+For example, a ceramics project might have these steps:</p>
+<p>
+Knead clay, form vase, bisque fire, apply glaze, glaze fire, photograph, describe, list on etsy.</p>
+<p>An electronics project might have these steps:</p>
+<p>
+Design circuit, breadboard circuit, scematic capture, board layout, order boards and parts,
+assemble boards, final test, list on tindie.</p>
+
+<p><a class="Cont" title="Continue" onclick="NavID('JOA02')">Continue ›</a></p>
+</article>
+
+<article id="JOA02">
+<h2>The Project Map</h2>
+<p>
+Now on a piece of lined paper, write out the major steps using circles and arrows. Sort
+of like a city subway map or train station diagram.</p>
+<p>
+Write the steps top to bottom and leave extra room at the top and at the bottom. You'll
+need extra space for later lessons.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOA03')">Continue ›</a></p>
+</article>
+
+<article id="JOA03">
+<h2>&nbsp;</h2>
+<p>Now mark where you are on the journey.</p>
+<p>
+If you are partway between major steps, then show how far you have come from the previous
+step, and how far you need to go to the next one.</p>
+<p>
+Make this mark stand out, emphasize what you've done and where you need to go next. Write over
+the parts you've already done with arrows pointing down to completion.</p>
+<p>
+Use colored pens to make your diagram stand out if you like.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOA04')">Continue ›</a></p>
+</article>
+
+<article id="JOA04">
+<h2>Homework</h2>
+<p>Fold your project map and carry it with you for the rest of the day.</p>
+<p>
+When you have spare moments, take out the map and think about how far you've come,
+where you need to go, and what you need to do to get to the next step.</p>
+<p>
+Try to blank out everything you've already done, and everything beyond the next
+step, and ask yourself: <em>What would it take just to get to the next step?</em>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
+
+<article id="JOB00">
+<h2>Homework turn-in</h2>
+<p>Have you viewed your project map a couple of times, over the course of a day?</p>
+<div id="JOB00a">
+<p><a class="Cont" title="No"  onclick="HUH('JWB00a','JWB00b');">Yes, I did ›</a></p><br />
+<p><a class="Cont" title="Yes" onclick="WaitHW()">No, I didn't have time ›</a></p>
+</div>
+
+<div id="JWB00b" class="Hidden">
+<p>
+Enter what it would take to just get to the next step.</p>
+<p>
+Just a word or two, nothing in detail. Something that you would recognize as
+the next action to take.
+<input class="TextEnter" maxlength="70" style="width: 70ch;">
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</div>
+</article>
+
 <!-- Notes ######################################################################################################### -->
 
 <article id="Notes">
-<h2>Lesson notes</h2>
+<h2>Methods</h2>
 <ul>
 <li><a onclick="NavID('NoteP')">Priming</a></li>
 <li><a onclick="NavID('NoteS')">The standout word</a></li>
@@ -1195,6 +1339,9 @@ That's not something this program can help with, other than to point to the prob
 <li><a onclick="NavID('NoteO')">The Overjustification Effect</a></li>
 <li><a onclick="NavID('NoteC')">Concordant self-image</a></li>
 <li><a onclick="NavID('NoteM')">Mantras</a></li>
+<li><a onclick="NavID('NoteV')">Visualization</a></li>
+<li><a onclick="NavID('NoteJ')">Project as journey</a></li>
+<li><a onclick="NavID('NoteP2')">Prospection</a></li>
 </ul>
 <p><a class="Cont" title="Return" onclick="NotesReturn()">Return ›</a></p>
 </article>
@@ -1245,7 +1392,7 @@ Probability of English words:<br>&nbsp;<br>
 People typically guess "SOLD", since it is the most common.</p>
 <p>
 Surprisingly, people who first read the shoe passage often answer "SOLE".
-The paragraph primes other shoe related concepts in the brain,
+The paragraph primes shoe related concepts in the brain,
 even though "SOLE" did not appear in the paragraph, even as a substring.</p>
 <p>Priming activated the related concept.</p>
 <p>
@@ -1265,19 +1412,32 @@ measurable a week after the original stimulus.</p>
 There are also different types of priming, and it is not known if the different types
 have different durations.</p>
 <p>
-The slideshow uses priming to get your mind thinking about the project.</p>
-<p>
-We show images and words related to your project, and repeat this daily over the
-course of the program.
+The slideshow uses priming to get your mind thinking about the project.
+We show images and words related to your project, and repeat this daily for a
+stronger effect.
 </p>
 <p>
-You can find out more about this on the internet. The Wikipedia page on priming is a good
-place to start.</p>
+The Wikipedia page on
+<a target="_blank" href="https://en.wikipedia.org/wiki/Priming_(psychology)">priming</a>
+has more information.</p>
 <p><a class="Cont" title="Done" onclick="NavID('Notes')">Done ›</a></p>
 </article>
 
 <article id="NoteS">
 <h2>The Standout Word</h2>
+<p>
+The slideshow uses priming to get you thinking about your projects, but of course
+this won't work if you're not paying attention.</p>
+<p>
+The "standout word" is just a mechanism to keep you focused. It's not counted
+or scored.</p>
+<p>
+The type of highlighting is randomly determined - the idea is that if you don't
+know which word will be highlighted, you'll pay attention. Similarly, the number
+of highlights and type of question can vary.</p>
+<p>
+The program presents a mix of highlights and options so that viewing
+the slideshow doesn't become automatic.</p>
 <p><a class="Cont" title="Back" onclick="NavID('Notes')">Back ›</a></p>
 </article>
 
@@ -1326,6 +1486,40 @@ A repeated word or phrase, especially in advocacy or for motivation.</p>
 <p><a class="Cont" title="Return" onclick="NavID('Notes')">Return ›</a></p>
 </article>
 
+<article id="NoteV">
+<h2>Visualization</h2>
+<p>
+<a target="_blank" href="https://en.wikipedia.org/wiki/Creative_visualization">
+Creative visualization</a> is when you visualize a desired outcome.</p>
+<p>
+Your mind is essentially a goal-seeking device, and if you can clearly communicate
+your goals then your mind will work to achieve them.</p>
+<p>
+The course uses visualization at various points to encourage your mind to
+make that situation come true.</p>
+<p><a class="Cont" title="Return" onclick="NavID('Notes')">Return ›</a></p>
+</article>
+
+<article id="NoteJ">
+<h2>Project as Journey</h2>
+<p>
+Complete me</p>
+<p><a class="Cont" title="Return" onclick="NavID('Notes')">Return ›</a></p>
+</article>
+
+<article id="NoteP2">
+<h2>Prospection</h2>
+<p>
+<a target="_blank" href="https://en.wikipedia.org/wiki/Prospection">Prospection</a>
+is looking forward to possible futures.</p>
+<p>
+The feelings thus evoked can cause you to anticipate whether future events are desirable or undesirable, and
+take appropriate actions in the present.</p>
+<p>
+The course uses prospection to prepare your mind to handle possible future failures. Imagining that future
+softens the impact, and can lead to taking steps in the present to prevent it.</p>
+<p><a class="Cont" title="Return" onclick="NavID('Notes')">Return ›</a></p>
+</article>
 
 <!-- ############################################################################################################### -->
 

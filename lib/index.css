@@ -60,6 +60,10 @@ kbd {
     font-weight:        530;
     }
 
+.Underline {
+    text-decoration:    underline;
+    }
+
 /***********************************************************************
  *
  * Slideshow
@@ -339,6 +343,34 @@ a.Cont {
 
 .CatList {
     margin-left:        4em;
+    }
+
+.CookieURL {
+    font-family:        helvetica, arial, sans serif;
+    font-size:          inherit;
+    font-weight:        bolder;
+    background-color:   WhiteSmoke;
+    border:             none;
+    width:              2ch;
+    margin-left:        0;
+    margin-right:       0;
+    padding-left:       0;
+    padding-right:      0;
+    outline:            none;
+    width:              100%;
+
+/*
+    font-family:        helvetica, arial, sans serif;
+    padding-left:       0px;
+    font-weight:        bolder;
+    font-size:          80%;
+    margin-top:         2em;
+    padding-top:        0.5em;
+    padding-left:       1em;
+    padding-right:      1em;
+    background-color:   White;
+    border:             1px solid black;
+*/
     }
 
 .TextEnter {
