@@ -64,6 +64,10 @@ kbd {
     text-decoration:    underline;
     }
 
+.Bold {
+    font-weight:        bold;
+    }
+
 /***********************************************************************
  *
  * Slideshow
@@ -318,14 +322,14 @@ a.Cont {
     font-weight:        bold;
     }
 
-#CatTitle {
-    padding-bottom      1em;
-    text-align:         center;
-    }
-
 #SelectCat {
     text-align-last:    center;
     width:              20ch;
+    font-size:          inherit;
+    }
+
+.CatList {
+    margin-left:        4em;
     }
 
 .BeginSpan {
@@ -339,10 +343,6 @@ a.Cont {
 
     font-size:          300%;
     -moz-border-radius: 15px;
-    }
-
-.CatList {
-    margin-left:        4em;
     }
 
 .CookieURL {
@@ -387,3 +387,11 @@ a.Cont {
 	margin-left:        auto;
     margin-right:       auto;
     }
+
+.Wid9   { width:  9ch; }
+.Wid16  { width: 16ch; }
+.Wid20  { width: 20ch; }
+.Wid70  { width: 70ch; }
+
+.WidCon { width: fit-content; }
+.WidAll { width: 100%; }
