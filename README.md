@@ -59,7 +59,7 @@ That's it! No other installation steps are needed.
 
 ## Running the program
 
-To run the project, double-click on "public_html/index.html" in the project directory
+To run the project, double-click on "index.html" in the project directory
 to start the program in your default browser.
 
 ## Running at first boot
@@ -75,10 +75,10 @@ command (linux) or "start" command (windows). Cut/Paste the following into your 
 
 ````
 # Linux
-> xdg-open $HOME/Motivation/public_html/index.html
+> xdg-open $HOME/Motivation/index.html
 
 # Windows
-> start %HOMEDRIVE%%HOMEPATH%/Motivation/public_html/index.html 
+> start %HOMEDRIVE%%HOMEPATH%/Motivation/index.html 
 ````
 (If you cloned the application to another directory, make the necessary changes to the command lines.)
 
@@ -87,6 +87,6 @@ Alternately for Linux systems, run the following command from the project direct
 the project at first login:
 
 ```
-> echo "xdg-open $PWD/public_html/index.html" >>~/.profile
+> echo "xdg-open $PWD/index.html" >>~/.profile
 ```
 

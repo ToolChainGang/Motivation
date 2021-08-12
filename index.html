@@ -71,7 +71,7 @@ URL will bump the lesson to the next day and start that day's lesson.</p>
 <p>If this is your first time, you probably want "overview".</p>
 <div class="TOC">
 <a class="TOCLink" title="Overview"          onclick="NavID('Overview')"     >Overview ›         </a><br>
-<a class="TOCLink" title="Configure and run" onclick="StartConfig()"         >Configure and run ›</a><br>
+<a class="TOCLink" title="Configure and run" onclick="RunConfig()"           >Configure and run ›</a><br>
 <a class="TOCLink" title="Today's lesson"    onclick="ShowLesson()"          >Today's lesson ›   </a><br>
 <a class="TOCLink" title="Previous lesson"   onclick="ShowPrevLesson()"      >Previous lesson ›  </a><br>
 <a class="TOCLink" title="Methods"           onclick="CallNotes('Contents')" >Methods ›          </a><br>
@@ -80,9 +80,9 @@ URL will bump the lesson to the next day and start that day's lesson.</p>
 
 <article id="AskConfig">
 <h2>Configure a new project</h2>
-<p>Erase the existing project configuration and start a new one?</p>
-<p></p>
 <h2>&nbsp;</h2>
+<p class="CenterText">Erase the existing project configuration and start a new one?</p>
+<p></p>
 <p><a class="Cont" title="Erase" onclick="NavID('CON00')">Erase ›</a></p>
 <p><a class="Cont" title="Cancel" onclick="NavID('Contents')">Cancel ›</a></p>
 </article>
@@ -108,7 +108,8 @@ You don't need a formal name, just a word or two that you would recognize,
 something that would bring your project to mind if you heard it.</p>
 <p>When you're ready, Complete the phrase below with your project name.</p>
 <p class="CenterDiv">
-My <input id="ProjectName" class="TextEnter" onkeydown="NavEnter(event,'CON01a'); return true;"> project.</p>
+My <input id="ProjectName" class="TextEnter"> project.</p>
+<p id="CON01o"><a class="Cont" title="Continue" onclick="HUH('CON01o','CON01a')" >Continue ›</a></p>
 <div id="CON01a" class="Hidden">
 <p>Choose the category that best describes your project:</p>
 <div class="CenterDiv WidCon">
@@ -129,23 +130,21 @@ You'll get a stronger effect if you use your real name - something that you woul
 recognize if someone called it out to you. You won't need to enter your last name,
 or any contact information, and the information is only stored locally.</p>
 <p>Capitalize it the way you'd like to see it.</p>
-<input id="MyName" class="TextEnter Wid20" onkeydown="NavEnter(event,'CON02a'); return true;">
-<div id="CON02a" class="Hidden">
+<input id="MyName" class="TextEnter Wid20">
 <h2>&nbsp;</h2>
-<p><a class="Cont" title="Continue" onclick="SetConfig()">Continue ›</a></p>
-</div>
+<p><a class="Cont" title="Continue" onclick="EndConfig()">Continue ›</a></p>
 </article>
 
 <article id="Configured">
 <h2>Configuration complete</h2>
-<p>As a final step, set this web page to load each morning as soon as possible
-after waking.</p>
+<p>For the next 30 days, open and view this web page each morning as
+soon as possible after waking.</p>
 <p>
 If you always open a browser as part of your daily routine, you can open this
 page in a tab and set the browser to restore tabs on restart. Each time you
 open the browser, the program will be available, and you can view it once each day.</p>
 <p>
-You can also set your computer to load the web page in the default broswer when
+Alternately, you can have your computer load the web page in the default broswer when
 you first log on, using the "xdg-open" command (linux) or "start" command
 (windows). Cut/Paste the following into your system startup applications:</p>
 <code class="Bold CenterDiv">
@@ -178,7 +177,7 @@ function NavCON(NextID) {
 <h2>Overview</h2>
 <p>
 Many people have difficulty bringing their projects to completion.
-They get excited at first, but it soon fades and the
+They get excited at first, but the passion soon fades and the
 project languishes for lack of time.</p>
 <p>
 Then you get a new idea that seems wonderful and exciting, but in a little
@@ -205,8 +204,7 @@ The slideshow gets your mind thinking about the project, and the lessons help yo
 small changes to your behavior and attitude that should boost your project motivation.</p>
 <p>
 The techniques are well documented and backed by scientific studies, no tricks or subliminal
-messaging is used. A full description of the techniques is included under the "Methods"
-link on the main page.</p>
+messaging is used. All techniques are described in the "Methods" link on the main page.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('Overview2')">Continue ›</a></p>
 </article>
 
@@ -215,15 +213,14 @@ link on the main page.</p>
 <p class="HWord">Q: Does this work?<br>&nbsp;<br>
 A: No one knows.</p>
 <p>
-The premise of this program is that your intrinsic motives have been replaced by
-extrinsic goals, and your intrinsic motives have faded.
-That this can happen is well established in the literature.</p>
+The premise of this program is that extrinsic goals have replaced your intrinsic motives,
+and your intrinsic motives have faded. That this happens is well established in the literature.</p>
 <p>
-What is not known, because it hasn&quot;t been studied, is whether this situation
+What is not known, because it hasn&apos;t been studied, is whether this situation
 can be reversed. Hence this program.
-<p>It&quot;s 5 minutes of your time each morning for 30 days.</p>
-<p>All I can say is "try it", it&quot;s experimental, and if it doesn&quot;t work then
-you&quot;re no worse off than you were at the start.</p>
+<p>It&apos;s 5 minutes of your time each morning for 30 days.</p>
+<p>Try it, it&apos;s experimental, and if it doesn&apos;t work
+you&apos;re no worse off than you were at the start.</p>
 <p><a class="Cont" title="Done" onclick="NavID('Contents')">Done ›</a></p>
 </article>
 
@@ -324,7 +321,7 @@ it three times in the morning.</p>
 
 <div id="SSWord2" class="Hidden">
 <p>Which other word stood out?</p>
-<div class="CenterDiv">
+<div class="CenterDiv WidCon">
 <input type="radio" id="HWord5" name="$HWORD5" value="$HWORD5" onclick="CheckSSWords('$HWORD5',0)">
 <label for="HWord5"><span class="HWord">$HWORD5</span></label><br>
 <input type="radio" id="HWord6" name="$HWORD6" value="$HWORD6" onclick="CheckSSWords('$HWORD6',0)">
@@ -390,8 +387,8 @@ it three times in the morning.</p>
 <h2>Motivation!</h2>
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>&nbsp;</h2>
-<p>Do you have time for today's lesson?</p>
-<p><a class="Cont" title="Continue" onclick="ShowLesson()"        >Yes, show today's lesson ›</a></p>
+<p>Do you have time for today&apos;s lesson?</p>
+<p><a class="Cont" title="Continue" onclick="ShowLesson()"        >Yes, show today&apos;s lesson ›</a></p>
 <p><a class="Cont" title="Continue" onclick="NavID('WaitLesson')" >No, I don't have time right now ›</a></p>
 </article>
 
@@ -415,7 +412,7 @@ it three times in the morning.</p>
 <h2>Motivation!</h2>
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>&nbsp;</h2>
-<p>This completes today&quot;s lesson.</p>
+<p>This completes today&apos;s lesson.</p>
 <p>Until next time.</p>
 </article>
 
@@ -470,15 +467,15 @@ likes, subscribers, or avoiding punishment. They are the rewards you get in exch
 </article>
 
 <article id="TWA01">
+<p>&nbsp;</p>
 <p>
 <b>Extrinsic</b> motivations work well for <em>routine, repetitive</em> tasks - things you can do automatically,
-without a lot of thought or planning.</p>
-<p>
+without a lot of thought or planning.<br>&nbsp;<br>
 For example, a dealership auto mechanic spends his day diagnosing
-and fixing a specific brand of cars. The procedures are well known, require little thought or
+and fixing one brand of cars. The procedures are well known, require little thought or
 choice, and the paycheck is his extrinsic reward.</p>
-<p><b>Intrinsic</b> motivations work well for <em>creative</em> tasks.</p>
-<p>If that same mechanic goes home to work on a project race car, he has
+<p><b>Intrinsic</b> motivations work well for <em>creative</em> tasks.<br>&nbsp;<br>
+If that same mechanic works at home on a project race car, he has
 intrinsic motivations:</p>
 <ul class="NoSpc">
 <li>He chooses what to do, and how to do it.</li>
@@ -487,8 +484,8 @@ intrinsic motivations:</p>
 <li>He wants to start racing</li>
 </ul>
 
-<p>While working on his a project car, the mechanic gains a deep sense of satisfaction.</p>
-<p>He enjoys the process.</p>
+<p>While working on his a project car, the mechanic gains a deep sense of satisfaction.<br>&nbsp;<br>
+He enjoys the process.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWA02')">Continue ›</a></p>
 </article>
 
@@ -498,17 +495,17 @@ intrinsic motivations:</p>
 Before the next course day, when you get a moment, think about your project and choose the
 intrinsic motivation your project is weakest on.</p>
 <p>
-Don't spend a lot of time on this, just think about the question when you have spare moments.
+Don&apos;t spend a lot of time on this, just think about the question when you have spare moments.
 Have your choice ready for the next lesson.</p>
 <p>For reference, the intrinsic motivations are:</p>
 <ul>
 <li><span class="ListHeader Wid9">Autonomy</span> - You make the decisions</li>
-<li><span class="ListHeader Wid9">Growth</span>   - You learn something new, or practice something you're rusty at</li>
+<li><span class="ListHeader Wid9">Growth</span>   - You learn something new, or practice something you&apos;re rusty at</li>
 <li><span class="ListHeader Wid9">Excellence</span> - You do a good job</li>
 <li><span class="ListHeader Wid9">Usefulness</span> - The project is valuable to you, your family, or the community</li>
 </ul>
-<h2>&nbsp;</h2>
-<p><b>Extra credit:</b>Is there a simple change you could make that would strengthen the weak motivation?</p>
+<br>&nbsp;<br>
+<p><b>Extra credit:</b> Is there a simple way to strengthen the weak motivation?</p>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </article>
 
@@ -529,7 +526,7 @@ Autonomy</span> - You make the decisions</label><br>
 
 <input type="radio" id="Growth"   name="WeakestMotivation" value="Growth"       onclick="UnHide('TWB00c');">
 <label for="Growth"><span class="ListHeader Wid9">
-Growth</span>   - You learn something new, or practice something you're rusty at</label><br>
+Growth</span>   - You learn something new, or practice something you&apos;re rusty at</label><br>
 
 <input type="radio" id="Excellence" name="WeakestMotivation" value="Excellence" onclick="UnHide('TWB00c');">
 <label for="Autonomy"><span class="ListHeader Wid9">
@@ -543,7 +540,7 @@ Usefulness</span> - The project is valuable to you, your family, or the communit
 <div id="TWB00c" class="Hidden">
 <p>
 Describe how you could strengthen this. Nothing detailed, just a word or two that would remind you later on.</p>
-<p>If you don't know a way, just leave this field blank.</p>
+<p>If you don&apos;t know a way, just leave this field blank.</p>
 <input class="TextEnter Wid70" maxlength="70">
 
 <p><a class="Cont" title="Continue" onclick="NavID('TWB01')">Continue ›</a></p>
@@ -552,18 +549,18 @@ Describe how you could strengthen this. Nothing detailed, just a word or two tha
 
 <article id="TWB01">
 <h2>Homework complete.</h2>
-<p>You don't have to strengthen your weakest motivation, but you can if you want.</p>
+<p>You don&apos;t have to strengthen your weakest motivation, but you can if you want.</p>
 <p>
 Different projects have different proportions of the intrinsic motivations. Whether to add
-motivation to yours is completely up to you.</p>
+motivation is completely up to you.</p>
 <p>The important part is knowing the difference between <b>Extrinsic</b> and <b>Intrinsic</b>
-motivations, and to think about about your project in those terms.</p>
+motivations, and to think about about your project in these terms.</p>
 <p>The next few lessons will expand on this.</p>
 <p><b>Extrinsic</b> motivations are any reward for completion, such as money, fame, or likes.</p>
 <p class="ListTitle"><b>Intrinsic</b> motivations are:</p>
 <ul>
 <li><span class="ListHeader Wid9">Autonomy</span> - You decide what to do</li>
-<li><span class="ListHeader Wid9">Growth</span>   - You learn something new, or practice something you're rusty at</li>
+<li><span class="ListHeader Wid9">Growth</span>   - You learn something new, or practice something you&apos;re rusty at</li>
 <li><span class="ListHeader Wid9">Excellence</span> - You do a good job</li>
 <li><span class="ListHeader Wid9">Usefulness</span> - The project is valuable to you, your family, or the community</li>
 </ul>
@@ -659,7 +656,7 @@ When you have spare moments, think about your project and if you can think
 of more motives, add them to the list.</p>
 <p>
 Keep the intrinsic motives at the top, and the rewards at the bottom, though.
-You'll see why at the next lesson.</p>
+You&apos;ll see why at the next lesson.</p>
 <div>
 <img class="ImageLeft" alt="Pad with motivations" src="images/PadMessy.gif">
 <div class="RightText">
@@ -942,12 +939,26 @@ where they are collected and stored for future signaling.
 <p>
 There are over 100 neurotransmitters used in the brain, but we only need to learn
 about three: Norepinephrine, Dopamine</a>, and Serotonin.</p>
-<p>The brain uses these for effort, pleasure, and happiness.</p>
-<ul>
-<li><span class="ListHeader Wid16">Norepinephrine</span> ‹-› Effort.</li>
-<li><span class="ListHeader Wid16">Dopamine</span> ‹-›Pleasure</li>
-<li><span class="ListHeader Wid16">Serotonin</span> ‹-›Happiness</li>
-</ul>
+<p>The brain uses these for effort, happiness, and joy.</p>
+<br>
+<table class="CenterDiv" cellspacing="0"  style="border: 1px solid black;"><tbody>
+<tr>
+    <td>Norepinephrine</td>
+    <td> ‹-› </td>
+    <td>Effort</td>
+    </tr>
+<tr>
+    <td>Dopamine</td>
+    <td> ‹-› </td>
+    <td>Happiness</td>
+    </tr>
+<tr>
+    <td>Serotonin</td>
+    <td> ‹-› </td>
+    <td>Joy</td>
+    </tr>
+</tbody></table>
+<h2>&nbsp;</h2>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA03')">Continue ›</a></p>
 </article>
 
