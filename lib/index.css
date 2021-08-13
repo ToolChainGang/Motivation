@@ -395,3 +395,9 @@ a.Cont {
 
 .WidCon { width: fit-content; }
 .WidAll { width: 100%; }
+
+.PollTable {
+    background-color:   wheat;
+    text-align:         center;
+    }
+
