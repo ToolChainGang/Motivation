@@ -124,7 +124,7 @@ MusicalInstrument => {
     Keys    => [ "Instrument", "Keyboard", "Strings", "Woodwind", "Brass" ],
     },
 Painting => {
-    Cull    => "W",
+    Cull    => "IW",
     Display => "Painting",
     Dir     => "Painting",
     Keys    => [ "Painting", "Portrait", "Easel", "Palette", "Fine art" ],
