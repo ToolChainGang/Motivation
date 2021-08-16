@@ -22,7 +22,7 @@ body {
     display:            none;
     }
 
-.Article {
+Article {
     display:            none;
     }
 
@@ -322,16 +322,6 @@ a.Cont {
     font-weight:        bold;
     }
 
-#SelectCat {
-    text-align-last:    center;
-    width:              20ch;
-    font-size:          inherit;
-    }
-
-.CatList {
-    margin-left:        4em;
-    }
-
 .BeginSpan {
     text-align:         center;
     }
@@ -373,6 +363,14 @@ a.Cont {
 */
     }
 
+#SelectCat {
+    width:              30ch;
+    font-family:        helvetica, arial, sans serif;
+    font-weight:        bolder;
+    background-color:   White;
+    border:             1px solid black;
+    }
+
 .TextEnter {
     font-family:        helvetica, arial, sans serif;
     padding-left:       0px;
@@ -397,7 +395,6 @@ a.Cont {
 .WidAll { width: 100%; }
 
 .PollTable {
-    background-color:   wheat;
+    background-color:   mistyrose;
     text-align:         center;
     }
-

@@ -52,17 +52,17 @@
 <article id="Hackaday">
 <h2>Hackaday prize judging</h2>
 <p>The program is normally 1 slideshow plus 1 lesson each day for 30 days.</p>
-<p>For convenience in hackaday prize judging, adding "Lesson=Next" to the page
-URL will bump the lesson to the next day and start that day's lesson.</p>
+<p>For convenience in hackaday prize judging, pressing ALT-L (lesson) at the end
+of a lesson will bump to the next day and start that day's lesson.</p>
 <p class="ListTitle">So for purposes of judging:</p>
 <ul>
 <li>Configure a project and run the program</li>
 <li>View the slideshow for day 1, and the lesson for day 1</li>
-<li>Change the URL to "index.html?Lesson=Next"</li>
-<li>Load that URL to see the lesson for day 2</li>
-<li>Reload that URL see the lesson for day 3</li>
+<li>Press ALT-L to view the lesson for day 2</li>
+<li>Press ALT-L to view the lesson for day 3</li>
 <li>...and so on.</li>
 </ul>
+<p>This only works at the end of a lesson.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('Contents')" >Continue ›</a></p><br />
 </article>
 
@@ -83,37 +83,39 @@ URL will bump the lesson to the next day and start that day's lesson.</p>
 <h2>&nbsp;</h2>
 <p class="CenterText">Erase the existing project configuration and start a new one?</p>
 <p></p>
-<p><a class="Cont" title="Erase" onclick="NavID('CON00')">Erase ›</a></p>
+<p><a class="Cont" title="Erase"  onclick="NavID('CON00')">Erase ›</a></p>
 <p><a class="Cont" title="Cancel" onclick="NavID('Contents')">Cancel ›</a></p>
 </article>
 
 <article id="CON00">
 <h2>Step 1: Choose a project</h2>
-<p>Think about your projects and select one to use for this course.</p>
-<p>Choose the project that would be most <em>enjoyable</em>,
-not the one that would be most valuable. Imagine yourself working each
+<p>Think about your projects and select one for this course.</p>
+<p>Choose one that would be <em>enjoyable</em>,
+not one that would be valuable.</p>
+<p>
+Imagine yourself working each
 of your projects, and choose the one that you think would bring the
 most pleasure while working.</p>
-<p>Take some time and choose carefully. A good choice now will
-maximize the motivation effect.</p>
+<p>Take some time and choose carefully. A good choice will have
+the maximum effect.</p>
 <h2>&nbsp;</h2>
 <p><a class="Cont" title="Continue" onclick="NavID('CON01')">Continue ›</a></p>
 </article>
 
 <article id="CON01" class="CatList">
 <h2>Step 2: Name your project</h2>
-<p>Choose a name for your project.</p>
+<p>Enter a name for your project.</p>
 <p>
 You don't need a formal name, just a word or two that you would recognize,
-something that would bring your project to mind if you heard it.</p>
-<p>When you're ready, Complete the phrase below with your project name.</p>
+something that would bring your project to mind if you read it.</p>
+<p>Complete the phrase below with your project name.</p>
 <p class="CenterDiv">
 My <input id="ProjectName" class="TextEnter"> project.</p>
 <p id="CON01o"><a class="Cont" title="Continue" onclick="HUH('CON01o','CON01a')" >Continue ›</a></p>
 <div id="CON01a" class="Hidden">
 <p>Choose the category that best describes your project:</p>
 <div class="CenterDiv WidCon">
-<select id="SelectCat" required name="Category">
+<select id="SelectCat" class="TextEnter" required name="Category">
     <option disabled selected value=""> -- choose -- </option>
     $CATLIST
     </select>
@@ -157,7 +159,7 @@ you first log on, using the "xdg-open" command (linux) or "start" command
 <p>(If you cloned to a different directory, change the command paths as needed.)</p>
 <p>From now on opening this web page will run the program "motivation".</p>
 <p><a class="Cont" title="Reload" onclick="location.reload();">Reload now ›</a></p>
-<p><a class="Cont" title="Continue" onclick="SetConfig()">Wait until tomorrow ›</a></p>
+<p><a class="Cont" title="Continue" onclick="WaitDay()">Wait until tomorrow ›</a></p>
 </article>
 
 <script><!--
@@ -254,7 +256,7 @@ word was emphasized you'll have to rewatch the slideshow.</p>
 When you've correctly identified the standout word, you'll be shown the lesson
 text and maybe asked to do a small task.</p>
 <p>
-The texts are short (less then 5 min), the tasks are simple,
+The lessons are short (less then 5 min), the tasks are simple,
 and not all days have lessons, so the course shouldn't take up much of your time.</p>
 <p>In fact, this first day doesn't have a lesson. Lessons start on day two.</p>
 <p>
@@ -552,7 +554,7 @@ Describe how you could strengthen this. Nothing detailed, just a word or two tha
 <p>You don't have to strengthen your weakest motivation, but you can if you want.</p>
 <p>
 Different projects have different proportions of the intrinsic motivations. Whether to add
-motivation is completely up to you.</p>
+motivation is up to you.</p>
 <p>The important part is knowing the difference between <b>Extrinsic</b> and <b>Intrinsic</b>
 motivations, and to think about about your project in these terms.</p>
 <p>The next few lessons will expand on this.</p>
@@ -638,8 +640,8 @@ rewards in a separate section below.</p>
 <img class="ImageLeft" alt="Pad with motivations" src="images/PadFilled.gif">
 <div class="RightText">
 <h2>&nbsp;</h2>
-Do this by hand and not, for example, by typing into a computer.
-Writing this out longhand will give you a stronger effect, but no one knows
+Do this by hand and not, for example, by typing into a computer.<br>&nbsp;<br>
+Writing out longhand will give you a stronger effect, but no one knows
 why this is so.<br>
 </div>
 </div>
@@ -736,7 +738,7 @@ Take a few moments to think about the remaining (visible) motives.
 <article id="TWD04">
 <h2>&nbsp;</h2>
 <p>
-Now think about the end of your project and write the conditions<br>for completion
+Now think about the end of your project and write the conditions for completion
 on the flap.</p>
 <h2>&nbsp;</h2>
 <div>
@@ -753,8 +755,9 @@ to time.
 
 <article id="TWE00">
 <h2>Mantras</h2>
-<p>The concordant self-image technique uses actions to change your project beliefs.</p>
-<p>Masking the rewards portion of your list will help change your beliefs,
+<p>The concordant self-image technique uses actions to change your project beliefs.
+<br>&nbsp;<br>
+Masking the rewards portion of your list will help change your beliefs,
 but this is only one action.</p>
 <div>
 <img class="ImageLeft" alt="Pad completed" src="images/PadCompleted.gif">
@@ -765,22 +768,17 @@ We do this by adding a mantra: a word or phrase recited during the day to
 reinforce the motivational beliefs.
 </div>
 </div>
+<p>
+Mantras get a lot of bad press, and probably for good reason. They are used for
+all sorts of vague and sketchy reasons, with a strong mystical component.
+<br>&nbsp;<br>
+We won't be doing anything mystical, just adding an action to help
+your self-image become concordant. Concordant with a maker who enjoys
+the process.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWE01')">Continue ›</a></p>
 </article>
 
 <article id="TWE01">
-<h2>&nbsp;</h2>
-<p>
-Mantras get a lot of bad press, and probably for good reason. They are used for
-all sorts of vague and sketchy reasons, with a strong mystical component.</p>
-<p>
-We won't be doing anything mystical, just adding an action to help
-your self-image become concordant. Concordant with a maker who enjoys
-the process.</p>
-<p><a class="Cont" title="Continue" onclick="NavID('TWE02')">Continue ›</a></p>
-</article>
-
-<article id="TWE02">
 <h2>Homework</h2>
 <p>
 Look over your motivation list and think of a mantra that will reinforce
@@ -801,13 +799,18 @@ Phrase it in terms of what you <em>will</em> do, instead of what you won't.
 ‹- Hint: For a stronger effect, write it down.
 </div>
 </div>
+<p><a class="Cont" title="Continue" onclick="NavID('TWE02')">Continue ›</a></p>
+</article>
+
+<article id="TWE02">
+<h2>&nbsp;</h2>
 <p>
 Over the course of the next day as you have spare moments, recite
 your mantra to yourself. Do this frequently, and try to
-visualize yourself living up to the intent.</p>
-<p>
-This will encourage the concordant self-image process.</p>
-<p>
+visualize yourself living up to the intent.
+<br>&nbsp;<br>
+This will encourage the concordant self-image process.
+<br>&nbsp;<br>
 If you like, along with repeating your mantra you can write it out
 a couple of times during the day. Writing the mantra has a stronger
 effect than simply repeating it, but no one knows why this is.</p>
@@ -889,7 +892,7 @@ At some point during this program you may feel the urge to get back into your pr
 <p>
 When that happens, go for it!</p>
 <p>
-don't wait until the end of this course to continue your project, you'll get a stronger effect
+Don't wait until the end of this course to continue your project, you'll get a stronger effect
 if you're working on something while learning about motivation.</p>
 <p>
 Take a moment to imagine yourself working on your project. Try and see yourself taking up where
@@ -909,8 +912,18 @@ several seconds.</p>
 Knowing the neurochemistry of motivation can help. Knowing how things work and how they
 interrelate will help you make informed decisions about your motivation.</p>
 <p>
-The next few lessons describe, in broad terms, how the brain manages motivation
+The next few lessons describe, in very broad terms, how the brain manages motivation
 using neurotransmitters and neuroreceptors.</p>
+<p>
+The scientific literature for neurochemistry has no broad consensus, no
+underlying model, has changed completely in the past 10 years, and is
+in a state of flux. It's also wildly complex.</p>
+<p>Describing brain motivation processes accurately is impossible at the present time.</p>
+<p>
+What follows is accurate in terms of <em>what</em> happens and can be used
+for illustration and project planning, but is simplistic and has many inaccuracies.</p>
+<p>
+Please be kind.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA01')">Continue ›</a></p>
 </article>
 
@@ -940,23 +953,23 @@ where they are collected and stored for future signaling.
 <p>
 There are over 100 neurotransmitters used in the brain, but we only need to learn
 about three: norepinephrine, dopamine, and serotonin.<br>&nbsp;<br>
-The brain uses these for effort, happiness, and reward.</p>
+The brain uses these for effort, enjoyment, and reward.</p>
 <br>
-<table class="CenterDiv" cellspacing="0"><tbody>
+<table class="CenterDiv"><tbody>
 <tr>
     <td>Norepinephrine</td><td>&nbsp;</td>
     <td> is </td><td>&nbsp;</td>
-    <td>Effort</td>
+    <td class="Bold">Effort</td>
     </tr>
 <tr>
     <td>Dopamine</td><td>&nbsp;</td>
     <td> is </td><td>&nbsp;</td>
-    <td>Happiness</td>
+    <td class="Bold">Enjoyment</td>
     </tr>
 <tr>
     <td>Serotonin</td><td>&nbsp;</td>
     <td> is </td><td>&nbsp;</td>
-    <td>Reward</td>
+    <td class="Bold">Reward</td>
     </tr>
 </tbody></table>
 <h2>&nbsp;</h2>
@@ -990,8 +1003,8 @@ like burning a candle, and epinephrine is like burning rocket fuel.</p>
 <article id="NCA04">
 <h2>The effort counter</h2>
 <p>
-When your brain decides to act, it also starts a counter that monitors
-the norepinephrine used for the task.
+When your brain decides to act, it releases norepinephrine and starts a
+counter that monitors the amount used for the task.
 <br>&nbsp;<br>
 When the counter exceeds a threshold limit, it will generate frustration,
 irritation, dissatisfaction, and annoyance to encourage the brain to stop.</p>
@@ -1052,8 +1065,8 @@ It counteracts the norepinephrine, and gives a pleasant feeling of enjoyment.
 <div>
 <img class="BigImageLeft" alt="Dopamine interaction" src="images/Dopamine.png">
 <div class="RightText1">
-<br>
-The lengthy task requires many decisions and actions, but
+<h2>&nbsp;</h2>
+A lengthy task might require many decisions and actions, but
 dopamine keeps the counter at bay until the goal is reached.<br>&nbsp;<br>
 The journey is a pleasant experience.
 </div>
@@ -1090,8 +1103,8 @@ fifteen minutes or less. Something that will be needed, that can be done
 now, and is simple.<br>&nbsp;<br>
 For example:</p>
 <table class="CenterDiv"><tbody>
-<tr><td>Automotive: </td><td>&nbsp;</td><td>Remove 1 casing bolt.</td></tr>
-<tr><td>Writing:    </td><td>&nbsp;</td><td>Write 1 page of text.</td></tr>
+<tr><td>Automotive: </td><td>&nbsp;</td><td>Remove 1 bolt.</td></tr>
+<tr><td>Writing:    </td><td>&nbsp;</td><td>Write 1 page.</td></tr>
 <tr><td>Software:   </td><td>&nbsp;</td><td>Write 1 function.</td></tr>
 <tr><td>Woodworking:</td><td>&nbsp;</td><td>Make 1 table saw cut.</td></tr>
 </tbody>
@@ -1113,7 +1126,7 @@ a small project task.</p>
 </div>
 <div id="NCC00b" class="Hidden">
 <p>How did you feel...</p>
-<table style="margin:0 auto;max-width:650px;" cellspacing="0" cellpadding="2px"><tbody>
+<table style="margin:0 auto;max-width:650px; border-spacing: 0; padding: 2px;"><tbody>
 <tr>
     <td></td>
     <td><small>Apathetic</small></td>
@@ -1158,7 +1171,6 @@ a small project task.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('NCC01')">Continue ›</a></p>
 </div>
 </div>
-</div>
 </article>
 
 <article id="NCC01">
@@ -1166,7 +1178,7 @@ a small project task.</p>
 <p>
 Starting can be difficult, but continuing is easier...</p>
 <p>
-And the diagram shows why this is.</p>
+The diagram shows why this is.</p>
 <p>
 The first section requires action without the benefit of
 dopamine. Until you make progress, the task will seem burdensome.</p>
@@ -1190,7 +1202,7 @@ Writers sometimes do this. Instead of taking a break when a chapter is finished,
 they stop a half page <em>before</em> the end of a chapter, or after
 the first page of the <em>next</em> chapter.</p>
 <p>
-When they sit down again to write, the next paragraphs are obvious, the
+When they sit down again, the next paragraphs are obvious, the
 dopamine kicks in, and they continue.</p>
 <p>
 If you have trouble starting on your project, try leaving something
@@ -1198,9 +1210,121 @@ undone in the previous session. Install all the bolts except one, don't sew
 the last hem, leave 1 component unplaced on the board layout, and so on.</p>
 <p>
 When you return to your project, the undone task will help get you
-started again.
+started again.</p>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </article>
+
+<article id="NCD00">
+<h2>Serotonin is reward</h2>
+<p>The third neurotransmitter (of three) is serotonin, which the
+brain uses for changes in predicted reward.</p>
+<p>
+If a distant uncle suddenly passes leaving you his fortune, your
+brain will release serotonin to cause a release of
+dopamine, which will make you happy.</p>
+<p>
+If your elderly uncle is terminal, in hospice, and it's only a matter of time -
+in that case his passing is solemn and his legacy is received with somber respect.
+</p>
+<p>
+Serotonin increases your dopamine when something unexpectedly favorable happens, 
+and decreases it when something unexpectedly bad happens.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCD01')">Continue ›</a></p>
+</article>
+
+<article id="NCD01">
+<h2>&nbsp;</h2>
+<p>The full term for the action of serotonin is "dopamine reward prediction error".</p>
+<p>When you consider an action, the brain looks forward in time and
+predicts the reward for achieving that goal. Serotonin causes
+a dopamine release for that predicted reward.</p>
+<p>Once the goal is reached, the actual reward is compared to the predicted
+reward: if extra reward is seen, serotonin releases more dopamine
+saying, in effect, "next time have a more positive outlook".</p>
+<p>If less reward than predicted is seen, serotonin causes dopamine to be
+withheld, reducing future predictions.</p>
+<p>
+Serotonin is the feedback signal that teaches us to make accurate
+predictions.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCD02')">Continue ›</a></p>
+</article>
+
+<article id="NCD02">
+<br>&nbsp;<br>
+<p>
+Serotonin is a differential signal: it responds to a perceived
+<em>difference</em> in value.</p>
+<p>
+A pay raise will make you happy for a time because the extra reward is
+different from what you used to get, but
+the feeling soon fades. A year later the perceived value is the same
+as the day before, and will be the same a day later, and now you're
+looking for another pay raise.</p>
+<p>
+Studies show that a year after winning the lottery, most people return to
+the level of happiness they had before winning.</p>
+<p>
+Winning spikes their serotonin, which increases their dopamine, and
+results in feelings of joy. A year later, the perceived value is the
+same as it was the previous day, the same as predicted for the next day,
+and no serotonin is released. The dopamine from the win has faded,
+and they've returned to their original level of happiness.
+<p>
+This is called the
+<a target="_blank" href="https://en.wikipedia.org/wiki/Hedonic_treadmill">
+Hedonic Treadmill</a>.</p>
+<p>Happiness is always over the cognitive horizon.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('NCD03')">Continue ›</a></p>
+</article>
+
+<article id="NCD03">
+<br>&nbsp;<br>
+<div>
+<img class="BigImageLeft" alt="Serotonin initial boost" src="images/Serotonin.png">
+<div class="RightText1">
+<br>&nbsp;<br>
+A project typically starts with a lightbulb moment: you visualize an outcome,
+and the goal has value.
+<br>&nbsp;<br>
+This releases serotonin, which raises your dopamine.
+<br>&nbsp;<br>
+You're at the beginning, but motivated to do the project.
+</div>
+</div>
+<p>
+Suppose you put the project off for a day. Now the predicted value is the
+same as the previous day, the differential is not as great, and the
+serotonin (and corresponding dopamine boost) begins to fade.</p>
+<div>
+<img class="BigImageLeft" alt="Sopamine start" src="images/DopamineStart.png">
+<div class="RightText1">
+<br>&nbsp;<br>
+A few of days later the day-by-day predicted value is constant, and
+the initial boost from serotonin is gone.
+<br>&nbsp;<br>
+If you try to start the
+project, you find yourself in the initial "low dopamine" section
+of the diagram.
+<p><a class="Cont" title="Continue" onclick="NavID('NCD05')">Continue ›</a></p>
+</div>
+</div>
+</article>
+
+
+<article id="NCD05">
+<h2>Faded motivation</h2>
+<p>
+If you start a project and have to order parts online, when the parts arrive 
+you may find you've lost interest.</p>
+<p>
+This is the root cause of the "startup" issue mentioned in the previous
+lesson, and the source of many paused projects.</p>
+<p>
+One way to deal with this is to always wait a couple of days before starting
+a new project.</p>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
+
 
 <!-- Failure ####################################################################################################### -->
 

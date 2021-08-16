@@ -1,7 +1,10 @@
 alloy
+aluminum
 anode
 arcs
+brass
 braze
+brazing
 cathode
 combine
 conductance
@@ -10,6 +13,7 @@ dielectric
 discharge
 electric arc
 electric discharge
+electric current
 electrical conductor
 electrically
 electricity
@@ -20,6 +24,7 @@ fuse
 fusible
 join
 joint
+inert gas
 melt
 metal
 mig
@@ -30,6 +35,13 @@ solder
 spark
 spot weld
 spot-weld
+spot-welder
+stainless steel
+steel
 tig
+tin
 tungsten
+weld
+welder
+welding power supply
 workpiece
