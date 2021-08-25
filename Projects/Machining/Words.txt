@@ -3,32 +3,47 @@ axis of rotation
 chuck
 cnc
 collet
+copper
+craftsman
 cutting
 deformation
-device
+drill bit
 drilling
 facing
+flywheel
 gear
+grind
+grinder
+hammer drill
 handwheel
 hardware
 inch
+injection molding
 lathe faceplate
 leadscrew
 linear measure
 linear unit
+machine
 machine tool
+machined
 machinery
 mechanical
 mechanism
 metal spinning
 metalworking
+mill
+molds
 motor
 pinion
+preparing
 press
 screw
 sheet metal
 simple machine
+stainless steel
 swarf
 thou
 tool
-turntable
+torque
+wedge
+weld

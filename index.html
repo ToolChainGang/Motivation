@@ -73,7 +73,7 @@ of a lesson will bump to the next day and start that day's lesson.</p>
 <a class="TOCLink" title="Overview"          onclick="NavID('Overview')"     >Overview ›         </a><br>
 <a class="TOCLink" title="Configure and run" onclick="RunConfig()"           >Configure and run ›</a><br>
 <a class="TOCLink" title="Today's lesson"    onclick="ShowLesson()"          >Today's lesson ›   </a><br>
-<a class="TOCLink" title="Previous lesson"   onclick="ShowPrevLesson()"      >Previous lesson ›  </a><br>
+<a class="TOCLink" title="Lesson calendar"   onclick="NavID('Calendar')"     >Lesson calendar ›  </a><br>
 <a class="TOCLink" title="Methods"           onclick="CallNotes('Contents')" >Methods ›          </a><br>
 </div>
 </article>
@@ -96,7 +96,7 @@ not one that would be valuable.</p>
 Imagine yourself working each
 of your projects, and choose the one that you think would bring the
 most pleasure while working.</p>
-<p>Take some time and choose carefully. A good choice will have
+<p>Take some time and choose carefully. A good choice will bring
 the maximum effect.</p>
 <h2>&nbsp;</h2>
 <p><a class="Cont" title="Continue" onclick="NavID('CON01')">Continue ›</a></p>
@@ -129,7 +129,7 @@ My <input id="ProjectName" class="TextEnter"> project.</p>
 <p>Enter your first name in the box below.</p>
 <p>
 You'll get a stronger effect if you use your real name - something that you would
-recognize if someone called it out to you. You won't need to enter your last name,
+recognize if called out to you. You won't need to enter your last name,
 or any contact information, and the information is only stored locally.</p>
 <p>Capitalize it the way you'd like to see it.</p>
 <input id="MyName" class="TextEnter Wid20">
@@ -146,7 +146,7 @@ If you always open a browser as part of your daily routine, you can open this
 page in a tab and set the browser to restore tabs on restart. Each time you
 open the browser, the program will be available, and you can view it once each day.</p>
 <p>
-Alternately, you can have your computer load the web page in the default broswer when
+Alternately, you can have your computer load the web page in the broswer when
 you first log on, using the "xdg-open" command (linux) or "start" command
 (windows). Cut/Paste the following into your system startup applications:</p>
 <code class="Bold CenterDiv">
@@ -156,7 +156,7 @@ you first log on, using the "xdg-open" command (linux) or "start" command
 # Windows<br>
 > start %HOMEDRIVE%%HOMEPATH%/Motivation/index.html<br>
 </code>
-<p>(If you cloned to a different directory, change the command paths as needed.)</p>
+<p>(If theproject is in a different directory, change the command paths as needed.)</p>
 <p>From now on opening this web page will run the program "motivation".</p>
 <p><a class="Cont" title="Reload" onclick="location.reload();">Reload now ›</a></p>
 <p><a class="Cont" title="Continue" onclick="WaitDay()">Wait until tomorrow ›</a></p>
@@ -188,7 +188,7 @@ languishing for lack of time.</p>
 <p>Rinse, and repeat.</p>
 <p>
 Over time, many people amass multiple, sometimes dozens, of projects
-that they recognize as valuable, and would "really like" to get back to, but they
+that they recognize as valuable, and would "really like to get back to", but
 never seem to have the time or motivation to do so.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('Overview1')">Continue ›</a></p>
 </article>
@@ -205,8 +205,8 @@ plus a short lesson on some aspect of motivation.</p>
 The slideshow gets your mind thinking about the project, and the lessons help you make
 small changes to your behavior and attitude that should boost your project motivation.</p>
 <p>
-The techniques are well documented and backed by scientific studies, no tricks or subliminal
-messaging is used. All techniques are described in the "Methods" link on the main page.</p>
+The techniques are documented and backed by scientific studies, no tricks or subliminal
+messaging is used. The techniques are described in the "Methods" link on the main page.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('Overview2')">Continue ›</a></p>
 </article>
 
@@ -226,6 +226,13 @@ you're no worse off than you were at the start.</p>
 <p><a class="Cont" title="Done" onclick="NavID('Contents')">Done ›</a></p>
 </article>
 
+<article id="Calendar">
+<h2>Lesson Calendar</h2>
+<br>
+$CALENDAR
+<p><a class="Cont" title="Back" onclick="NavID('Contents')">Back ›</a></p>
+</article>
+
 <!-- Slideshow ##################################################################################################### -->
 
 <article id="SSDay1">
@@ -242,8 +249,8 @@ During the slideshow, one of the words will stand out: it might be in
 color, or a different position, or upside down, or outlined, or shaking... something
 will be different and it will be easy to spot.</p>
 <p>
-After the slide show you will be asked to identify the standout word. If you didn't see which
-word was emphasized you'll have to rewatch the slideshow.</p>
+After the slide show you will be asked to identify the standout word. If you didn't notice
+which word was emphasized you'll have to rewatch the slideshow.</p>
 
 <h2>&nbsp;</h2>
 <p><a class="Cont" title="Continue" onclick="NavID('SSDay1a')">Continue ›</a></p>
@@ -253,14 +260,14 @@ word was emphasized you'll have to rewatch the slideshow.</p>
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
 <h2>&nbsp;</h2>
 <p>
-When you've correctly identified the standout word, you'll be shown the lesson
+Once you've identified the standout word, you'll be shown the lesson
 text and maybe asked to do a small task.</p>
 <p>
 The lessons are short (less then 5 min), the tasks are simple,
-and not all days have lessons, so the course shouldn't take up much of your time.</p>
+and not all days have lessons, so the course shouldn't take much of your time.</p>
 <p>In fact, this first day doesn't have a lesson. Lessons start on day two.</p>
 <p>
-At the end of the course - after 30 days of running this program - you should have better
+At the end of the course, after 30 days of running this program, you should have better
 motivation to finish your project.</p>
 <h2>&nbsp;</h2>
 <p><a class="Cont" title="Continue" onclick="NavID('SSDay1b')">Continue ›</a></p>
@@ -278,7 +285,7 @@ motivation to finish your project.</p>
 
 <article id="SS2ndView">
 <h3 class="DayBanner">Day $DAY of $MAXDAY</h3>
-<p>Running the course multiple times per day will result in a stronger effect</p>
+<p>Running the course multiple times per day will give a stronger effect</p>
 <p class="CenterText">...but don't overdo it.</p>
 <p>
 Three times a day is good, but more than five is
@@ -447,13 +454,13 @@ it three times in the morning.</p>
 <h2>&nbsp;</h2>
 <p>Congratulations! You have completed the course "Motivation".</p>
 <p><a class="Cont" title="Restart" onclick="ResetLesson()" >Restart using same project ›</a></p><br />
-<p><a class="Cont" title="Abort"   onclick="NavID('CON00')">Configure new project and restart ›</a></p>
+<p><a class="Cont" title="Abort"   onclick="NavID('CON00')">Configure new project ›</a></p>
 </article>
 
 <!-- Two types of motivation ####################################################################################### -->
 
 <article id="TWA00">
-<h2>Extrinsic and intrinsic motivation</h2>
+<h2>Extrinsic and Intrinsic Motivation</h2>
 <p>
 <b>Extrinsic</b> motivations are what you get for completing a project, such as money, fame, encouragement,
 likes, subscribers, or avoiding punishment. They are the rewards you get in exchange for being done.</p>
@@ -633,7 +640,7 @@ motivation to sustain you while working on your project.</p>
 <p>
 To refocus on intrinsic motivations, start by writing them down.</p>
 <p>
-On a piece of paper, list all the motivations you have for doing your project.</p>
+On a piece of paper, list all the motivations you have for your project.</p>
 <p>Put the internal motivations in four sections at the top, and keep the external
 rewards in a separate section below.</p>
 <div>
@@ -654,7 +661,7 @@ why this is so.<br>
 Keep your motivation sheet with you today: in your wallet or
 pocketbook, beside your monitor, or wherever's convenient.</p>
 <p>
-When you have spare moments, think about your project and if you can think
+When you have spare moments, think about your project and if you think
 of more motives, add them to the list.</p>
 <p>
 Keep the intrinsic motives at the top, and the rewards at the bottom, though.
@@ -706,8 +713,8 @@ speech.</p>
 Again, it seems that their brains noticed the disconnect between what they believed and
 how they acted, and changed beliefs to make a more consistent self image.</p>
 <p>
-Your brain tries to maintain a concordant self-image. When your actions aren't
-consistent with your beliefs, your mind will change beliefs to match your actions.
+Your brain tries to maintain a concordant self-image. When your actions are
+inconsistent with your beliefs, your mind will change beliefs to match your actions.
 <p>You can use this effect to change your project motivations.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('TWD03')">Continue ›</a></p>
 </article>
@@ -716,9 +723,9 @@ consistent with your beliefs, your mind will change beliefs to match your action
 <h2>Taking action</h2>
 <p>
 Fold up the bottom of your motivation list so that it covers the extrinsic
-rewards. Cover the entire rewards section, so that you can't see any of it,
+rewards. Cover the entire rewards section, so that you can see none of it,
 and crease the fold with your fingernail.</p>
-<p>Tape the fold so that it can't open up again.</p>
+<p>Tape the fold so it won't reopen.</p>
 <div>
 <img class="ImageLeft" alt="Pad with motivations" src="images/PadFolded.gif">
 <div class="RightText">
@@ -763,7 +770,7 @@ but this is only one action.</p>
 <img class="ImageLeft" alt="Pad completed" src="images/PadCompleted.gif">
 <div class="RightText">
 <br>
-We can get a stronger effect by using more actions.<br>&nbsp;<br>
+You can get a stronger effect by using more actions.<br>&nbsp;<br>
 We do this by adding a mantra: a word or phrase recited during the day to
 reinforce the motivational beliefs.
 </div>
@@ -796,7 +803,7 @@ A mantra should also be positive, in the logical sense. don't say "I don't"
 or "I won't", brains have a harder time with inverted logic.
 Phrase it in terms of what you <em>will</em> do, instead of what you won't.
 <br>&nbsp;<br>
-‹- Hint: For a stronger effect, write it down.
+For a stronger effect, write it out.
 </div>
 </div>
 <p><a class="Cont" title="Continue" onclick="NavID('TWE02')">Continue ›</a></p>
@@ -834,7 +841,7 @@ Intrinsic motivations work well for creative tasks, and extrinsic motivations
 Some projects are a mixture of both.</p>
 <p>
 For example, a car project might end with wet-sanding and painting.
-You might not find sanding and painting as interesting as the engine rebuild.</p>
+Sanding and painting might not be as interesting as the engine rebuild.</p>
 <p>
 An electronics project might be followed by video editing and dubbing sessions
 for a YouTube channel.</p>
@@ -984,12 +991,12 @@ used to treat severe allergic reaction.</p>
 Epinephrine is released when you're afraid or angry, and
 causes your heart to race, your blood pressure to
 rise, and releases glucose into the blood for quick energy.
-Epinephrine/Adrenaline prepares your body (and mind) for a jolt of activity:
+It prepares your body (and mind) for a jolt of activity:
 fight or flight, something you might have to do to survive.</p>
 <p>
 Nor-epinephrine, also known as
 nor-adrenaline (again: two words, same substance),
-is a weaker version used for day-to-day actions. Eact time you decide
+is a weaker version used for day-to-day actions. Each time you decide
 to do (or not to do) something, your brain uses norepinephrine/noradrenaline.</p>
 <p>If you've heard the expression "burning the candle at both ends", nor-epinephrine is
 like burning a candle, and epinephrine is like burning rocket fuel.</p>
@@ -997,25 +1004,25 @@ like burning a candle, and epinephrine is like burning rocket fuel.</p>
 </article>
 
 <article id="NCA04">
-<h2>The effort counter</h2>
+<h2>The effort threshold</h2>
 <p>
-When your brain decides to act, it releases norepinephrine and starts a
-counter that monitors the amount used for the task.
+When your brain decides to act, it releases norepinephrine and
+starts a counter to monitor the amount used for the task.
 <br>&nbsp;<br>
-When the counter exceeds a threshold limit, it will generate frustration,
-irritation, dissatisfaction, and annoyance to encourage the brain to stop.</p>
-<p>Here are two tasks showing the epinephrine counter.</p>
+When the norepinephrine exceeds a threshold limit, the counter generates frustration,
+irritation, dissatisfaction, and annoyance to encourage the brain to stop.
+<br>&nbsp;<br>
+Here are two tasks showing the counter limit.</p>
 <div>
-<br>&nbsp;<br>
 <img class="BigImageLeft" alt="Epinephrine counter diagram" src="images/NorEpi.png">
 <div class="RightText1">
 <p>
-The first task is complex, requiring many decisions. Eventually, the total
-norepinephrine exceeds the counter limit, resulting in frustration and annoyance.
-The brain tires of the task, and quits before reaching the goal.</p>
+The first task requires many actions. The total
+norepinephrine exceeds the limit, resulting in frustration and annoyance.
+The brain quits before reaching the goal.</p>
 <p>
-The second task is less demanding. Requiring fewer and easier decisions, the
-goal is reached before the counter limit.</p>
+The second task is less demanding. Using fewer and easier actions, the
+goal is reached before the threshold limit.</p>
 </div>
 </div>
 <p><a class="Cont" title="Continue" onclick="NavID('NCA05')">Continue ›</a></p>
@@ -1024,7 +1031,7 @@ goal is reached before the counter limit.</p>
 <article id="NCA05">
 <h2>Homework</h2>
 <p>
-Knowing about the counter, try to come up with a way to use less effort
+Knowing about the effort threshold, try to come up with a way to use less effort
 in your project: fewer decisions, easier decisions, simpler tasks.</p>
 <p>
 For example, is there a tool you don't have that would make the work easier? A software
@@ -1041,10 +1048,10 @@ at least one way to make it easier.</p>
 <h2>Homework turn-in</h2>
 <p>Last time you were asked to come up with ways to make your project easier.</p>
 <p>
-There may be no easy way to do this: tools are expensive, software is hard to use,
+There may be no easy way to do this: tools cost money, software has limited use,
 the conditions for completion might be fixed and unchangeable.</p>
 <p>
-You don't have to make these changes, but you can if you want.</p>
+You don't have to change your project, but you can if you want.</p>
 <p>
 The important part is knowing that the difficulty of your project can lead
 to annoyance and frustration, and to consider ways to make things easier.</p>
@@ -1056,8 +1063,8 @@ to annoyance and frustration, and to consider ways to make things easier.</p>
 <h2>Dopamine is enjoyment</h2>
 <p>The second neurotransmitter (of three) is dopamine, the neurotransmitter of enjoyment.
 <br>&nbsp;<br>
-Dompamine is released when you are "on the right path" and making progress towards your goal.
-It counteracts the norepinephrine, and gives a pleasant feeling of enjoyment.
+Dompamine is released when you are "on the right path" making progress towards your goal.
+It counteracts norepinephrine, and gives a pleasant feeling of enjoyment.
 <div>
 <img class="BigImageLeft" alt="Dopamine interaction" src="images/Dopamine.png">
 <div class="RightText1">
@@ -1081,7 +1088,7 @@ the brain. Saying that dopamine is pleasant is perhaps an understatement.</p>
 <p>
 It's possible to get so deeply involved with a project that the high
 levels of dopamine result in a tremendously pleasurable experience.
-There's more about this in a future lesson.</p>
+A future lesson will have more on this.</p>
 <p>
 For now, the takeaway is that the journey makes a project pleasurable,
 not the results.</p>
@@ -1091,12 +1098,11 @@ not the results.</p>
 <article id="NCB03">
 <h2>Homework:</h2>
 <p>
-Before the next course day, do a small task that would bring your project
+Before the next course day do a small task that would bring your project
 closer to completion, and make note of your feelings before, during,
 and after.<br>&nbsp;<br>
-Nothing big or complicated, just some little thing that you could do in
-fifteen minutes or less. Something that will be needed, that can be done
-now, and is simple.<br>&nbsp;<br>
+Something simple, that you could do in fifteen minutes or less. Something
+that will be needed, that can be done now, and is easy.<br>&nbsp;<br>
 For example:</p>
 <table class="CenterDiv"><tbody>
 <tr><td>Automotive: </td><td>&nbsp;</td><td>Remove 1 bolt.</td></tr>
@@ -1107,7 +1113,7 @@ For example:</p>
 </table>
 <br>&nbsp;<br>
 Make note of how you feel before, during, and after the task.<br>&nbsp;<br>
-You will be asked about this at the next lesson.
+You will be asked about this in the next lesson.
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </article>
 
@@ -1170,13 +1176,13 @@ a small project task.</p>
 </article>
 
 <article id="NCC01">
-<h2>Hard starting</h2>
+<h2>Starting is hard</h2>
 <p>
-Starting can be difficult, but continuing is easier...</p>
+Starting can be difficult, but continuing is easier.</p>
 <p>
 The diagram shows why.</p>
 <p>
-The first section requires action without the benefit of
+Starting requires action without the benefit of
 dopamine. Until you make progress, the task will seem burdensome.</p>
 <div>
 <br>&nbsp;<br>
@@ -1206,119 +1212,192 @@ If you have trouble starting a project session, try leaving something
 undone in the previous session. Install all the bolts except one, don't sew
 the last hem, leave 1 component unplaced on the board layout, and so on.</p>
 <p>
-When you return to your project, the undone task will help get you
-started again.</p>
+When you return to your project, the undone task will help you
+restart.</p>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </article>
 
 <article id="NCD00">
 <h2>Serotonin is reward</h2>
-<p>The third neurotransmitter (of three) is serotonin, which the
+<p>
+The third and final neurotransmitter is serotonin, which the
 brain uses for changes in predicted reward.</p>
-<p>
-If a distant uncle suddenly passes leaving you his fortune, your
-brain will release serotonin to cause a release of
-dopamine, which will make you happy.</p>
-<p>
-If your elderly uncle is terminal, in hospice, and it's only a matter of time -
-in that case his passing is solemn and his legacy is received with somber respect.
-</p>
 <p>
 Serotonin increases your dopamine when something unexpectedly favorable happens, 
 and decreases it when something unexpectedly bad happens.</p>
+<p>
+(Note: This function exists in your brain, and serotonin exists in your brain, 
+but assigning this function to serotonin is probably incorrect.
+There's currently no consensus on what serotonin does, so I'll use the term
+for now and correct it later.)</p>
 <p><a class="Cont" title="Continue" onclick="NavID('NCD01')">Continue ›</a></p>
 </article>
 
 <article id="NCD01">
 <h2>&nbsp;</h2>
-<p>The full term for the action of serotonin is "dopamine reward prediction error".</p>
-<p>When you consider an action, the brain looks forward in time and
-predicts the reward for achieving that goal. Serotonin causes
-a dopamine release for that predicted reward.</p>
-<p>Once the goal is reached, the actual reward is compared to the predicted
-reward: if extra reward is seen, serotonin releases more dopamine
-saying, in effect, "next time have a more positive outlook".</p>
-<p>If less reward than predicted is seen, serotonin causes dopamine to be
-withheld, reducing future predictions.</p>
 <p>
-Serotonin is the feedback signal that teaches us to make accurate
-predictions.</p>
+<a target="_blank" href="https://www.sciencealert.com/how-winning-the-lottery-affects-happiness-according-to-psychology-research">
+Studies show</a>
+that a year after winning the lottery, people return to
+the level of happiness they had before winning.</p>
+<p>
+Studies also show that after a debilitating life event (cancer,
+losing a limb), people generally return their level of happiness
+from before the event.</p>
+<p>
+There seems to be a baseline level of happiness people get from
+their daily lives: from a rewarding job, raising kids, having a life partner, 
+or generally when they feel their life is "on the right track".
+<p>
+Life brings with it a default level of dopamine.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('NCD02')">Continue ›</a></p>
 </article>
 
 <article id="NCD02">
-<br>&nbsp;<br>
+<h2>&nbsp;</h2>
 <p>
-Serotonin is a differential signal: it responds to a perceived
-<em>difference</em> in value.</p>
+There is also an adjustment mechanism:
+the 
+<a target="_blank" href="https://pubmed.ncbi.nlm.nih.gov/27069377/">
+dopamine reward prediction error</a>.</p>
+<p>When you consider an action, the brain looks forward in time and
+predicts the reward for achieving that goal. You get
+a dopamine release for that predicted reward.</p>
+<p>Once the goal is reached, the actual reward is compared to the predicted
+reward: if extra reward is seen, serotonin encourages more dopamine
+saying, in effect, "next time have a more positive outlook".</p>
+<p>If less reward than predicted is seen, serotonin causes dopamine to be
+withheld, reducing future predictions.</p>
 <p>
-A pay raise will make you happy for a time because the extra reward is
-different from what you used to get, but
-the feeling soon fades. A year later the perceived value is the same
-as the day before, and will be the same a day later, and now you're
-looking for another pay raise.</p>
-<p>
-Studies show that a year after winning the lottery, most people return to
-the level of happiness they had before winning.</p>
-<p>
-Winning spikes their serotonin, which increases their dopamine, and
-results in feelings of joy. A year later, the perceived value is the
-same as it was the previous day, the same as predicted for the next day,
-and no serotonin is released. The dopamine from the win has faded,
-and they've returned to their original level of happiness.
-<p>
-This is called the
-<a target="_blank" href="https://en.wikipedia.org/wiki/Hedonic_treadmill">
-Hedonic Treadmill</a>.</p>
-<p>Happiness is always over the cognitive horizon.</p>
+The feedback teaches our brain to make accurate predictions.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('NCD03')">Continue ›</a></p>
 </article>
 
 <article id="NCD03">
 <br>&nbsp;<br>
+<p>
+Prediction error is differential: it responds to perceived
+<em>differences</em> in value.</p>
+<p>
+Sudden jumps will change the base dopamine level, but if new rewards
+are permanent the differences become less noticeable over time.</p>
+<p>
+A pay raise makes you happy because the extra reward is different
+from what you used to get, but the feeling soon fades. A year later
+the perceived value is the same as the day before, and will be the
+same a day later, and you find yourself looking for another pay raise.</p>
+<p>
+Lottery winners have increased dopamine, which results in feelings of
+joy. A year later, the perceived value is the same as it was the
+previous day, the same as predicted for the next day, and no
+serotonin is released. The dopamine from the win has faded, and
+they've returned to their original level of happiness.</p>
+<p>
+This is called the
+<a target="_blank" href="https://en.wikipedia.org/wiki/Hedonic_treadmill">
+Hedonic Treadmill</a>.</p>
+
+<p>TO BE FINISHED...</p>
+
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+<!--<p><a class="Cont" title="Continue" onclick="NavID('NCD04')">Continue ›</a></p>-->
+</article>
+
+
+
+<article id="NCD04">
+<h2>&nbsp;</h2>
+<p>
+A project begins with a lightbulb moment: you visualize an outcome,
+and the goal has rewards.
+This raises your dopamine.
+<br>&nbsp;<br>
+You're at the beginning, but motivated.</p>
 <div>
-<img class="BigImageLeft" alt="Serotonin initial boost" src="images/Serotonin.png">
-<div class="RightText1">
-<br>&nbsp;<br>
-A project typically starts with a lightbulb moment: you visualize an outcome,
-and the goal has value.
-<br>&nbsp;<br>
-This releases serotonin, which raises your dopamine.
-<br>&nbsp;<br>
-You're at the beginning, but motivated to do the project.
+<img class="SingleImage" alt="Serotonin initial boost" src="images/Serotonin.png">
 </div>
-</div>
+<p><a class="Cont" title="Continue" onclick="NavID('NCD05')">Continue ›</a></p>
+</article>
+
+<article id="NCD05">
+<h2>&nbsp;</h2>
 <p>
 Suppose you put the project off for a day. Now the predicted value is the
-same as the previous day, the differential is not as great, and the
-serotonin (and corresponding dopamine boost) begins to fade.</p>
+same as the previous day, and the differential is not as great.
+The dopamine boost begins to fade.</p>
+<p>
+A few of days later the day-by-day prediction is constant, and
+the initial dopamine boost is gone.</p>
 <div>
 <img class="BigImageLeft" alt="Sopamine start" src="images/DopamineStart.png">
 <div class="RightText1">
 <br>&nbsp;<br>
-A few of days later the day-by-day predicted value is constant, and
-the initial boost from serotonin is gone.
-<br>&nbsp;<br>
-If you try to start the
-project, you find yourself in the initial "low dopamine" section
-of the diagram.
-<p><a class="Cont" title="Continue" onclick="NavID('NCD05')">Continue ›</a></p>
+If you try to start the project, you find yourself in the beginning
+"low dopamine" section of the diagram.
 </div>
 </div>
+<p><a class="Cont" title="Continue" onclick="NavID('NCD06')">Continue ›</a></p>
 </article>
 
-
-<article id="NCD05">
+<article id="NCD06">
 <h2>Faded motivation</h2>
 <p>
-If you start a project and have to order parts online, when the parts arrive 
-you may find you've lost interest.</p>
+If you stop working on your project for any reason, such as waiting for
+parts to arrive, you may find that by the time the parts arrive you've
+lost interest.</p>
 <p>
-This is the root cause of the "startup" issue mentioned in the previous
+This is the "startup" issue mentioned in the previous
 lesson, and the source of many paused projects.</p>
 <p>
 One way to deal with this is to always wait a couple of days before starting
 a new project.</p>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
+
+<!-- Goalsetting ################################################################################################### -->
+
+<article id="RSU00">
+<h2>Applying knowledge</h2>
+<p>
+If you haven't gotten back to your project, now would be a good time.
+You'll get a stronger effect if you can identify where future lessons
+apply to your specific project.</p>
+<p>
+This reflects a more general principle: Learning is easier when your
+brain can associate it with one of your goals.</p>
+<p>
+If you are taking a course, one way to make the learning easier is
+to consider a project that would benefit from the knowledge
+You don't need to start the project, or even be interested in the project for this
+to have an effect.</p>
+<p>
+Just outline something you could do, some concrete thing you could construct
+that would have value, then think about how you would go about building it.</p>
+<p>
+Update this mental project as you learn more about the subject.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('RSU02')">Continue ›</a></p>
+</article>
+
+<article id="RSU02">
+<h2>&nbsp;</h2>
+<p>
+This is a powerful learning tool. People who use it for a wide
+range of projects gain a deep understanding of a wide range of subjects.</p>
+
+<table class="CenterDiv"><tbody>
+<tr><td>Math/Geometry: </td><td>&nbsp;</td><td>How would you make a computer game?</td></tr>
+<tr><td>Mechanical:</td><td>&nbsp;</td><td>How would you make robot?</td></tr>
+<tr><td>Electronics:   </td><td>&nbsp;</td><td>How would you make a system for teaching kids?</td></tr>
+<tr><td>Ceramics:</td><td>&nbsp;</td><td>What type of art would win a regional prize?</td></tr>
+<tr><td>Writing:</td><td>&nbsp;</td><td>What characteristics make a Sci-fi novel popular?</td></tr>
+</tbody>
+</table>
+<p>
+The key part is that the project should have value, either to you, your family,
+or the community.</p>
+<p>
+And, as a corollary, start working on your project again, and as you identify
+lessons that apply to your project...</p>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </article>
 
@@ -1327,7 +1406,8 @@ a new project.</p>
 
 <article id="FAI00">
 <h2>Ignoring Failure</h2>
-<p>Thomas Edison made over 10,000 failed attempts before he got a working light bulb.</p>
+<p>Thomas Edison famously made over 10,000 failed attempts before he got a working
+light bulb.</p>
 <p>
 When asked by a reporter how it felt to fail 10,000 times, Edison replied:
 “I didn't fail 10,000 times, I’ve just found 10,000 ways that will not work.”</p>
@@ -1354,7 +1434,7 @@ If you're still trying, if there's still a way it might work, then you haven't f
 <p>
 Next, in almost all cases failure is a stepping stone to success. There are innumerable
 examples of people failing repeatedly, only to succeed in the end. Thomas Edison is
-an extreme example (10,000 tries? Yikes!), but the principle happens everywhere.</p>
+an extreme example (10,000 tries? Yikes!), but the principle is everywhere.</p>
 <p>And finally, even when a project fails, is it a complete failure?</p>
 <p>Consider:</p>
 <ul>
@@ -1364,7 +1444,7 @@ an extreme example (10,000 tries? Yikes!), but the principle happens everywhere.
 </ul>
 <p>
 It's extremely rare for a project to fail completely. In nearly all cases
-there is still value in having made the journey.</p>
+there is value in having made the journey.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('FAI02')">Continue ›</a></p>
 </article>
 
@@ -1399,7 +1479,7 @@ Does that matter?
 <h2>Your best project</h2>
 <p>
 People take this course for increased motivation to finish projects, which usually means
-they have finished projects in the past but no longer have that motivation.</p>
+they finished projects in the past but no longer have that motivation.</p>
 <p>
 Take a moment to think about your completed projects, and choose the one you're most
 proud of.</p>
@@ -1465,7 +1545,7 @@ came to decide to do it, how you planned it, the steps you took, and what the re
 <article id="FLO00">
 <h2>Flow States</h2>
 <p>
-A <a href="https://en.wikipedia.org/wiki/Flow_(psychology)" target="_blank">flow state</a>
+A <a target="_blank" href="https://en.wikipedia.org/wiki/Flow_(psychology)">flow state</a>
 is when you're doing something and you lose track of time. Many people experience flow states while driving:
 you're thinking about something, turning over a problem in your mind, and arrive at your
 destination with no memory of driving or of the passage of time.</p>
@@ -1641,6 +1721,12 @@ Enter what it would take to just get to the next step.</p>
 Just a word or two, nothing in detail. Something that you would recognize as
 the next action to take.
 <input class="TextEnter Wid70" maxlength="70">
+<p><a class="Cont" title="Continue" onclick="NavID('JOB01')">Continue ›</a></p>
+</div>
+</article>
+
+<article id="JOB01">
+<h2>Fill this in</h2>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </div>
 </article>
@@ -1750,8 +1836,8 @@ The "standout word" is just a mechanism to keep you focused. it's not counted
 or scored.</p>
 <p>
 The type of highlighting is randomly determined - the idea is that if you don't
-know which word will be highlighted, you'll pay attention. Similarly, the number
-of highlights and type of question can vary.</p>
+know which word will stand out, you'll pay attention. Similarly, the number
+of standouts and type of question can vary.</p>
 <p>
 The program presents a mix of highlights and options so that viewing
 the slideshow doesn't become automatic.</p>

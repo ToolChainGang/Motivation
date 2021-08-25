@@ -68,6 +68,11 @@ kbd {
     font-weight:        bold;
     }
 
+.Disabled {
+    opacity:            0.4;
+    pointer-events:     none;
+    }
+
 /***********************************************************************
  *
  * Slideshow
@@ -223,6 +228,17 @@ a.Cont {
     font-weight:        bold;
     }
 
+a.Cal {
+    text-decoration:    underline blue;
+    font-family:        monospace;
+    font-weight:        bold;
+    }
+
+.CalDay {
+    font-family:        monospace;
+    font-weight:        bold;
+    }
+
 .ImageLeft {
     width:              220px;
     height:             auto;
@@ -243,6 +259,12 @@ a.Cont {
 
 .BigImageLeft {
     width:              380px;
+    height:             auto;
+    float:              left;
+    }
+
+.SingleImage {
+    width:              60%;
     height:             auto;
     float:              left;
     }
@@ -348,19 +370,6 @@ a.Cont {
     padding-right:      0;
     outline:            none;
     width:              100%;
-
-/*
-    font-family:        helvetica, arial, sans serif;
-    padding-left:       0px;
-    font-weight:        bolder;
-    font-size:          80%;
-    margin-top:         2em;
-    padding-top:        0.5em;
-    padding-left:       1em;
-    padding-right:      1em;
-    background-color:   White;
-    border:             1px solid black;
-*/
     }
 
 #SelectCat {
