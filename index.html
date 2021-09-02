@@ -49,23 +49,6 @@
 <p><a class="Cont" title="Reload" onclick="location.reload();">Reload ›</a></p>
 </article>
 
-<article id="Hackaday">
-<h2>Hackaday prize judging</h2>
-<p>The program is normally 1 slideshow plus 1 lesson each day for 30 days.</p>
-<p>For convenience in hackaday prize judging, pressing ALT-L (lesson) at the end
-of a lesson will bump to the next day and start that day's lesson.</p>
-<p class="ListTitle">So for purposes of judging:</p>
-<ul>
-<li>Configure a project and run the program</li>
-<li>View the slideshow for day 1, and the lesson for day 1</li>
-<li>Press ALT-L to view the lesson for day 2</li>
-<li>Press ALT-L to view the lesson for day 3</li>
-<li>...and so on.</li>
-</ul>
-<p>This only works at the end of a lesson.</p>
-<p><a class="Cont" title="Continue" onclick="NavID('Contents')" >Continue ›</a></p><br />
-</article>
-
 <article id="Contents">
 <h2>Welcome to Motivation!</h2>
 <p>If this is your first time, you probably want "overview".</p>
@@ -151,12 +134,12 @@ you first log on, using the "xdg-open" command (linux) or "start" command
 (windows). Cut/Paste the following into your system startup applications:</p>
 <code class="Bold CenterDiv">
 # Linux<br>
-> xdg-open $HOME/Motivation/index.html<br>
+&gt; xdg-open $HOME/Motivation/index.html<br>
 <br>
 # Windows<br>
-> start %HOMEDRIVE%%HOMEPATH%/Motivation/index.html<br>
+&gt; start %HOMEDRIVE%%HOMEPATH%/Motivation/index.html<br>
 </code>
-<p>(If theproject is in a different directory, change the command paths as needed.)</p>
+<p>(If the project is in a different directory, change the command paths as needed.)</p>
 <p>From now on opening this web page will run the program "motivation".</p>
 <p><a class="Cont" title="Reload" onclick="location.reload();">Reload now ›</a></p>
 <p><a class="Cont" title="Continue" onclick="WaitDay()">Wait until tomorrow ›</a></p>
@@ -828,8 +811,21 @@ effect than simply repeating it, but no one knows why this is.</p>
 <h2>Homework turn-in</h2>
 <p>Last time you were asked to create a mantra to help change your project motives.</p>
 <p>Have you completed this task?</p>
-<p><a class="Cont" title="No"  onclick="NavID('TWF01')">Yes, I did ›</a></p>
-<p><a class="Cont" title="Yes" onclick="WaitHW()">No, I didn't have time ›</a></p>
+<div id="TWF00a">
+<p><a class="Cont" title="Yes"  onclick="HideUnHide('TWF00a','TWF00b')">Yes, I did ›</a></p><br>
+<p><a class="Cont" title="No" onclick="WaitHW()">No, I didn't have time ›</a></p>
+</div>
+<div id="TWF00b" class="Hidden">
+<p>&nbsp;</p>
+<p>
+Keep thinking and repeating (and writing) your mantra during the course,
+until you feel you no longer need it. You can also change your mantra or use
+more than one.</p>
+<p>
+This method works for a wide range of beliefs, so if you want to improve in
+other ways this is one way to do that.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TWF01')">Continue ›</a></p>
+</div>
 </article>
 
 <article id="TWF01">
@@ -1354,7 +1350,7 @@ a new project.</p>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </article>
 
-<!-- Goalsetting ################################################################################################### -->
+<!-- Journey ####################################################################################################### -->
 
 <article id="RSU00">
 <h2>Applying knowledge</h2>
@@ -1401,6 +1397,477 @@ lessons that apply to your project...</p>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </article>
 
+<article id="RSA00">
+<h2>Perceptual Filter</h2>
+<p>
+The
+<a target="_blank" href="https://en.wikipedia.org/wiki/Reticular_formation#Ascending_reticular_activating_system">
+Reticular Activating System</a> (hereafter: RAS) is the brain's perceptual
+filter. Gatekeeper between sensations and conscious
+mind, it decides what is important.</p>
+<p>
+As you read this, you can feel your clothes against your skin and your weight against
+the chair. You see the room beyond the display, hear background noise,
+and feel the temperature of the air.</p>
+<p>None of these sensations make it to your conscious mind because the RAS
+decides that these are not important.</p>
+<p>
+But if a bug crawls up your leg, it would grab your attention.
+The RAS sounds the alarm, saying in effect: "check this out now!"</p>
+<p><a class="Cont" title="Continue" onclick="NavID('RSA01')">Continue ›</a></p>
+</article>
+
+<article id="RSA01">
+<h2>&nbsp;</h2>
+<p>
+The RAS filters not only sensations, but perceptions. For example,
+chatting with your neighbor you hear:</p>
+<p class="Conversation">
+Garden is doing well, had to have our elderly cat put down, son is joining the air
+force, we're selling his car, the house needs painting, getting an estimate
+tomorrow, our daughter is getting married...</p>
+<p>
+Now suppose you are in the market for a car. You know roughly the type, model, age, and
+mileage you want, and you're planning to visit a dealership this weekend.</p>
+<p>
+That same conversation:</p>
+<p class="Conversation">
+Garden is doing well, had to have our elderly cat put down, son is joining the air
+force, <span class="Bold">we're selling his car</span>, the house needs painting,
+getting an estimate tomorrow, our daughter is getting married...</p>
+<p>
+You ask: Oh? What kind of car? How much are you asking?</p>
+<p>
+You find that her son's car matches your needs, it's a good price,
+they're reliable sellers, so you make an offer.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('RSA02')">Continue ›</a></p>
+</article>
+
+<article id="RSA02">
+<h2>&nbsp;</h2>
+<p>
+In the first conversation, nothing stood out because your RAS decided
+none of it would help your goals.</p>
+<p>
+In the second example the mention of a car stands out. The RAS alerts your conscious mind
+to the possibility of relevance, you inquired further, and found that it satisfies your
+goals.</p>
+<p>
+The RAS is part of our goal seeking mechanism.</p>
+<p>
+Our daily lives are awash in possibilities, things we see, things we hear, things we could
+look into that would benefit us, but we never notice them because the RAS believes 
+they aren't relevant.</p>
+<p>
+When we set clear goals, our RAS alerts us when possibilities arise, and more possibilities
+translate to more chances at success.</p>
+<p>
+Some people suggest this is how prayer works.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('RSA03')">Continue ›</a></p>
+</article>
+
+<article id="RSA03">
+<h2>Homework</h2>
+<p>
+Have you ever noticed how common something is <em>after</em> you
+encountered it?</p>
+<p>
+Men purchase a vehicle and suddenly notice the many vehicles of the same make and color
+on the road. Women purchase a new dress and suddenly notice other women wearing
+that same style and color.</p>
+<p>
+Or maybe you finally threw something out that you were saving, only to discover
+two weeks later you have the perfect use for it.</p>
+<p>
+Before the next lesson, try to identify a past situation where you noticed something,
+that could be explained by the action of your RAS.</p>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
+
+<article id="RSB00">
+<h2>Goal Setting</h2>
+<p>
+Your brain is a goal setting mechanism, and the RAS is tyhe first step in that process.</p>
+<p>
+If you can program your RAS you will find, quite suddenly and unexpectedly, strange events,
+curious coincidences, synchronicity, and random encounters that just happen to correspond
+to your goals.</p>
+<p>
+Of course, the possibilities were always there, it's just that you didn't notice them
+due to the action of your RAS.</p>
+<p>
+So then, how do we program our RAS to give us the best chance of success?</p>
+<p><a class="Cont" title="Continue" onclick="NavID('RSB01')">Continue ›</a></p>
+</article>
+
+<article id="RSB01">
+<p>
+The RAS has been extensively studied, thish has led to many theories of
+<a target="_blank" href="https://en.wikipedia.org/wiki/Goal_setting">Goal Setting</a>.
+An RAS goal should be:</p>
+<table class="CenterDiv"><tbody>
+<tr><td>Personal</td><td>&nbsp;</td></tr>
+<tr><td>Present</td><td>&nbsp;</td></tr>
+<tr><td>Positive</td><td>&nbsp;</td></tr>
+<tr><td>Measurable</td><td>(if possible)</td></tr>
+<tr><td>Time limited</td><td>(if possible)</td></tr>
+</tbody>
+</table>
+<p>
+There are also a few common sense characteristics to watch out for.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('RSB02')">Continue ›</a></p>
+</article>
+
+<article id="RSB02">
+<h2>Personal</h2>
+<p>
+You can only set an RAS goal for yourself, not others. This may seem obvious,
+but it's surprising how many people try to set goals for their kids or their
+spouse.</p>
+<p>
+Write down your goals longhand using "I" or "My" in a statement. Something
+like "I paint the hallway" or "I rebuild my engine".</p>
+<h2>Present</h2>
+<p>
+The prefrontal cortex deals with future planning, but the RAS is a much older
+part of the brain, evolutionarily speaking. It has an easier time when goals
+are expressed in the present tense.</p>
+<p>
+Avoid goal statements that imply a future action. The RAS has a harder time
+with these, and besides the future action is not specified as to when it
+will happen.</p>
+<p>
+Instead of saying "I will build a robot", say "I build a robot". Visualize
+doing the action now, instead of some indeterminate future date.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('RSB03')">Continue ›</a></p>
+</article>
+
+<article id="RSB03">
+<h2>Positive</h2>
+<p>
+It's helpful to keep your goals positive, in a logical sense. Set goals
+for what you <em>will</em> do, not what you <em>won't</em></p>
+<p>
+The RAS is an older part of the brain that will have difficulty with the
+reversed logic.</p>
+<h2>Measurable</h2>
+...Finish this.
+<p><a class="Cont" title="Continue" onclick="NavID('RSB04')">Continue ›</a></p>
+</article>
+
+<!-- Project as Journey ############################################################################################ -->
+
+<article id="JOA00">
+<h2>Project as Journey</h2>
+<p>
+Norepinephrine is the neurotransmitter that gets you going, and dopamine is released when you
+are on the right path. The word "path" is appropriate because the NE circuit evolved to
+get us walking towards our goal.</p>
+<p>
+Our ancestors  needed food, shelter, or safety which were found at different places, and the
+neurotransmitters act to get us there.</p>
+<p>
+Since this is the mechanism that makes working on projects enjoyable, we can strengthen
+the effect by framing our projects as a journey.
+<p>
+We can link our projects more strongly to this mechanism by describing our project as a journey.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOA01')">Continue ›</a></p>
+</article>
+
+<article id="JOA01">
+<p>
+Think about your project and write down the major steps you need to complete it.
+Don't add too much detail, just five or six steps or so that each describe a major milestone of
+of your project.</p>
+<p>
+Write the major steps using circles and arrows, like a city subway map or train station diagram.</p>
+<p>
+For example, a ceramics project might have: Knead clay, form vase, bisque fire, apply glaze, glaze
+fire, photograph, describe, list on etsy.</p>
+<p>An electronics project might have: Design circuit, breadboard circuit, scematic capture,
+board layout, order boards and parts, assemble boards, final test, list on tindie.</p>
+<div>
+<img class="ImageLeft" alt="Subway map" src="images/SubwayMap.png">
+<div class="RightText">
+<br>&nbsp;<br>
+Write the steps top to bottom and leave extra room at the top and at the bottom. You'll
+need extra space for later lessons.
+<br>&nbsp;<br>
+Do this by hand and not, for example, by typing into a computer.<br>&nbsp;<br>
+Writing out longhand will give you a stronger effect, but no one knows
+why this is so.
+</div>
+</div>
+<p><a class="Cont" title="Continue" onclick="NavID('JOA02')">Continue ›</a></p>
+</article>
+
+<article id="JOA02">
+<h2>Homework</h2>
+<p>Now mark where you are on the journey.
+Make this mark stand out, emphasize what you've done and where you need to go next. Write over
+the parts you've already done with arrows pointing down to completion.</p>
+<p>
+If you are partway between major steps, then show how far you have come from the previous
+step, and how far you need to go to the next one.</p>
+<p>
+Use colored pens to make your diagram stand out if you like.</p>
+<br>
+<div>
+<img class="ImageLeft" alt="Subway map" src="images/SubwayProgress.png">
+<div class="RightText">
+Fold your project map and carry it with you for the rest of the day.
+<br>&nbsp;<br>
+When you have spare moments, take out the map and think about how far you've come,
+where you need to go, and what you need to do to get to the next step.
+<br>&nbsp;<br>
+Try to blank out everything you've already done, and everything beyond the next
+step, and ask yourself: <em>What would it take just to get to the next step?</em>
+</div>
+</div>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
+
+<article id="JOB00">
+<h2>Homework turn-in</h2>
+<p>
+In the previous lesson, you were asked to make a subway map of your project, and
+indicate where you are on the map.</p>
+<p>Have you completed your map, and viewed it a couple of times, over the course of a day?</p>
+<div id="JOB00a">
+<p><a class="Cont" title="No"  onclick="HideUnHide('JOB00a','JOB00b');">Yes, I did ›</a></p><br />
+<p><a class="Cont" title="Yes" onclick="WaitHW()">No, I didn't have time ›</a></p>
+</div>
+
+<div id="JOB00b" class="Hidden">
+<p>
+Enter what it would take to just get to the next step.</p>
+<p>
+Just a word or two, nothing in detail. Something that you would recognize as
+the next action to take.
+<input class="TextEnter Wid70" maxlength="70">
+<p><a class="Cont" title="Continue" onclick="NavID('JOB01')">Continue ›</a></p>
+</div>
+</article>
+
+<article id="JOB01">
+<h2>The Project Plan</h2>
+<p>
+Project plans apply to every project, and are generally neglected in hobby projects.</p>
+<p>
+A well clarified project plan will program your RAS and help you achieve your goal,
+while a fuzzy and indistinct plan can leave your brain idle and undirected.</p>
+<p>
+The three parts of a project plan are idea, sketch, and decision.</p>
+<div>
+<img class="ImageLeft" alt="Subway map" src="images/ProjectPlan.png">
+<div class="RightText">
+</div>
+</div>
+<p><a class="Cont" title="Continue" onclick="NavID('JOB02')">Continue ›</a></p>
+</article>
+
+<article id="JOB01">
+<h2>Idea!</h2>
+<p>
+Every project starts with an idea, and this is pretty straightforward. You see a
+need, you wonder if something is possible, or it "just pops" into your head.</p>
+<p>
+You get this wonderful idea, you see endless possibilities, it holds significant
+value, and it's, frankly, just plain neat! Let's get started!</p>
+<p>
+But we know how serotonin works: the sudden realization of future value is a
+differential signal, which spikes your dopamine and gets you psyched about the idea.</p>
+<p>
+We know that this initial enthuseasm will fade in a couple of days, leaving us
+with another project.</p>
+<p>
+Do we really want to do this?</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOB02')">Continue ›</a></p>
+</article>
+
+<article id="JOB02">
+<h2>Idea!</h2>
+<p>
+This is when making a project plan really becomes valuable.</p>
+<p>
+Instead of immediately starting your project, resolve to <span class="Underline">
+wait three days</span>.</p>
+<p>
+During this time, make a brief outline sketch that defines the project: feature
+list, how it should operate, implementation details, and so on. Modify,
+add, delete, and refine.</p>
+<p>
+No idea comes into the world fully formed, and making better choices early will
+save you enormous amounts of time backtracking and redoing.</p>
+<p>
+Do as much project development as you can before you start the project.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOB03')">Continue ›</a></p>
+</article>
+
+<article id="JOB02">
+<h2>Homework</h2>
+<p>
+Think over your past projects. Have you ever gotten really excited about an
+idea and started work immediately, only to lose interest in a couple of days?</p>
+<p>
+Perhaps you ordered materials online, but when the parts came in you found you
+had no interest in the project?</p>
+<p>
+See if you can come up with an instance of this.</p>
+<br>&nbsp;<br>
+<p><b>Extra credit:</b> Had you waited a few days, would you have made
+the same decisions?</p>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
+
+<article id="JOC00">
+<h2>The differential hit</h2>
+<p>
+The differential hit from serotonin is especially nasty if you have to order
+online. If you're blocked from proceeding for a few days, you'll find it
+very hard to proceed.</p>
+<p>
+The problem stems from doing things in the wrong order.</p>
+<p>
+The idea phase is not the time to be ordering parts online, and more generally
+it's not the place to <em>take action</em>. Your spiked dopamine will only cause
+you to make emotional decisions.</p>
+<p>
+The first step is to decide whether to do the project.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOC01')">Continue ›</a></p>
+</article>
+
+<article id="JOC01">
+<h2>Sketch</h2>
+<p>
+When you get an idea, wait 3 days before making a decision.
+Use this time to more fully flesh out a description of the project.</p>
+<p>
+Keep a notebook with you and as you get ideas and think of improvements,
+jot these down. Cross out ideas that don't work, add notes and annotations
+to existing thoughts, draw rough sketches, diagrams and flow charts.</p>
+<p>
+Make it messy!</p>
+<p>
+A pad and pen (or pencil) is far better suited to jotting things down than
+a phone or laptop. Switching between sketch, diagram, and text, circling 
+and draw arrows to where it should go.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOC02')">Continue ›</a></p>
+</article>
+
+<article id="JOC02">
+<p>
+No idea comes into the world fully formed, and taking a few days to think through
+the issues will save lots of frustration and redoing.</p>
+<p>
+Thinking things through will allow you to choose shorter and easier paths, so that
+the project uses less effort.</p>
+<p>
+Adding better features and dropping poor ones will add value, which will increase
+the dopamine boost.</p>
+<p>
+And writing things out and visualizing the pathe and outsomes will program your
+RAS to aim for the final goal.</p>
+<p>
+Waiting 3 days and clarifying the project is a surprisingly effective technique.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOC03')">Continue ›</a></p>
+</article>
+
+<article id="JOC03">
+<h2>Homework</h2>
+<p>
+This assignment is optional, you won't be asked about it.</p>
+<p>
+Consider taking a few days to think about your project. Make a quick description
+and sketch out the features and attributes you want the project to have.
+Nothing fancy, an 8.5" x 11" sheet should be sufficient.
+Fill it with diagrams and notes, commentary, lines, sketches, and text.</p>
+<p>
+Do this in a notebook, and carry it with you during this time. As you think of
+refinements and new features, add these to the project description.
+Add features that make the project more valuable, or change the actions (or
+direction) that would make the tasks easier.</p>
+<p>
+This may add motivation to your project.</p>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
+
+<article id="JOD00">
+<h2>Decision</h2>
+<p>
+You have this great idea, sketch in hand, your initial excitement has faded, and
+you're ready to make a rational decision.</p>
+<p>
+But is this really necessary?</p>
+<p>
+You already know it's a great idea, you can see the endpoint value, why do you
+need a special step?</p>
+<p>
+Before the next page, see if you can guess what's missing. Something else you
+will need before you can make a rational decision.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOD01')">Continue ›</a></p>
+</article>
+
+<article id="JOD01">
+<h2>Franklin's Method</h2>
+<p>
+Take a piece of paper and draw a vertical line down the middle, and label
+the left column 
+"benefits" and the right column "costs".</p>
+<p>
+Write down all the benefits of doing the project in the left hand column.
+In a sense, you have already done this in the motivation lesson. Just copy over
+the intrinsic motivations and extrinsic rewards.</p>
+<p>
+Your first question should be: "Are there intrinsic motivations in the left
+column?"</p>
+<p>If not, then don't do the project. It will be tedious and boring.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOD02')">Continue ›</a></p>
+</article>
+
+<article id="JOD02">
+<h2></h2>
+<p>
+In the right column, write down all the costs the project will bring.</p>
+<p>
+Estimate the calendar time you will need, your personal time over the calendar
+time, material costs, probability of failure, probability of injury (if there
+is any) - anything you can think of that would bring negative value.</p>
+<p>
+Be sure to list the lost opportunity costs as well. If you are working on
+the project, what are you giving up? What would the money otherwise be spent on,
+what would you be doing with your time?</p>
+<p>
+Don't forget the opportunity benifits as well. Would an extra product drive
+more sales to your web site? Would the added knowledge be valuable in your
+job? Maybe help you get a promotion? Would the finished product save you
+future time?</p> 
+<p>
+List all the reasons for and against the project in two columns.</p>
+<p>
+As with everything, take a few days and add reasons as you think of them.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('JOD03')">Continue ›</a></p>
+</article>
+
+<article id="JOD03">
+<h2></h2>
+<p>
+With all the pros and cons laid out, try to assign a gut-feel value to each.</p>
+<p>
+You may feel that the knowledge gained would compensate for the materials cost, the
+time saved offsets the time spent, the ad revenue will probably be more than the
+effort.</p>
+<p>
+There's no fixed ruler you can use to measure the inportance of anything here,
+just take a guess and let your gut feelsee if the rewards compensate for the costs.</p>
+<p>
+(You may find it useful to circle and connect items of somolar value, and see what's
+left over.</p>
+<p>
+Oh, and if you decide to do the project, <em class="Underline">now</em> you can
+order materials online.</p>
+<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
+</article>
 
 <!-- Failure ####################################################################################################### -->
 
@@ -1427,24 +1894,26 @@ oriented beforehand will help.</p>
 </article>
 
 <article id="FAI01">
-<p>So then, how should we handle failure?</p>
-<p>
+<h2>&nbsp;</h2>
+<p>So then, how should we handle failure?
+<br>&nbsp;<br>
 First, note that failure comes at the end of a project, or perhaps causes the end.
-If you're still trying, if there's still a way it might work, then you haven't failed.</p>
-<p>
+If you're still trying, if there's still a way it might work, then you haven't failed.
+<br>&nbsp;<br>
 Next, in almost all cases failure is a stepping stone to success. There are innumerable
 examples of people failing repeatedly, only to succeed in the end. Thomas Edison is
-an extreme example (10,000 tries? Yikes!), but the principle is everywhere.</p>
-<p>And finally, even when a project fails, is it a complete failure?</p>
-<p>Consider:</p>
-<ul>
+an extreme example (10,000 tries? Yikes!), but the principle is everywhere.<br>&nbsp;<br>
+And finally, even when a project fails, is it a complete failure?<br>&nbsp;<br>
+Consider:</p>
+<ul class="CenterDiv">
 <li>Did you learn anything new?</li>
 <li>Did you improve your technique?</li>
 <li>Can you salvage something useful for another project?</li>
 </ul>
 <p>
-It's extremely rare for a project to fail completely. In nearly all cases
-there is value in having made the journey.</p>
+It's extremely rare for a project to fail completely.
+<br>&nbsp;<br>
+In nearly all cases there is value in having made the journey.</p>
 <p><a class="Cont" title="Continue" onclick="NavID('FAI02')">Continue ›</a></p>
 </article>
 
@@ -1467,7 +1936,7 @@ Does that matter?
 <div id="FAI02c" class="Hidden">
 <h2>&nbsp;</h2>
 <p class="BeginSpan">Failure is part of the process.</p>
-<p class="BeginSpan">don't be discouraged by failure.</p>
+<p class="BeginSpan">Don't be discouraged by failure.</p>
 <h2>&nbsp;</h2>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </div>
@@ -1631,105 +2100,96 @@ That's not something this program can help with, other than to point to the prob
 </div>
 </article>
 
-<!-- Project as Journey ############################################################################################ -->
+<!-- Tuning ######################################################################################################## -->
 
-<article id="JOA00">
-<h2>Project as Journey</h2>
+<article id="TUA00">
+<h2>Tuning your project</h2>
+<p>Your brain is a goal-seeking system.</p>
 <p>
-Norepinephrine is the neurotransmitter that gets you going, and dopamine is released when you
-are on the right path. The word "path" is appropriate because the NE circuit evolved to
-get us walking towards our goal.</p>
+Once you choose a destination, your brain mechanisms work to get you there, in
+opposition to other mechanisms that encourage you to stop.</p>
 <p>
-Our ancestors  needed food, shelter, or safety which were found at different places, and the
-neurotransmitters act to get us there.</p>
-<p>
-Since this is the mechanism that makes working on projects enjoyable, we can strengthen
-the effect by framing our projects as a journey.
-<p>
-We can link our projects more strongly to this mechanism by describing our project as a journey.</p>
-<p><a class="Cont" title="Continue" onclick="NavID('JOA01')">Continue ›</a></p>
+We can increase our project enjoyment by tuning our projects to more strongly
+resonate with these mechanisms.</p>
+<p>There's a tremendous payoff for doing this.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TUA01')">Continue ›</a></p>
 </article>
 
-<article id="JOA01">
+<article id="TUA01">
+<h2>Eliminate pain</h2>
+<p>
+The first and most important way to increase your enjoyment is to eliminate pain.</p>
+<p>
+All of it.</p>
+<p>
+Pain feeds directly into the norepinephrine counter in your brain: it makes you
+want to stop whatever it is that you're doing.</p>
+<p>
+Dopamine is literally an analgesic, which means it will mask the sensation of pain.
+You can burn yourself soldering, scrape a knuckle removing a stuck bolt, cut
+yourself with an x-axto knife... and never realize it. Often times, it's only
+hours later that you start to feel the pain, notice the injury, and wonder
+"when did I do this?"</p>
+<p>
+Your dopamine caused you to ignore it.</p>
+<p>
+Of course, if the pain then becomes more insistent it will reach a level that
+can overwhelm the dopamine effect and you are forced to stop.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TUA02')">Continue ›</a></p>
+</article>
+
+<article id="TUA02">
 <h2>&nbsp;</h2>
 <p>
-Take a moment to think about your project, then write down the major steps you need to complete it.</p>
+As a general rule of thumb, you should be able to work on your project for
+10 hours without pain.</p>
 <p>
-don't add too much detail, just five or six steps or so that each describe a major milestone of
-of your project.</p>
+If after a couple of hours you find that your joints are stiff, your neck is
+sore, your back is bothering you... adjust your work area.</p>
 <p>
-For example, a ceramics project might have these steps:</p>
+The biggest offender here is back ache, which is caused by being bent over
+for long periods and fixed by raising your work area so that you aren't bent over.</p>
 <p>
-Knead clay, form vase, bisque fire, apply glaze, glaze fire, photograph, describe, list on etsy.</p>
-<p>An electronics project might have these steps:</p>
+Lathe operators typically hunch over their work, only to find a couple of days
+later that their back is bothering them, and are on disability a few weeks later.</p>
 <p>
-Design circuit, breadboard circuit, scematic capture, board layout, order boards and parts,
-assemble boards, final test, list on tindie.</p>
-
-<p><a class="Cont" title="Continue" onclick="NavID('JOA02')">Continue ›</a></p>
+Raise the lathe 4 inches and the back problems go away.</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TUA03')">Continue ›</a></p>
 </article>
 
-<article id="JOA02">
-<h2>The Project Map</h2>
-<p>
-Now on a piece of lined paper, write out the major steps using circles and arrows. Sort
-of like a city subway map or train station diagram.</p>
-<p>
-Write the steps top to bottom and leave extra room at the top and at the bottom. You'll
-need extra space for later lessons.</p>
-<p><a class="Cont" title="Continue" onclick="NavID('JOA03')">Continue ›</a></p>
-</article>
-
-<article id="JOA03">
+<article id="TUA03">
 <h2>&nbsp;</h2>
-<p>Now mark where you are on the journey.</p>
 <p>
-If you are partway between major steps, then show how far you have come from the previous
-step, and how far you need to go to the next one.</p>
-<p>
-Make this mark stand out, emphasize what you've done and where you need to go next. Write over
-the parts you've already done with arrows pointing down to completion.</p>
-<p>
-Use colored pens to make your diagram stand out if you like.</p>
-<p><a class="Cont" title="Continue" onclick="NavID('JOA04')">Continue ›</a></p>
+LIST DESCRIPTION of various aches and pains</p>
+<p><a class="Cont" title="Continue" onclick="NavID('TUA04')">Continue ›</a></p>
 </article>
 
-<article id="JOA04">
+<article id="TUA04">
 <h2>Homework</h2>
-<p>Fold your project map and carry it with you for the rest of the day.</p>
 <p>
-When you have spare moments, take out the map and think about how far you've come,
-where you need to go, and what you need to do to get to the next step.</p>
+For the next few sessions, keep a journal of all the pains you have while working
+on your project.</p>
 <p>
-Try to blank out everything you've already done, and everything beyond the next
-step, and ask yourself: <em>What would it take just to get to the next step?</em>
+Dopamine will make you forget about these, so you'll need a way to remind
+yourself to do this.</p>
+<p>
+Take a composition notebook and describe how you feel at the end of your
+project sessions. Place the journal so that you have to encounter it at the
+end of the session: put your car keys inside the journal when you start, or
+put the journal on your stove so you have to move it to make dinner, put it
+over the light switch... whatever you need to remind yourself to make
+a journal entry when you stop.</p>
+<p>
+Do this for 7 days of project, and see if you can identify any constant
+aches and pains: back ache, neck ache, eye strain - whatever.</p>
+<p>
+After 7 entries (or perhaps before), look over what you've written
+and see if there are any ways to improve.</p>
+<p>
+This isn't a mental technique, so it's OK to enter into the computer.</p>
 <p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
 </article>
 
-<article id="JOB00">
-<h2>Homework turn-in</h2>
-<p>Have you viewed your project map a couple of times, over the course of a day?</p>
-<div id="JOB00a">
-<p><a class="Cont" title="No"  onclick="HideUnHide('JWB00a','JWB00b');">Yes, I did ›</a></p><br />
-<p><a class="Cont" title="Yes" onclick="WaitHW()">No, I didn't have time ›</a></p>
-</div>
-
-<div id="JWB00b" class="Hidden">
-<p>
-Enter what it would take to just get to the next step.</p>
-<p>
-Just a word or two, nothing in detail. Something that you would recognize as
-the next action to take.
-<input class="TextEnter Wid70" maxlength="70">
-<p><a class="Cont" title="Continue" onclick="NavID('JOB01')">Continue ›</a></p>
-</div>
-</article>
-
-<article id="JOB01">
-<h2>Fill this in</h2>
-<p><a class="Cont" title="Done" onclick="LessonDone()">Done</a></p>
-</div>
-</article>
 
 <!-- Notes ######################################################################################################### -->
 

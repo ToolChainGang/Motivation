@@ -407,3 +407,12 @@ a.Cal {
     background-color:   mistyrose;
     text-align:         center;
     }
+
+.Conversation {
+    font-family:        proportional;
+    font-size:          80%;
+    font-style:         italic;
+    font-weight:        lighter;
+	margin-left:        5ch;
+    margin-right:       5ch;
+    }
