@@ -395,6 +395,11 @@ a.Cal {
     margin-right:       auto;
     }
 
+.RAS {
+    margin-block-start: 0;
+    margin-block-end:   0;
+    }
+
 .Wid9   { width:  9ch; }
 .Wid16  { width: 16ch; }
 .Wid20  { width: 20ch; }
